@@ -367,7 +367,7 @@ export function SkinAssessment({
       {id === "concern" && (
         <>
           <h3 ref={headingRef} tabIndex={-1} className="skin-game-heading">
-            What changes have you noticed?
+            Karur skin check: what changes have you noticed?
           </h3>
           <p className="skin-game-sub">
             Choose what you have noticed. This is not a diagnosis. It simply helps you start a more

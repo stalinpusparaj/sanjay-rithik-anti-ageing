@@ -80,11 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Natural Anti-Ageing Consultation in Karur | Sanjay Rithik Hospital" },
+      { title: "Free Skin Consultation for Lines and Dull Skin in Karur | Sanjay Rithik Hospital" },
       {
         name: "description",
         content:
-          "Consult a dermatologist at Sanjay Rithik Hospital, Karur, for acne, pigmentation, hair loss, sensitive skin, scars, ageing skin and other skin concerns.",
+          "Want to look fresh and still look like yourself? Free consultation with Dr. S. Kiruthika at Sanjay Rithik Hospital, Karur, about lines, dull skin or skin that feels less firm.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -82,7 +82,7 @@ export function BeforeAfterGallery() {
       <div className="premium-gallery-shell">
         <header className="premium-gallery-header">
           <p>Other care at the hospital · illustrations</p>
-          <h2>What do these pictures show?</h2>
+          <h2>What do these pictures show, before your Karur visit?</h2>
           <p>
             These are illustrations, not photos of real patients or of the clinic. They show areas
             people often ask about for laser hair reduction, which is also offered at the hospital.

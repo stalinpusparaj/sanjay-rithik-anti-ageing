@@ -655,7 +655,7 @@ function Assessment({
       <Reveal className="max-w-3xl">
         <Eyebrow>30-second skin check</Eyebrow>
         <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-          Try a quick skin check
+          Try a quick skin check before your Karur visit
         </h2>
         <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
           Answer three quick questions and see what you could ask Dr. Kiruthika. You will see
@@ -818,7 +818,7 @@ function TreatmentExplorer({
           <Reveal className="max-w-3xl">
             <Eyebrow>Common skin concerns</Eyebrow>
             <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-              Not sure where to start?
+              Not sure where to start in Karur?
             </h2>
             <p className="mt-5 leading-relaxed text-muted-foreground">
               Find the concern closest to yours. The doctor can explain what may help, and whether
@@ -1284,7 +1284,7 @@ function CinematicInterlude() {
         </Reveal>
         <Reveal delay={100}>
           <Eyebrow muted>A clear, low-pressure next step</Eyebrow>
-          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">What happens at your first visit?</h2>
+          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">What happens at your first visit in Karur?</h2>
           <div className="mt-10 space-y-0">
             {steps.map((step, index) => (
               <div
@@ -1467,7 +1467,7 @@ function Objections() {
         <Reveal>
           <Eyebrow>Questions are normal</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-            What would you like to know before booking?
+            What would you like to know before booking in Karur?
           </h2>
           <p className="mt-6 leading-relaxed text-muted-foreground">
             You don't need to decide on a treatment today.
@@ -1540,7 +1540,7 @@ function Consultation({
         <Reveal>
           <Eyebrow muted>Free consultation</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-[3.4rem]">
-            Ready to ask the doctor your questions?
+            Ready to ask the Karur doctor your questions?
           </h2>
           <p className="mt-6 leading-relaxed text-ink-foreground/65">
             Tell us what you have noticed and what worries you. Start with a consultation at

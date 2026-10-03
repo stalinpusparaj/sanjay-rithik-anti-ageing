@@ -44,7 +44,7 @@ export function TestimonialGrid() {
           <div>
             <p className="section-pill">Google reviews about the hospital</p>
             <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-              What do patients say about their visit?
+              What do Karur patients say about their visit?
             </h2>
           </div>
           <a
