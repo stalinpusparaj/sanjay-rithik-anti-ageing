@@ -653,14 +653,13 @@ function Assessment({
   return (
     <Section id="b-skin-check" tone="paper">
       <Reveal className="max-w-3xl">
-        <Eyebrow>Private 30-second skin check</Eyebrow>
+        <Eyebrow>30-second skin check</Eyebrow>
         <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-          Looking tired in photos, even after a good night's sleep?
+          Try a quick skin check
         </h2>
         <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-          Fine lines, dullness, loss of firmness: tap what you have noticed and see a sensible
-          starting point for your conversation with Dr. Kiruthika in Karur. Nothing is booked
-          until you choose.
+          Answer three quick questions and see what you could ask Dr. Kiruthika. You will see
+          your result before we ask for any contact details. Nothing is booked unless you choose.
         </p>
       </Reveal>
       <Reveal delay={100} className="mt-12">
@@ -817,13 +816,13 @@ function TreatmentExplorer({
       <Section id={sectionId} tone="sand" className="overflow-hidden">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <Reveal className="max-w-3xl">
-            <Eyebrow>Explore Our Service</Eyebrow>
+            <Eyebrow>Common skin concerns</Eyebrow>
             <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-              Not sure which skin treatment in Karur is right for you?
+              Not sure where to start?
             </h2>
             <p className="mt-5 leading-relaxed text-muted-foreground">
-              See how each concern is usually treated, then let the dermatologist recommend what
-              suits your skin at your free consultation.
+              Find the concern closest to yours. The doctor can explain what may help, and whether
+              you need treatment at all.
             </p>
           </Reveal>
           <div className="flex gap-3">
@@ -1210,11 +1209,11 @@ function CinematicInterlude() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const selectedVideo = videos[activeVideo]!;
   const steps = [
-    "Tell us what concerns you",
-    "Meet the dermatologist",
-    "Your skin and priorities are assessed",
-    "Appropriate options and expectations are explained",
-    "You decide what feels right",
+    "Tell us what you have noticed",
+    "Meet Dr. Kiruthika",
+    "She looks at your skin and listens to what you want",
+    "She explains what may help, the risks, time to recover and cost",
+    "You decide later, after getting answers",
   ];
   return (
     <Section tone="paper" className="relative overflow-hidden">
@@ -1285,7 +1284,7 @@ function CinematicInterlude() {
         </Reveal>
         <Reveal delay={100}>
           <Eyebrow muted>A clear, low-pressure next step</Eyebrow>
-          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">Nervous about your first visit to our Karur clinic? Here's what happens.</h2>
+          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">What happens at your first visit?</h2>
           <div className="mt-10 space-y-0">
             {steps.map((step, index) => (
               <div
@@ -1419,48 +1418,40 @@ function Proof() {
 
 const FAQS = [
     [
-      "Will I look unnatural?",
-      "The goal is a refreshed, balanced appearance. Dr. Kiruthika will discuss conservative options and explain what is realistic for your features and goals.",
+      "Will treatment change how my face looks?",
+      "Tell the doctor what you want and what you want to avoid. You can discuss possible changes, risks, and realistic expectations before deciding.",
     ],
     [
-      "Do I need to decide on treatment during the consultation?",
-      "No. The consultation is for understanding your concern, options, expected sessions, recovery, and cost. You can decide later.",
+      "Do I have to start treatment after the consultation?",
+      "No. You can ask questions and decide later.",
     ],
     [
-      "How do I know which treatment is right for me?",
-      "You do not need to know the treatment name. The dermatologist assesses your skin, concern, priorities, and expectations before discussing suitable options.",
+      "Do I need to know which treatment I want?",
+      "No. Start by explaining what you have noticed and what concerns you.",
     ],
     [
-      "Will there be pain or downtime?",
-      "Comfort and recovery vary by treatment. The dermatologist will explain what to expect before you choose anything.",
+      "Will it hurt?",
+      "Comfort varies with the treatment and the person. Ask the doctor what to expect and what options are available.",
     ],
     [
-      "How much will treatment cost?",
-      "Treatment cost depends on the concern, treatment type, and number of sessions. The clinic explains the cost before treatment begins.",
+      "Will I need time off work?",
+      "That depends on the treatment. Ask about recovery before making plans.",
     ],
     [
-      "Can I come only for advice?",
-      "Yes. You can use the consultation to understand your skin and options without committing to treatment.",
+      "How much will it cost?",
+      "The consultation is free. The cost of any treatment depends on the treatment plan. Ask what the quote includes before agreeing to anything.",
     ],
     [
-      "Will my consultation be private?",
-      "Your consultation is handled respectfully and privately. The team can discuss your concerns and expectations in a confidential setting.",
+      "Can I speak in Tamil?",
+      "Yes. You can speak in Tamil or English, and Dr. Kiruthika can explain things in simple words.",
     ],
     [
-      "Can the doctor explain everything in Tamil?",
-      "Yes. Dr. Kiruthika can explain your options in Tamil or English, in simple language, and you can ask as many questions as you need.",
+      "Is my appointment confirmed when I submit this form?",
+      "No. The clinic will contact you to arrange and confirm a suitable time.",
     ],
     [
-      "How much does a consultation cost?",
-      "The dermatologist consultation is free. Treatment costs depend on your concern and the number of sessions, and are explained before anything begins. This page does not collect payment.",
-    ],
-    [
-      "Does sending an enquiry confirm my appointment?",
-      "No. The clinic will contact you to arrange a suitable date and confirm the appointment. You can also call or WhatsApp directly.",
-    ],
-    [
-      "Is laser hair removal painful or permanent?",
-      "Most people describe a brief snapping or warm sensation. Laser reduces hair growth over a course of sessions; how many you need depends on your skin and hair type, which the dermatologist assesses first.",
+      "Is laser hair reduction painful or permanent?",
+      "This is other care at the hospital. Most people describe a brief snapping or warm feeling. Laser reduces hair growth over several sessions; how many you need depends on your skin and hair, which the doctor checks first.",
     ],
     [
       "When is the clinic open?",
@@ -1476,7 +1467,7 @@ function Objections() {
         <Reveal>
           <Eyebrow>Questions are normal</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-            Worried about looking unnatural, pain or cost?
+            What would you like to know before booking?
           </h2>
           <p className="mt-6 leading-relaxed text-muted-foreground">
             You don't need to decide on a treatment today.
@@ -1549,22 +1540,20 @@ function Consultation({
         <Reveal>
           <Eyebrow muted>Free consultation</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-[3.4rem]">
-            Ready to understand what may suit your skin?
+            Ready to ask the doctor your questions?
           </h2>
           <p className="mt-6 leading-relaxed text-ink-foreground/65">
-            Start with a free conversation with Dr. Kiruthika in Karur. Bring your questions. You
-            do not need to choose a procedure today.
+            Tell us what you have noticed and what worries you. Start with a consultation at
+            Sanjay Rithik Hospital in Karur.
           </p>
           <div className="mt-9 grid gap-3 text-sm text-ink-foreground/70 sm:grid-cols-2">
             {[
-              "Discuss what has changed",
-              "Dermatologist assessment",
-              "Explore suitable options",
-              "Set realistic expectations",
-              "Understand downtime",
-              "Discuss the treatment journey",
-              "Clarify pricing",
-              "Ask every question you have",
+              "Talk about your skin",
+              "Ask what may help",
+              "Understand possible risks",
+              "Ask about time to recover",
+              "Understand the cost",
+              "Decide after getting answers",
             ].map((item) => (
               <p
                 key={item}
@@ -1577,7 +1566,7 @@ function Consultation({
           </div>
           <p className="mt-6 flex items-center gap-3 text-sm text-ink-foreground/70">
             <Clock3 className="size-4 text-clay" /> Open daily 10 am–2:30 pm · 6–9:30 pm. The
-            clinic calls you to confirm a suitable time.
+            clinic will contact you to arrange a time. You are not booking a treatment.
           </p>
           <p className="mt-4 flex items-center gap-3 text-sm text-ink-foreground/70">
             <MapPin className="size-4 text-clay" /> 77A, Sengunthapuram Main Road, Karur 639002.

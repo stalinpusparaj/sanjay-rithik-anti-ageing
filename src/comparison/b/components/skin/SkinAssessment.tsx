@@ -28,121 +28,105 @@ export type ResultProfile = { name: string; dims: Record<string, number> };
  */
 type Concern = {
   value: string;
+  /** Short phrase used in the result: "Your questions: <short> and <worry>." */
+  short: string;
   hint: string;
   icon: LucideIcon;
-  result: [string, string];
   profile: ResultProfile;
 };
 
-const LINES_RESULT: [string, string] = [
-  "Your starting point: natural-looking line-softening",
-  "A dermatologist can assess whether your concern relates mainly to expression lines, skin quality, hydration, or other changes, then explain suitable options such as Botox, skin boosters, or another approach.",
-];
-
 const CONCERNS: Concern[] = [
   {
-    value: "Fine lines around the eyes",
-    hint: "Crow's feet, under-eye creases",
+    value: "Lines around my eyes.",
+    short: "lines around the eyes",
+    hint: "Fine lines when you smile or squint",
     icon: Feather,
-    result: LINES_RESULT,
-    profile: { name: "Line-Softening Profile", dims: { "Fine Lines": 78, Firmness: 40, Texture: 40, Pigmentation: 25 } },
+    profile: { name: "Lines Around the Eyes", dims: { "Fine Lines": 78, Firmness: 40, Texture: 40, Pigmentation: 25 } },
   },
   {
-    value: "Forehead or mouth lines",
-    hint: "Expression lines that show in photos",
+    value: "Lines on my forehead or around my mouth.",
+    short: "lines on the forehead or around the mouth",
+    hint: "Lines that show in photos",
     icon: Feather,
-    result: LINES_RESULT,
-    profile: { name: "Line-Softening Profile", dims: { "Fine Lines": 75, Firmness: 45, Texture: 40, Pigmentation: 25 } },
+    profile: { name: "Forehead and Mouth Lines", dims: { "Fine Lines": 75, Firmness: 45, Texture: 40, Pigmentation: 25 } },
   },
   {
-    value: "Loss of firmness",
-    hint: "Skin looks looser or less lifted",
+    value: "My skin feels less firm.",
+    short: "skin that feels less firm",
+    hint: "Skin looks or feels looser",
     icon: Waves,
-    result: [
-      "Your starting point: a firmness assessment",
-      "Your consultation can help determine whether options such as HIFU, MNRF, skin boosters, or another treatment may suit your skin and expectations.",
-    ],
-    profile: { name: "Firmness Focus Profile", dims: { "Fine Lines": 50, Firmness: 80, Texture: 38, Pigmentation: 24 } },
+    profile: { name: "Skin Feels Less Firm", dims: { "Fine Lines": 50, Firmness: 80, Texture: 38, Pigmentation: 24 } },
   },
   {
-    value: "Dull or tired-looking skin",
+    value: "My skin looks dull or tired.",
+    short: "dull or tired-looking skin",
     hint: "Looking tired even after sleeping",
     icon: Sun,
-    result: [
-      "Your starting point: improving skin quality",
-      "Dullness can be linked to hydration, pigmentation, texture, or sun exposure. The first step is understanding the cause before choosing a treatment.",
-    ],
-    profile: { name: "Freshness & Renewal Profile", dims: { "Fine Lines": 30, Firmness: 35, Texture: 55, Pigmentation: 42 } },
+    profile: { name: "Dull or Tired Skin", dims: { "Fine Lines": 30, Firmness: 35, Texture: 55, Pigmentation: 42 } },
   },
   {
-    value: "Pigmentation or uneven tone",
-    hint: "Dark patches, uneven colour",
+    value: "Dark patches or uneven skin colour.",
+    short: "dark patches or uneven skin colour",
+    hint: "Patches or uneven colour",
     icon: CircleDot,
-    result: [
-      "Your starting point: understanding your pigmentation",
-      "Different kinds of pigmentation need different approaches. A dermatologist can identify what you are seeing before you spend more on creams or procedures.",
-    ],
-    profile: { name: "Tone & Clarity Profile", dims: { "Fine Lines": 25, Firmness: 30, Texture: 45, Pigmentation: 82 } },
+    profile: { name: "Dark Patches", dims: { "Fine Lines": 25, Firmness: 30, Texture: 45, Pigmentation: 82 } },
   },
   {
-    value: "Loss of facial volume",
-    hint: "Cheeks or temples look hollower",
+    value: "My cheeks look less full.",
+    short: "cheeks that look less full",
+    hint: "Face looks thinner than before",
     icon: Droplets,
-    result: [
-      "Your starting point: facial balance consultation",
-      "A dermatologist can assess whether volume loss is affecting your appearance and explain conservative options. Fillers are not automatically required.",
-    ],
-    profile: { name: "Facial Balance Profile", dims: { "Fine Lines": 48, Firmness: 75, Texture: 35, Pigmentation: 22 } },
+    profile: { name: "Cheeks Look Less Full", dims: { "Fine Lines": 48, Firmness: 75, Texture: 35, Pigmentation: 22 } },
   },
   {
-    value: "I am not sure",
-    hint: "Something has changed, I can't name it",
+    value: "I am not sure.",
+    short: "changes you have noticed",
+    hint: "Something has changed",
     icon: HelpCircle,
-    result: [
-      "Your starting point: a conversation about what is changing",
-      "You do not need to know the treatment name. Describe what you have noticed, and the dermatologist will explain possible causes and suitable options.",
-    ],
-    profile: { name: "Discovery Profile", dims: { "Fine Lines": 42, Firmness: 42, Texture: 42, Pigmentation: 42 } },
+    profile: { name: "Not Sure Yet", dims: { "Fine Lines": 42, Firmness: 42, Texture: 42, Pigmentation: 42 } },
   },
 ];
 
 const PRIORITIES = [
-  "I want to look more rested",
-  "I want natural-looking results",
-  "I want to improve firmness",
-  "I want to reduce fine lines",
-  "I want to understand my options first",
-  "I am worried about pain or downtime",
+  "Looking more rested.",
+  "Understanding changes in my skin.",
+  "Asking about lines or firmness.",
+  "Planning before an important event.",
+  "Understanding whether I need treatment.",
 ];
 
-const WORRIES = [
-  "Looking unnatural",
-  "Pain or discomfort",
-  "Downtime",
-  "Cost",
-  "Choosing the wrong treatment",
-  "I do not know enough yet",
+const WORRIES: Array<[string, string]> = [
+  ["Looking different from myself.", "looking different from yourself"],
+  ["Pain or side effects.", "pain or side effects"],
+  ["Time to recover.", "time to recover"],
+  ["Treatment cost.", "treatment cost"],
+  ["Being pushed to buy treatment.", "being pushed to buy treatment"],
+  ["I need more information.", "getting more information"],
 ];
 
-const NATURAL_RESULT: [string, string] = [
-  "Your starting point: a natural-results consultation",
-  "You do not need to choose Botox, fillers, or any procedure today. The consultation helps you understand what may suit you, what should be avoided, and what would still look like you.",
-];
-
-const COMFORT_RESULT: [string, string] = [
-  "Your starting point: comfort and recovery planning",
-  "Ask the dermatologist about treatment comfort, expected recovery, downtime, and whether a lower-intervention option may be appropriate for your concern.",
-];
-
-/** The visitor's biggest fear decides the result first; otherwise their concern does. */
+/**
+ * Reflect the visitor's own concern and worry back to them. It never diagnoses or picks a
+ * procedure; it only suggests what to ask the doctor.
+ */
 function resultFor(answers: Answers): [string, string] {
-  if (answers["worry"] === "Looking unnatural") return NATURAL_RESULT;
-  if (
-    /pain|downtime/i.test(answers["worry"] ?? "") ||
-    answers["priority"] === "I am worried about pain or downtime"
-  )
-    return COMFORT_RESULT;
-  return concernFor(answers["concern"]).result;
+  const concern = concernFor(answers["concern"]).short;
+  const worry = WORRIES.find(([value]) => value === answers["worry"])?.[1];
+  if (worry === "being pushed to buy treatment") {
+    return [
+      `Your questions: ${concern} and ${worry}.`,
+      "You can talk to Dr. Kiruthika without agreeing to any treatment. Ask what may help, what the limits are, and take time to decide.",
+    ];
+  }
+  if (worry) {
+    return [
+      `Your questions: ${concern} and ${worry}.`,
+      "You can discuss both with Dr. Kiruthika. Ask what options may help, what their limits are, and how they might fit around your routine.",
+    ];
+  }
+  return [
+    `Your question: ${concern}.`,
+    "You can discuss this with Dr. Kiruthika. Ask what options may help, what their limits are, and whether you need treatment at all.",
+  ];
 }
 
 const STEPS = ["concern", "priority", "worry"] as const;
@@ -187,8 +171,9 @@ export function SkinAssessment({
     onComplete(withAreas);
     onProfile?.(profile);
     setSkinCheck({ answers: withAreas, profile });
-    track("assessment_completed", { concern: withAreas["concern"] });
-    track("anti_ageing_result_viewed", { concern: withAreas["concern"], worry: withAreas["worry"] });
+    // Skin answers stay out of analytics; only progress through the quiz is tracked.
+    track("assessment_completed");
+    track("anti_ageing_result_viewed");
     setStage("result");
   }
 
@@ -198,10 +183,10 @@ export function SkinAssessment({
     if (step === 0) {
       track("assessment_started");
       track("anti_ageing_quiz_started");
-      track("anti_ageing_concern_selected", { concern: value });
+      track("anti_ageing_concern_selected");
     }
-    if (id === "worry") track("anti_ageing_objection_selected", { worry: value });
-    track("assessment_question_answered", { question: id, answer: value, question_number: step + 1 });
+    if (id === "worry") track("anti_ageing_objection_selected");
+    track("assessment_question_answered", { question: id, question_number: step + 1 });
     const next = { ...answers, [id]: value };
     setAnswers(next);
     if (step === STEPS.length - 1) finish(next);
@@ -247,7 +232,7 @@ export function SkinAssessment({
       setSending(false);
       return;
     }
-    track("skin_profile_lead_captured", { concern: answers["concern"], profile: concern.profile.name });
+    track("skin_profile_lead_captured");
     track("anti_ageing_form_submitted", { source: "skin_check" });
     setSending(false);
     setStage("done");
@@ -314,13 +299,13 @@ export function SkinAssessment({
             <span className="skin-game-result-icon" aria-hidden="true">
               <Icon />
             </span>
-            <p className="skin-game-kicker">Based on your answers</p>
+            <p className="skin-game-kicker">What you could ask the doctor</p>
             <p className="skin-game-result-title">{result[0]}</p>
             <p className="skin-game-result-copy">{result[1]}</p>
             <ul className="skin-game-tags" aria-label="Your answers">
               <li>{concern.value}</li>
               {answers["priority"] && <li>{answers["priority"]}</li>}
-              {answers["worry"] && <li>Concern: {answers["worry"]}</li>}
+              {answers["worry"] && <li>Worry: {answers["worry"]}</li>}
             </ul>
             <p className="skin-game-note">
               A consultation doesn't commit you to treatment. You'll hear suitable options,
@@ -330,9 +315,9 @@ export function SkinAssessment({
 
           <form className="skin-game-form" onSubmit={submit} noValidate>
             <p className="skin-game-offer">
-              <Sparkles aria-hidden="true" /> Free anti-ageing consultation · Karur
+              <Sparkles aria-hidden="true" /> Free consultation · Karur
             </p>
-            <p className="skin-game-form-title">A conversation, not a commitment</p>
+            <p className="skin-game-form-title">Want to ask Dr. Kiruthika?</p>
             <p className="skin-game-form-sub">
               Leave your name and WhatsApp number. The clinic will arrange a time that suits you.
             </p>
@@ -357,7 +342,7 @@ export function SkinAssessment({
             </label>
             {error && <p className="skin-game-error">{error}</p>}
             <button type="submit" className="skin-game-btn skin-game-btn-full" disabled={sending}>
-              {sending ? "Booking…" : "Book My Free Anti-Ageing Consultation"} {!sending && <ArrowRight />}
+              {sending ? "Sending…" : "Ask the Doctor About My Concern"} {!sending && <ArrowRight />}
             </button>
             <p className="skin-game-fine">
               <Lock aria-hidden="true" /> No payment online. By booking you agree to be contacted
@@ -382,7 +367,7 @@ export function SkinAssessment({
       {id === "concern" && (
         <>
           <h3 ref={headingRef} tabIndex={-1} className="skin-game-heading">
-            What is changing first?
+            What changes have you noticed?
           </h3>
           <p className="skin-game-sub">
             Choose what you have noticed. This is not a diagnosis. It simply helps you start a more
@@ -410,15 +395,15 @@ export function SkinAssessment({
       {id !== "concern" && (
         <>
           <h3 ref={headingRef} tabIndex={-1} className="skin-game-heading">
-            {id === "priority" ? "What matters most to you?" : "What concerns you most about treatment?"}
+            {id === "priority" ? "What would you like help with?" : "What worries you most?"}
           </h3>
           <p className="skin-game-sub">
             {id === "priority"
-              ? "There is no right answer. This helps Dr. Kiruthika understand your priorities."
-              : "Many people share these worries. Knowing yours helps the dermatologist address it first."}
+              ? "There is no right answer. Pick the one closest to you."
+              : "Many people have the same worry. You can ask the doctor about it."}
           </p>
           <div className="skin-game-answers skin-game-answers-two">
-            {(id === "priority" ? PRIORITIES : WORRIES).map((option) => (
+            {(id === "priority" ? PRIORITIES : WORRIES.map(([value]) => value)).map((option) => (
               <button
                 key={option}
                 type="button"
@@ -450,7 +435,7 @@ export function SkinAssessment({
             <ArrowLeft /> Back
           </button>
         ) : (
-          <span className="skin-game-fine">About 30 seconds · private · not a diagnosis</span>
+          <span className="skin-game-fine">About 30 seconds · not a diagnosis</span>
         )}
       </div>
     </div>

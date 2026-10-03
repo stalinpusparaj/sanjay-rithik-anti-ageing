@@ -124,7 +124,7 @@ export function LeadForm({
       className="rounded-3xl border border-border bg-card p-6 text-foreground shadow-lift sm:p-8"
     >
       <p className="eyebrow text-muted-foreground">Takes 30 seconds · No payment online</p>
-      <h3 className="mt-3 text-3xl">Book your free anti-ageing consultation</h3>
+      <h3 className="mt-3 text-3xl">Book your free consultation</h3>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         Just your name and mobile number to get started. The clinic will help you choose a date.
       </p>
@@ -213,7 +213,7 @@ export function LeadForm({
           ? "Sending your enquiry…"
           : source === "age_preview"
             ? "Send enquiry & continue"
-            : "Book My Free Anti-Ageing Consultation"}
+            : "Book My Free Consultation"}
         <ArrowRight />
       </Button>
       <p className="mt-3 text-center text-xs text-muted-foreground">

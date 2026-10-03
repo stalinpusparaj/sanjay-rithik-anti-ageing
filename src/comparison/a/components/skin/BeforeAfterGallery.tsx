@@ -7,30 +7,30 @@ import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal
 
 const FEATURE = {
   image: headerTreatmentRoom,
-  title: "Premium Treatment Room",
-  detail: "A calm clinical setting for consultation-led care in a teal wellness direction.",
+  title: "A treatment room",
+  detail: "Illustration only. This is not a photograph of the clinic.",
 };
 
 const CASES = [
   {
     image: beforeAfterFace,
-    title: "Facial",
-    detail: "4 Sessions",
-    note: "Upper lip, chin and facial refinement",
+    title: "Face: upper lip and chin",
+    detail: "Illustration only. This is not a patient result.",
+    note: "An area often asked about for laser hair reduction.",
     comparison: true,
   },
   {
     image: beforeAfterLeg,
-    title: "Bikini Area",
-    detail: "5 Sessions",
-    note: "Focused comfort-led laser planning",
+    title: "Bikini area",
+    detail: "Illustration only. This is not a patient result.",
+    note: "An area often asked about for laser hair reduction.",
     comparison: true,
   },
   {
     image: beforeAfterKnee,
     title: "Legs",
-    detail: "6 Sessions",
-    note: "Smooth-skin body-care pathway",
+    detail: "Illustration only. This is not a patient result.",
+    note: "An area often asked about for laser hair reduction.",
     comparison: true,
   },
 ] as const;
@@ -55,19 +55,16 @@ function PremiumGalleryCard({
       <div className="premium-gallery-photo">
         <img
           src={image}
-          alt={title}
+          alt={`Illustration: ${title}`}
           loading="lazy"
           draggable="false"
         />
         {comparison && (
-          <>
-            <span className="premium-gallery-image-label before">Before</span>
-            <span className="premium-gallery-image-label after">After</span>
-          </>
+          <span className="premium-gallery-image-label before">Illustration</span>
         )}
       </div>
       <div className="premium-gallery-copy">
-        {!comparison && <span>Premium care</span>}
+
         <h3>{title}</h3>
         <strong>{detail}</strong>
         <p>{note}</p>
@@ -84,23 +81,23 @@ export function BeforeAfterGallery() {
     >
       <div className="premium-gallery-shell">
         <header className="premium-gallery-header">
-          <p>Reference comparisons</p>
-          <h2>Want to see what&apos;s possible before visiting our Karur clinic?</h2>
+          <p>Other care at the hospital · illustrations</p>
+          <h2>What do these pictures show?</h2>
           <p>
-            A cleaner editorial view of skin clarity, consultation-led planning and realistic
-            reference outcomes, kept in a teal clinical wellness direction.
+            These are illustrations, not photos of real patients or of the clinic. They show areas
+            people often ask about for laser hair reduction, which is also offered at the hospital.
           </p>
-          <div className="premium-gallery-points" aria-label="Gallery principles">
-            <span>Clinical clarity</span>
-            <span>Calm image rhythm</span>
-            <span>Realistic references</span>
+          <div className="premium-gallery-points" aria-label="About these pictures">
+            <span>Illustrations only</span>
+            <span>Not patient results</span>
+            <span>Ask the doctor about your skin</span>
           </div>
         </header>
 
         <figure className="premium-gallery-feature">
-          <img src={FEATURE.image} alt={FEATURE.title} loading="lazy" draggable="false" />
+          <img src={FEATURE.image} alt={`Illustration: ${FEATURE.title}`} loading="lazy" draggable="false" />
           <figcaption>
-            <span>Signature visual</span>
+            <span>Illustration</span>
             <strong>{FEATURE.title}</strong>
             <p>{FEATURE.detail}</p>
           </figcaption>
@@ -122,8 +119,8 @@ export function BeforeAfterGallery() {
         <div className="premium-gallery-note">
           <ShieldCheck />
           <p>
-            Visuals are educational and brand-experience references. Suitability, sessions,
-            comfort, recovery and outcomes vary and must be discussed with the dermatologist.
+            Illustration only. These are not patient results. What may suit you, the number of
+            visits, comfort and time to recover vary from person to person. Ask the doctor.
           </p>
         </div>
       </div>

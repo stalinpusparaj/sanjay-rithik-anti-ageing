@@ -42,9 +42,9 @@ export function TestimonialGrid() {
       <div className="mx-auto w-full max-w-6xl">
         <Reveal className="review-header">
           <div>
-            <p className="section-pill">Patient reviews</p>
+            <p className="section-pill">Google reviews about the hospital</p>
             <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-              Real patients. Real Karur results.
+              What do patients say about their visit?
             </h2>
           </div>
           <a

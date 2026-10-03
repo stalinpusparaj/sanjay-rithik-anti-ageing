@@ -223,7 +223,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             source="navigation"
             className="premium-nav-cta"
           >
-            <span className="nav-cta-long">Book Free Anti-Ageing Consultation</span>
+            <span className="nav-cta-long">Book Free Consultation</span>
             <span className="nav-cta-short">Book Free</span> <ArrowRight />
           </TrackedLink>
         </div>
@@ -236,32 +236,32 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
         <HeroParticles />
         <div className="hero-inner premium-hero-inner hero-card-inner">
           <div className="hero-copy premium-hero-copy">
-            <p className="premium-kicker">Anti-ageing dermatology · Sengunthapuram, Karur</p>
+            <p className="premium-kicker">Skin doctor · Sengunthapuram, Karur</p>
             <h1 className="hero-split-title">
-              Want to look <em>refreshed</em>—
+              Want to look <em>fresh</em>
               <span className="hero-title-sub">
-                not <em>overdone?</em>
+                and still look like <em>yourself?</em>
               </span>
             </h1>
             <p className="premium-hero-text">
-              Meet a dermatologist in Karur to understand your skin, realistic anti-ageing options,
-              and what can help you look more rested while still looking like yourself. Dr. S.
-              Kiruthika, MBBS, DDVL, Sanjay Rithik Hospital. Your first consultation is free.
+              Talk to Dr. S. Kiruthika in Karur about lines, dull skin, or skin that feels less
+              firm. Understand what may help, what to expect, and what treatment may cost before
+              you decide.
             </p>
             <div className="premium-hero-actions">
               <Button variant="clay" size="xl" asChild>
                 <TrackedLink href="#a-hero-form" event="anti_ageing_form_started" source="hero">
-                  Book My Free Anti-Ageing Consultation <ArrowRight />
+                  Book My Free Consultation <ArrowRight />
                 </TrackedLink>
               </Button>
               <Button variant="outline" size="xl" className="premium-secondary-cta" asChild>
                 <TrackedLink href="#b-skin-check" event="anti_ageing_quiz_started" source="hero">
-                  See What May Suit My Skin
+                  Explore My Skin Concerns
                 </TrackedLink>
               </Button>
             </div>
             <p className="hero-reassure">
-              No payment online. No treatment commitment. Understand your options first.
+              No payment online. No need to agree to treatment.
             </p>
             <p className="hero-hours">
               <Clock3 className="size-4" /> Open daily 10 am–2:30 pm · 6–9:30 pm
@@ -278,7 +278,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
               />
             </div>
             <div className="hero-card-badge hero-card-badge-main">
-              <strong>1 Lakh+ Satisfied Patients</strong>
+              <strong>1 Lakh+ patients at the hospital</strong>
               <span>13+ years of experience</span>
             </div>
             <div className="hero-card-badge hero-card-badge-rating">
@@ -291,26 +291,22 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
 "offer-form": <Section id="a-offer" tone="sand" className="offer-form-section">
         <div className="offer-form-grid">
           <Reveal>
-            <p className="section-pill">Free anti-ageing consultation</p>
+            <p className="section-pill">Free consultation</p>
             <h2 className="mt-5 text-4xl leading-[1.08] sm:text-5xl">
-              Your first visit is a conversation, not a commitment.
+              Want advice before deciding on treatment?
             </h2>
             <p className="mt-5 leading-relaxed text-muted-foreground">
-              You do not need to know the treatment name before contacting us. Meet Dr. S.
-              Kiruthika at Sanjay Rithik Hospital, Karur, talk about what has changed, and decide
-              later.
+              You do not need to know which treatment to choose. Start by telling the doctor what
+              you have noticed.
             </p>
             <ul className="offer-includes offer-includes-grid mt-7">
               {[
-                "Discuss what has changed",
-                "Meet the dermatologist",
-                "Understand possible causes",
-                "Explore suitable options",
-                "Discuss expected results",
-                "Understand downtime and recovery",
-                "Clarify treatment costs",
-                "Ask questions privately",
-                "Decide later",
+                "Talk about your skin.",
+                "Ask what may help.",
+                "Understand possible risks.",
+                "Ask about time to recover.",
+                "Understand the cost.",
+                "Decide after getting answers.",
               ].map((item) => (
                 <li key={item}>
                   <Check className="offer-includes-icon" aria-hidden="true" /> {item}
@@ -319,7 +315,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             </ul>
             <div className="offer-contact mt-7">
               <TrackedLink href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin." event="anti_ageing_whatsapp_clicked" source="a-offer">
-                <WhatsAppIcon size={16} /> Ask What Would Suit My Skin
+                <WhatsAppIcon size={16} /> Ask a question on WhatsApp
               </TrackedLink>
               <span>
                 <MapPin className="size-4" /> 77A, Sengunthapuram Main Road, Karur
@@ -365,11 +361,15 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
 "age": <Section id="a-age-journey" tone="sand">
         <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">
           <div>
-            <Eyebrow muted>Educational interactive experience</Eyebrow>
-            <h2 className="mt-4 text-4xl">Curious how your face might change with age?</h2>
+            <Eyebrow muted>Visual illustration</Eyebrow>
+            <h2 className="mt-4 text-4xl">Curious about how faces change with age?</h2>
             <p className="mt-4 max-w-2xl leading-relaxed text-ink-foreground/75">
-              Explore natural age-related facial changes with the sample or your own photo.
-              This educational visual simulation is not a prediction of ageing or treatment results.
+              Look at how faces commonly change over the years, using the sample picture or your
+              own photo.
+            </p>
+            <p className="mt-3 max-w-2xl text-sm font-semibold leading-relaxed">
+              This is a visual illustration. It does not predict how you will age or show what
+              treatment will do.
             </p>
           </div>
         </div>
@@ -400,7 +400,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
           <div>
             <Eyebrow>Visit us</Eyebrow>
             <h2 className="mt-4 text-4xl">
-              Where are we in Karur, and when can you visit?
+              Where is the clinic, and when can you visit?
             </h2>
             <p className="mt-5 leading-relaxed">
               <strong>Sanjay Rithik Hospital</strong><br />77A, Sengunthapuram Main Road,
@@ -408,8 +408,8 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
               Karur 639002.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Please contact the clinic to confirm the dermatologist’s availability and consultation
-              fee before visiting.
+              Open daily 10 am–2:30 pm and 6–9:30 pm. Contact the clinic to confirm the doctor’s
+              availability and arrange your free consultation.
             </p>
           </div>
         </div>
@@ -431,7 +431,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             <ol className="mt-7 space-y-4 text-sm">
               {[
                 "Send your name and mobile number.",
-                "Discuss the fee and arrange a visit with the clinic.",
+                "Arrange your free consultation with the clinic.",
                 "Meet the dermatologist and understand your options.",
               ].map((step, i) => (
                 <li key={step} className="flex gap-3">
@@ -917,7 +917,7 @@ function DoctorSection() {
         </figure>
         <div>
           <Eyebrow muted>Your dermatologist</Eyebrow>
-          <h2 className="mt-4 text-4xl sm:text-5xl">Who will guide you in Karur? Meet Dr. S. Kiruthika</h2>
+          <h2 className="mt-4 text-4xl sm:text-5xl">Who will help you understand your skin?</h2>
           <p className="mt-3 text-sm font-medium">MBBS, DDVL · Dermatologist &amp; Cosmetologist · 13 years’ experience</p>
           <p className="mt-5 text-lg leading-relaxed">
             Dr. S. Kiruthika begins with your skin, your priorities, and the result you want to
@@ -943,7 +943,7 @@ function DoctorSection() {
           </ul>
           <Button variant="clay" size="xl" className="mt-7" asChild>
             <TrackedLink href="#a-hero-form" event="consultation_cta_clicked" source="a-doctor">
-              Book My Free Anti-Ageing Consultation <ArrowRight />
+              Book My Free Consultation <ArrowRight />
             </TrackedLink>
           </Button>
         </div>
@@ -1427,7 +1427,7 @@ function BookFreeConsultationButton({ source }: { source: string }) {
   return (
     <Button variant="clay" size="xl" className="clinic-cta" asChild>
       <TrackedLink href="#a-hero-form" event="consultation_cta_clicked" source={source}>
-        <CalendarCheck /> Book My Free Anti-Ageing Consultation
+        <CalendarCheck /> Book My Free Consultation
       </TrackedLink>
     </Button>
   );
@@ -1439,11 +1439,11 @@ function DoctorVideoSection() {
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>1-minute video · Tamil</Eyebrow>
         <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">
-          Ageing skin, pigmentation or hair fall? Hear from Karur dermatologist Dr. Kiruthika.
+          Want to hear the doctor explain it?
         </h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
-          Dr. S. Kiruthika, dermatologist and cosmetologist with 13 years’ experience, explains how
-          she treats skin, hair and nail concerns at Sanjay Rithik Hospital, Karur.
+          In this short video in Tamil, Dr. S. Kiruthika talks about the skin, hair and nail care
+          offered at Sanjay Rithik Hospital, Karur, including care for lines and dull skin.
         </p>
       </Reveal>
       <Reveal className="mt-10">
@@ -1486,8 +1486,8 @@ const WHY_CHOOSE = [
     "Prescribed medicines and skincare are available at the hospital pharmacy, so you leave with everything you need.",
   ],
   [
-    "Advanced anti-ageing care",
-    "HIFU, fillers, skin boosters, PN and PDRN alongside treatment for acne, pigmentation, hair fall, psoriasis and vitiligo.",
+    "Care for lines, dull skin and firmness",
+    "Options such as HIFU, fillers, skin boosters, PN and PDRN can be discussed. The hospital also treats acne, pigmentation, hair fall, psoriasis and vitiligo.",
   ],
   [
     "Trusted in Karur",
@@ -1500,7 +1500,7 @@ function WhyChooseSection() {
     <Section id="a-why-choose" tone="paper" className="clinic-list-section">
       <Reveal className="mx-auto max-w-4xl">
         <h2 className="text-center text-4xl leading-[1.08] sm:text-5xl">
-          <span aria-hidden="true">🏥 </span>Why choose Sanjay Rithik Hospital in Karur?
+          <span aria-hidden="true">🏥 </span>Why visit Sanjay Rithik Hospital?
         </h2>
         <ul className="clinic-list mt-10">
           {WHY_CHOOSE.map(([title, text]) => (
@@ -1521,11 +1521,11 @@ function WhyChooseSection() {
 }
 
 const BENEFITS = [
-  ["🌸", "Clearer, calmer skin", "fewer breakouts and marks with a plan made for your skin type."],
-  ["✨", "Even, brighter tone", "pigmentation and dark patches treated at the cause."],
-  ["💇", "Stronger, fuller hair", "the reasons behind your hair fall identified and treated."],
-  ["🕰️", "Graceful, natural ageing", "firmer, fresher-looking skin without an overdone look."],
-  ["🚀", "Boosted confidence", "feel at ease in photos, at work and at family functions."],
+  ["🕰️", "Lines and skin that feels less firm", "ask what may help you look fresh and still like yourself."],
+  ["🌙", "Dull or tired-looking skin", "find out what may be making your skin look tired."],
+  ["✨", "Dark patches or uneven skin colour", "ask what may be causing them and what may help."],
+  ["📸", "Before an important event", "plan early and ask how much time each option needs."],
+  ["🌸", "Other skin and hair concerns", "acne, marks and hair fall are also seen at the hospital."],
 ] as const;
 
 function BenefitsSection() {
@@ -1533,7 +1533,7 @@ function BenefitsSection() {
     <Section id="a-benefits" tone="sand" className="clinic-list-section">
       <Reveal className="mx-auto max-w-4xl">
         <h2 className="text-center text-4xl leading-[1.08] sm:text-5xl">
-          Skin you’ll love for years, right here in Karur <span aria-hidden="true">✨</span>
+          What can you get help with here?
         </h2>
         <ul className="clinic-list clinic-list-emoji mt-10">
           {BENEFITS.map(([emoji, title, text]) => (
@@ -1560,15 +1560,15 @@ function BenefitsSection() {
 }
 
 const ADVANCED_TREATMENTS = [
-  { icon: Zap, title: "Triple Wave Laser Hair Reduction", text: "Say goodbye to shaving and waxing. Suitable for most skin types." },
-  { icon: Crosshair, title: "Q-Switched Nd:YAG Laser", text: "Pigmentation, acne marks and tattoo removal." },
-  { icon: Waves, title: "MNRF", text: "A device-based treatment often considered for loose skin and texture. May help improve firmness; the dermatologist explains sessions and recovery." },
-  { icon: ScanFace, title: "Microneedling", text: "A skin-quality procedure often considered for texture and acne scars. Suitability depends on your skin and goals." },
-  { icon: TestTube, title: "PRP Therapy", text: "Uses your own platelet-rich plasma. Often considered for skin quality and hair fall; the dermatologist explains expected sessions." },
-  { icon: Sparkles, title: "Botox", text: "An injectable often considered for expression lines on the forehead and around the eyes. The aim is a softer, still-natural look; suitability is assessed first." },
-  { icon: Syringe, title: "Skin Boosters", text: "An injectable skin-quality treatment that may help improve hydration and dullness. The dermatologist explains sessions and recovery." },
-  { icon: Droplets, title: "HydraFacial", text: "A gentle, non-invasive skin-quality treatment often chosen for dull or tired-looking skin, including before functions." },
-  { icon: Stethoscope, title: "Medical Dermatology", text: "Acne, psoriasis, vitiligo, nail lichen planus, sweating and body odour." },
+  { icon: Zap, title: "Triple Wave Laser Hair Reduction", text: "Other care at the hospital: laser for reducing unwanted hair. Ask whether it may suit your skin and hair." },
+  { icon: Crosshair, title: "Q-Switched Nd:YAG Laser", text: "A laser used for dark patches, acne marks and tattoo removal. Ask whether it may suit your skin." },
+  { icon: Waves, title: "MNRF", text: "Tiny needles with gentle heat. Often discussed when skin feels less firm or looks uneven. Ask about sessions and time to recover." },
+  { icon: ScanFace, title: "Microneedling", text: "Tiny needles that work on the skin surface. Often discussed for uneven texture and acne scars. Ask whether it may suit you." },
+  { icon: TestTube, title: "PRP Therapy", text: "Uses a part of your own blood. Often discussed for skin quality and hair fall. Ask how many visits it may need." },
+  { icon: Sparkles, title: "Botox", text: "Small injections often discussed for lines on the forehead and around the eyes. Ask what it can and cannot do for you." },
+  { icon: Syringe, title: "Skin Boosters", text: "Injections that may help dry or dull-looking skin. Ask about the number of visits and time to recover." },
+  { icon: Droplets, title: "HydraFacial", text: "A cleansing facial treatment with no needles. Often chosen for dull or tired-looking skin, including before functions." },
+  { icon: Stethoscope, title: "Medical Dermatology", text: "Other care at the hospital: acne, psoriasis, vitiligo, nail problems, sweating and body odour." },
 ] as const;
 
 function AdvancedTreatmentsSection() {
@@ -1576,11 +1576,11 @@ function AdvancedTreatmentsSection() {
     <Section id="a-advanced-treatments" tone="sand" className="clinic-cards-section">
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>Treatments at Sanjay Rithik Hospital</Eyebrow>
-        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">Natural-looking options in Karur, chosen with you</h2>
+        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">What options can you discuss with the doctor?</h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
-          You do not need to choose any of these today. Every plan starts with a free consultation
-          with Dr. S. Kiruthika, who explains what may suit your skin, what to avoid, and the
-          expected sessions, recovery and cost.
+          You do not need to choose any of these. These are treatments available at the
+          hospital. Dr. S. Kiruthika can explain what each one is, what may suit your skin, the
+          time to recover, and what it may cost.
         </p>
       </Reveal>
       <ul className="treatment-card-grid mt-12">
@@ -1628,19 +1628,18 @@ function LaserAreasSection() {
     <Section id="a-laser-areas" tone="paper">
       <div className="laser-areas">
         <Reveal>
-          <p className="section-pill">Who is this for</p>
+          <p className="section-pill">Other care at the hospital</p>
           <h2 className="mt-5 text-4xl leading-[1.08] sm:text-5xl">
-            Laser hair removal for women &amp; men in Karur
+            Also looking for help with unwanted hair?
           </h2>
           <p className="mt-5 leading-relaxed text-muted-foreground">
-            From upper lip and chin to full body, including PCOS-related facial hair. Every area is
-            treated with the Triple Wave laser under dermatologist supervision, and your first
-            consultation is free.
+            The hospital also offers consultations about laser hair reduction, including
+            PCOS-related facial hair. Ask the doctor whether it may suit your skin and hair.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button variant="clay" size="xl" asChild>
               <TrackedLink href={LASER_WHATSAPP} event="whatsapp_clicked" source="a-laser-areas">
-                <WhatsAppIcon /> Ask about my area
+                <WhatsAppIcon /> Ask About Laser Hair Reduction
               </TrackedLink>
             </Button>
           </div>
@@ -1672,9 +1671,9 @@ function LaserBenefitsSection() {
   return (
     <Section id="a-laser-benefits" tone="sand">
       <Reveal>
-        <p className="section-pill">Benefits</p>
+        <p className="section-pill">Laser hair reduction · other care</p>
         <h2 className="mt-5 text-4xl leading-[1.08] sm:text-5xl">
-          Life after laser hair removal in Karur
+          Questions about reducing unwanted hair?
         </h2>
       </Reveal>
       <ul className="laser-benefit-grid mt-10">
@@ -1690,7 +1689,11 @@ function LaserBenefitsSection() {
         skin and hair type.
       </p>
       <div className="mt-8 flex justify-center">
-        <BookFreeConsultationButton source="a-laser-benefits" />
+        <Button variant="clay" size="xl" className="clinic-cta" asChild>
+          <TrackedLink href={LASER_WHATSAPP} event="whatsapp_clicked" source="a-laser-benefits">
+            <WhatsAppIcon /> Ask About Laser Hair Reduction
+          </TrackedLink>
+        </Button>
       </div>
     </Section>
   );
@@ -1729,12 +1732,12 @@ function VideoTestimonialsSection() {
         <ul className="video-story-grid">
           {VIDEO_STORY_TOPICS.map((topic) => (
             <li key={topic}>
-              <div className="video-story-card" aria-label={`Video testimonial: ${topic}`}>
+              <div className="video-story-card" aria-label={`Patient video not available on this page: ${topic}`}>
                 <span className="video-story-play" aria-hidden="true">
                   <Play className="size-5 fill-current" />
                 </span>
-                <strong>Video testimonial · {topic}</strong>
-                <span>Watch at the clinic or ask us on WhatsApp</span>
+                <strong>Patient video · {topic}</strong>
+                <span>Not available to watch on this page. Ask the clinic on WhatsApp.</span>
               </div>
             </li>
           ))}

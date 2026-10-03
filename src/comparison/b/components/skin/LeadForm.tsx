@@ -112,9 +112,12 @@ export function LeadForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!response.ok) throw new Error("Lead endpoint rejected the request");
-      track("booking_form_submitted", { concern: parsed.data.concern, ...getAttribution() });
-      track("booking_form_completed", { concern: parsed.data.concern, ...getAttribution() });
+      const receipt = response.ok ? await response.json().catch(() => null) : null;
+      // Only show success once the server confirms the lead was stored.
+      if (receipt?.ok !== true) throw new Error("Lead endpoint rejected the request");
+      // Skin details stay out of analytics; only the fact of a submission is tracked.
+      track("booking_form_submitted", { ...getAttribution() });
+      track("booking_form_completed", { ...getAttribution() });
       setSubmitted(true);
       toast.success("Your consultation request has been received.");
     } catch {
@@ -276,7 +279,7 @@ export function LeadForm({
         {errors["consent"] && <p id="b-error-consent" role="alert" className="mt-2 text-xs text-destructive">{errors["consent"]}</p>}
         <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row">
           <Button type="submit" variant="clay" size="xl" className="flex-1" disabled={submitting}>
-            {submitting ? "Sending request…" : "Book My Free Anti-Ageing Consultation"} <ArrowRight />
+            {submitting ? "Sending request…" : "Book My Free Consultation"} <ArrowRight />
           </Button>
         </div>
       </div>

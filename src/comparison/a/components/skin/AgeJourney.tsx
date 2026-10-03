@@ -48,7 +48,7 @@ export function AgeJourney({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [mode, setMode] = useState<"sample" | "custom">("sample");
-  const [stageIndex, setStageIndex] = useState(2);
+  const [stageIndex, setStageIndex] = useState(4);
   const [compare, setCompare] = useState(55);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [uploadedUrl, setUploadedUrl] = useState("");
