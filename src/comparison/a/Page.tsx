@@ -362,7 +362,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
         <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">
           <div>
             <Eyebrow muted>Visual illustration</Eyebrow>
-            <h2 className="mt-4 text-4xl">Curious about how faces change with age? Try it before your Karur visit.</h2>
+            <h2 className="mt-4 text-4xl">Curious about how faces change with age?</h2>
             <p className="mt-4 max-w-2xl leading-relaxed text-ink-foreground/75">
               Look at how faces commonly change over the years, using the sample picture or your
               own photo.
@@ -1439,7 +1439,7 @@ function DoctorVideoSection() {
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>1-minute video · Tamil</Eyebrow>
         <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">
-          Want to hear the Karur doctor explain it?
+          Want to hear the doctor explain it?
         </h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
           In this short video in Tamil, Dr. S. Kiruthika talks about the skin, hair and nail care
@@ -1533,7 +1533,7 @@ function BenefitsSection() {
     <Section id="a-benefits" tone="sand" className="clinic-list-section">
       <Reveal className="mx-auto max-w-4xl">
         <h2 className="text-center text-4xl leading-[1.08] sm:text-5xl">
-          What can you get help with in Karur?
+          What can you get help with here?
         </h2>
         <ul className="clinic-list clinic-list-emoji mt-10">
           {BENEFITS.map(([emoji, title, text]) => (
@@ -1576,7 +1576,7 @@ function AdvancedTreatmentsSection() {
     <Section id="a-advanced-treatments" tone="sand" className="clinic-cards-section">
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>Treatments at Sanjay Rithik Hospital</Eyebrow>
-        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">What options can you discuss with the doctor in Karur?</h2>
+        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">What options can you discuss with the doctor?</h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
           You do not need to choose any of these. These are treatments available at the
           hospital. Dr. S. Kiruthika can explain what each one is, what may suit your skin, the
@@ -1630,7 +1630,7 @@ function LaserAreasSection() {
         <Reveal>
           <p className="section-pill">Other care at the hospital</p>
           <h2 className="mt-5 text-4xl leading-[1.08] sm:text-5xl">
-            Also looking for help with unwanted hair in Karur?
+            Also looking for help with unwanted hair?
           </h2>
           <p className="mt-5 leading-relaxed text-muted-foreground">
             The hospital also offers consultations about laser hair reduction, including
@@ -1673,7 +1673,7 @@ function LaserBenefitsSection() {
       <Reveal>
         <p className="section-pill">Laser hair reduction · other care</p>
         <h2 className="mt-5 text-4xl leading-[1.08] sm:text-5xl">
-          Questions about reducing unwanted hair in Karur?
+          Questions about reducing unwanted hair?
         </h2>
       </Reveal>
       <ul className="laser-benefit-grid mt-10">
