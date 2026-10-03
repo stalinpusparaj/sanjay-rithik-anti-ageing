@@ -287,7 +287,15 @@ async function syncGrowthOsLead(input: {
     event,
     data: {
       ...record,
-      source: "sanjay-rithik-landing-page",
+      // Same GrowthOS app as the main skin page; these labels separate this campaign there.
+      source: "sanjay-rithik-anti-ageing",
+      campaign: "anti-ageing",
+      campaign_name: "Anti-ageing 35–55",
+      experience: "anti-ageing",
+      experience_id: "anti-ageing",
+      variant: "anti-ageing",
+      page: "anti-ageing",
+      landing_page_identifier: "anti-ageing-35-55-karur",
       person: { id: input.personId, name: input.name, phone: input.phone },
       lead: input.payload,
     },
