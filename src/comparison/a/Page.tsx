@@ -143,7 +143,8 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
   const [ageJourney, setAgeJourney] = useState<AgeJourneySelection | undefined>();
   const [showSticky, setShowSticky] = useState(false);
   useEffect(() => {
-    track("page_view", { landing_page: "anti-aging-consultation-karur" });
+    // GA4 already sends page_view automatically; this only records which landing page loaded.
+    track("landing_page_viewed", { landing_page: "anti-ageing-35-55-karur" });
     const depths = new Set<number>();
     const onScroll = () => {
       const progress =

@@ -322,6 +322,8 @@ async function syncGrowthOsLead(input: {
       "X-GrowthOS-Signature": signature,
       "X-Webhook-Signature": signature,
       "X-Twenty-Webhook-Signature": signature,
+      // GrowthOS verifies like Twenty: HMAC over "<timestamp>:<body>", timestamp sent here.
+      "X-Twenty-Webhook-Timestamp": timestamp,
     },
     body,
   });

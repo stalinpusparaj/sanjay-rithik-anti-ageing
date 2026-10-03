@@ -114,7 +114,6 @@ export function VersionB({ render, sharedAgeSelection }: { render: (sections: Re
   const [navSolid, setNavSolid] = useState(false);
 
   useEffect(() => {
-    track("page_view", { landing_page: "dermatology-karur" });
     const firedDepths = new Set<number>();
     const onScroll = () => {
       const max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
