@@ -32,7 +32,7 @@ import heroImage from "@/comparison/a/assets/hero-portrait.jpg";
 import heroPortrait from "@/comparison/b/assets/anti-aging-hero-v2.jpg";
 import { TreatmentPhoto } from "../TreatmentPhoto";
 import { WhatsAppIcon } from "../SiteChrome";
-import antiAgeingHero from "@/assets/anti-aging-hero-v2.jpg";
+import antiAgeingHero from "@/assets/heroImage.jpg";
 import mirrorImage from "@/comparison/a/assets/mirror.jpeg";
 import hospitalLogo from "@/assets/hospital-logo.png";
 import doctorKiruthika from "@/comparison/a/assets/doctor-kiruthika.jpg";
@@ -271,7 +271,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             <div className="hero-card-frame">
               <img
                 src={antiAgeingHero}
-                alt="Calm, confident woman in her forties with natural-looking skin"
+                alt="Dermatologist in a calm consultation with a woman in her forties at the clinic in Karur"
                 className="hero-card-image"
                 fetchPriority="high"
                 draggable={false}

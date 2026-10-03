@@ -4514,7 +4514,8 @@ html { scroll-behavior: smooth; }
 .enhanced-site .skin-game-answers-two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
 @media (max-width: 640px) { .enhanced-site .skin-game-answers-two { grid-template-columns: 1fr; } }
 .enhanced-site .skin-game-progress i.on { background: linear-gradient(90deg, #075e6b, #18aec0 70%, #e9a088); }
-.enhanced-site .hero-card-image { object-position: 60% 25%; }
+.enhanced-site #a-top .hero-card-frame { aspect-ratio: 16 / 10; }
+.enhanced-site #a-top .hero-card-image { object-position: 55% 40%; }
 .enhanced-site .section-shell { padding-block: clamp(72px, 9vw, 120px); }
 @media (max-width: 640px) {
   .enhanced-site .premium-hero-text { font-size: 17px; line-height: 1.65; }
