@@ -73,6 +73,10 @@ function toMarkdown(payload: LeadPayload): string {
 }
 
 const LEAD_SOURCE = "Sanjay Rithik anti-ageing landing page";
+// Same Twenty workspace as the main skin page; these labels keep the campaigns apart.
+// Industry still contains "Dermatology", so the shared dashboard counts these leads too.
+const LEAD_CAMPAIGN = "Anti-ageing 35–55";
+const LEAD_INDUSTRY = "Dermatology clinic · Anti-ageing";
 
 function enquirySummary(
   payload: LeadPayload,
@@ -208,9 +212,9 @@ function opportunityFields(
     stage: "NEW",
     leadContactName: name,
     leadPhone: phone,
-    leadForm: text(payload["source"]) || text(payload.lead_type) || "website",
+    leadForm: `${LEAD_CAMPAIGN} · ${text(payload["source"]) || text(payload.lead_type) || "website"}`,
     leadLandingPage: referer ?? LEAD_SOURCE,
-    leadIndustry: "Dermatology clinic",
+    leadIndustry: LEAD_INDUSTRY,
     leadPreferredChannel: "Phone / WhatsApp",
     leadWantsCall: true,
     leadConsentContact: payload["consent_status"] === true,
@@ -414,14 +418,19 @@ export const Route = createFileRoute("/api/lead-capture")({
           let leadScoreSummary: ReturnType<typeof scoreLead> | undefined;
           try {
             const openOpportunity = await twentyFetch<{
-              data: { opportunities: Array<{ id: string; leadSubmissions?: number | null }> };
+              data: {
+                opportunities: Array<{ id: string; name?: string | null; leadSubmissions?: number | null }>;
+              };
             }>(
               baseUrl,
               apiKey,
-              `/rest/opportunities?filter=pointOfContactId[eq]:${personId}&limit=1`,
+              `/rest/opportunities?filter=pointOfContactId[eq]:${personId}&limit=20`,
               { method: "GET" },
             );
-            const existingOpportunity = openOpportunity.data.opportunities[0];
+            // A person can enquire on both landing pages; only reuse this page's opportunity.
+            const existingOpportunity = openOpportunity.data.opportunities.find((item) =>
+              item.name?.endsWith(LEAD_SOURCE),
+            );
             const fields = opportunityFields(payload, name, phone, request.headers.get("referer"));
             if (existingOpportunity?.id) {
               opportunityId = existingOpportunity.id;
