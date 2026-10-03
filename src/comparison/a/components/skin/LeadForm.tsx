@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { WhatsAppIcon as MessageCircle } from "../../../SiteChrome";
 import { Button } from "@/comparison/a/components/ui/button";
@@ -25,6 +25,21 @@ export function LeadForm({
   const started = useRef(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  useEffect(() => {
+    // Returning from the no-script fallback post: show the confirmation and tidy the URL.
+    if (source !== "hero") return;
+    const params = new URLSearchParams(window.location.search);
+    const result = params.get("enquiry");
+    if (result !== "received" && result !== "failed") return;
+    if (result === "received") setSubmitted(true);
+    else
+      setErrors({
+        form: "We couldn’t confirm delivery. Your appointment is not booked. Please retry or WhatsApp the clinic.",
+      });
+    params.delete("enquiry");
+    const query = params.toString();
+    window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}#a-hero-form`);
+  }, [source]);
   const [submitting, setSubmitting] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -111,6 +126,10 @@ export function LeadForm({
   return (
     <form
       ref={formRef}
+      // Fallback before the page's script loads: post to the API (never a GET with the
+      // visitor's details in the address bar). The API redirects back with ?enquiry=received.
+      method="post"
+      action="/api/lead-capture"
       onSubmit={submit}
       noValidate
       aria-busy={submitting}

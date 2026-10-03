@@ -313,7 +313,7 @@ export function SkinAssessment({
             </p>
           </div>
 
-          <form className="skin-game-form" onSubmit={submit} noValidate>
+          <form className="skin-game-form" method="post" action="/api/lead-capture" onSubmit={submit} noValidate>
             <p className="skin-game-offer">
               <Sparkles aria-hidden="true" /> Free consultation · Karur
             </p>

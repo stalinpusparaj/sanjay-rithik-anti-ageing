@@ -368,21 +368,46 @@ export const Route = createFileRoute("/api/lead-capture")({
           /\/$/,
           "",
         );
+        // Forms post here directly (not as JSON) if the page's script hasn't loaded yet.
+        // Those visitors are sent back to the page instead of seeing raw JSON.
+        const isFormPost = !(request.headers.get("content-type") ?? "").includes("application/json");
+        const respond = (body: Record<string, unknown>, status = 200) =>
+          isFormPost
+            ? new Response(null, {
+                status: 303,
+                headers: { Location: `/?enquiry=${status < 300 ? "received" : "failed"}#a-hero-form` },
+              })
+            : json(body, status);
+
         if (!apiKey) {
-          return json({ error: "CRM is not configured on the server." }, 503);
+          return respond({ error: "CRM is not configured on the server." }, 503);
         }
 
         let payload: LeadPayload;
         try {
-          payload = await request.json();
+          if (isFormPost) {
+            const form = await request.formData();
+            const field = (key: string) => String(form.get(key) ?? "").trim();
+            payload = {
+              lead_type: "consultation_booking",
+              source: "form_without_script",
+              name: field("name"),
+              phone: field("phone"),
+              primary_concern: field("concern"),
+              consent_status: form.get("consent") !== null,
+              consent_whatsapp: form.get("consent") !== null,
+            } as LeadPayload;
+          } else {
+            payload = await request.json();
+          }
         } catch {
-          return json({ error: "Invalid JSON body." }, 400);
+          return respond({ error: "Invalid request body." }, 400);
         }
 
         const name = typeof payload.name === "string" ? payload.name.trim() : "";
         const phone = typeof payload.phone === "string" ? payload.phone.trim() : "";
         if (!name || !phone) {
-          return json({ error: "name and phone are required." }, 400);
+          return respond({ error: "name and phone are required." }, 400);
         }
 
         try {
@@ -511,10 +536,10 @@ export const Route = createFileRoute("/api/lead-capture")({
             isRepeat,
           }).catch((error) => console.error("GrowthOS lead sync failed", error));
 
-          return json({ ok: true, personId, opportunityId });
+          return respond({ ok: true, personId, opportunityId });
         } catch (error) {
           console.error("Twenty CRM lead capture failed", error);
-          return json({ error: "The CRM could not be reached." }, 502);
+          return respond({ error: "The CRM could not be reached." }, 502);
         }
       },
     },

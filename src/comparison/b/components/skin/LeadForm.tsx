@@ -223,6 +223,8 @@ export function LeadForm({
   return (
     <form
       ref={formRef}
+      method="post"
+      action="/api/lead-capture"
       onSubmit={handleSubmit}
       noValidate
       className="rounded-3xl border border-border bg-card p-7 shadow-lift sm:p-10"
