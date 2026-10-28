@@ -25,6 +25,9 @@ function config() {
     language: (process.env["WHATSWAY_TEMPLATE_LANGUAGE"] ?? "en").trim(),
     // "false" for templates without a {{1}} name variable (e.g. Meta's hello_world).
     nameParam: (process.env["WHATSWAY_TEMPLATE_NAME_PARAM"] ?? "true").trim() !== "false",
+    // Optional "|"-separated body values, overriding the name-only default. Placeholders:
+    // {name}, {concern}, {preferred_time}. E.g. "{name}|{preferred_time}|Sanjay Rithik Hospital".
+    params: (process.env["WHATSWAY_TEMPLATE_PARAMS"] ?? "").trim(),
   };
 }
 
@@ -56,16 +59,33 @@ export async function upsertWhatsAppContact(phone: string, name: string) {
   await request("/contacts", { method: "POST", body: JSON.stringify({ phone, name }) });
 }
 
-/** Sends the welcome template; its first body variable is the lead's first name. */
-export async function sendWelcomeTemplate(phone: string, firstName: string) {
-  const { template, language, nameParam } = config();
+/** Sends the welcome template; by default its only body variable is the lead's first name. */
+export async function sendWelcomeTemplate(
+  phone: string,
+  firstName: string,
+  lead: { concern?: string; preferredTime?: string } = {},
+) {
+  const { template, language, nameParam, params } = config();
+  const values = params
+    ? params.split("|").map((p) =>
+        p
+          .replace("{name}", firstName)
+          .replace("{concern}", lead.concern || "your skin concern")
+          .replace("{preferred_time}", lead.preferredTime || "a time our team will confirm")
+          .trim(),
+      )
+    : nameParam
+      ? [firstName]
+      : [];
   const { body } = await request<{ data?: { messageId?: string; status?: string } }>("/messages/template", {
     method: "POST",
     body: JSON.stringify({
       to: phone,
       templateName: template,
       language,
-      components: nameParam ? [{ type: "body", parameters: [{ type: "text", text: firstName }] }] : [],
+      components: values.length
+        ? [{ type: "body", parameters: values.map((text) => ({ type: "text", text })) }]
+        : [],
     }),
   });
   return body.data;

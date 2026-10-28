@@ -106,7 +106,7 @@ async function followUp(contact: AgentLabsContact, fields: Record<string, unknow
     try {
       await upsertWhatsAppContact(phone, [firstName, contact.lastName].filter(Boolean).join(" "));
       if (fields["consent_whatsapp"] && whatsWayTemplate() && !fields["whatsapp_message_id"]) {
-        const sent = await sendWelcomeTemplate(phone, firstName);
+        const sent = await sendWelcomeTemplate(phone, firstName, { concern: String(fields["concern"] ?? ""), preferredTime: String(fields["preferred_time"] ?? "") });
         Object.assign(updates, { whatsapp_message_id: sent?.messageId ?? "", whatsapp_sent_at: new Date().toISOString(), whatsapp_error: "" });
       }
     } catch (error) {
