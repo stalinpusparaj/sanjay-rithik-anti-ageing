@@ -93,6 +93,7 @@ async function followUp(contact: AgentLabsContact, fields: Record<string, unknow
         agentId,
         toNumber: phone,
         metadata: { lead: contact.id, name: firstName, concern: String(fields["concern"] ?? ""), source: LEAD_TAG },
+        dynamicVariables: { name: firstName, concern: String(fields["concern"] || "skin concern") },
         ...(scheduledAt ? { scheduledAt } : {}),
       });
       Object.assign(updates, { call_id: call.callId, call_requested_at: new Date().toISOString(), call_scheduled_for: scheduledAt ?? "", call_error: "" });

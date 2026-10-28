@@ -120,6 +120,8 @@ export async function triggerCall(body: {
   agentId: string;
   toNumber: string;
   metadata?: Record<string, string>;
+  /** Fills {{name}} / {{concern}} in the agent's script. */
+  dynamicVariables?: Record<string, string>;
   scheduledAt?: string;
 }) {
   return (

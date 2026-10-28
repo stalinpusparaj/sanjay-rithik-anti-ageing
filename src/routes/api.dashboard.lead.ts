@@ -21,7 +21,9 @@ export const Route = createFileRoute("/api/dashboard/lead")({
           } else if (body.action === "call") {
             const agentId = agentLabsAgentId();
             if (!agentId) return noStore({ error: "No voice agent is set up yet." }, 409);
-            const call = await triggerCall({ agentId, toNumber: contact.phone, metadata: { lead: contact.id, source: LEAD_TAG, requested_by: "dashboard" } });
+            const call = await triggerCall({ agentId, toNumber: contact.phone, metadata: { lead: contact.id, source: LEAD_TAG, requested_by: "dashboard" },
+              dynamicVariables: { name: contact.firstName ?? "", concern: String(fields["concern"] || "skin concern") },
+            });
             Object.assign(fields, { call_id: call.callId, call_requested_at: new Date().toISOString(), call_scheduled_for: "", call_error: "" });
           } else {
             return noStore({ error: "Nothing to do." }, 400);
