@@ -19,21 +19,23 @@ function config() {
   return {
     url: (process.env["WHATSWAY_API_URL"] ?? "").trim().replace(/\/$/, ""),
     key: (process.env["WHATSWAY_API_KEY"] ?? "").trim(),
+    secret: (process.env["WHATSWAY_API_SECRET"] ?? "").trim(),
     channelId: (process.env["WHATSWAY_CHANNEL_ID"] ?? "").trim(),
     template: (process.env["WHATSWAY_WELCOME_TEMPLATE"] ?? "").trim(),
     language: (process.env["WHATSWAY_TEMPLATE_LANGUAGE"] ?? "en").trim(),
   };
 }
 
-export const whatsWayConfigured = () => Boolean(config().url && config().key);
+export const whatsWayConfigured = () => Boolean(config().url && config().key && config().secret);
 export const whatsWayTemplate = () => config().template;
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<{ status: number; body: T }> {
-  const { url, key, channelId } = config();
+  const { url, key, secret, channelId } = config();
   const response = await fetch(`${url}/api/v1${path}`, {
     ...init,
     headers: {
       "x-api-key": key,
+      "x-api-secret": secret,
       ...(channelId ? { "x-channel-id": channelId } : {}),
       "Content-Type": "application/json",
       Accept: "application/json",
