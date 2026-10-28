@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { useInitLang } from "./lang";
+import { useDomTranslation, useInitLang } from "./lang";
 import type { AgeJourneySelection } from "./a/components/skin/AgeJourney";
 import { VersionA } from "./a/Page";
 import { VersionB } from "./b/Page";
@@ -65,6 +65,7 @@ function Sections({ a, b }: { a: Record<string, ReactNode>; b: Record<string, Re
 export function Comparison() {
   const [ageSelection, setAgeSelection] = useState<AgeJourneySelection>();
   useInitLang();
+  useDomTranslation("review-top");
   return <div id="review-top"><VersionA onAgeSelection={setAgeSelection} render={(a) => <VersionB sharedAgeSelection={ageSelection} render={(b) => <Sections a={a} b={b} />} />} /></div>;
 }
 
