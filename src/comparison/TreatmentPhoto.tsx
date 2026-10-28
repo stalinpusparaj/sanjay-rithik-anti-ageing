@@ -1,4 +1,4 @@
-import portrait from "./a/assets/hero-portrait.jpg";
+import portrait from "./a/assets/hero-portrait.webp";
 
 const photos: Record<string, { label: string; x: number; y: number; zoom: number }> = {
   "Fine Lines": { label: "Forehead and eye area", x: 44, y: 29, zoom: 230 },

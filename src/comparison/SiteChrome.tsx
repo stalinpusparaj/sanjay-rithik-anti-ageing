@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
-import logo from "./a/assets/hospital-logo.png";
+import logo from "./a/assets/hospital-logo.webp";
 
 const links = [["Home", "a-top"], ["About", "a-clinic"], ["Dermatology", "b-services"], ["Treatments", "b-treatment-options"], ["Doctors", "a-doctor"], ["Resources", "compare-questions"], ["Contact", "b-consultation"]];
 

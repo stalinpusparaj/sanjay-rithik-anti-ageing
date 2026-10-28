@@ -28,23 +28,23 @@ import { TestimonialGrid } from "@/comparison/a/components/skin/TestimonialGrid"
 import { BeforeAfterGallery } from "@/comparison/a/components/skin/BeforeAfterGallery";
 import { track, useSectionView } from "@/comparison/a/lib/analytics";
 import { cn } from "@/comparison/a/lib/utils";
-import heroImage from "@/comparison/a/assets/hero-portrait.jpg";
-import heroPortrait from "@/comparison/b/assets/anti-aging-hero-v2.jpg";
+import heroImage from "@/comparison/a/assets/hero-portrait.webp";
+import heroPortrait from "@/comparison/b/assets/anti-aging-hero-v2.webp";
 import { TreatmentPhoto } from "../TreatmentPhoto";
 import { WhatsAppIcon } from "../SiteChrome";
-import antiAgeingHero from "@/assets/heroImage.jpg";
-import mirrorImage from "@/comparison/a/assets/mirror.jpeg";
-import hospitalLogo from "@/assets/hospital-logo.png";
-import doctorKiruthika from "@/comparison/a/assets/doctor-kiruthika.jpg";
-import clinicImage from "@/comparison/a/assets/clinic-official.jpg";
-import doctorSectionImage from "@/assets/skin-care-official.jpg";
-import spaRoomTreatment from "@/assets/luxury-glow/spa-room-treatment.png";
-import pinkLaserTreatment from "@/assets/luxury-glow/pink-laser-treatment.png";
-import pinkTreatmentRoom from "@/assets/luxury-glow/pink-treatment-room.png";
-import legSkincareGlow from "@/assets/luxury-glow/leg-skincare-glow.png";
-import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.png";
+import antiAgeingHero from "@/assets/heroImage.webp";
+import mirrorImage from "@/comparison/a/assets/mirror.webp";
+import hospitalLogo from "@/assets/hospital-logo.webp";
+import doctorKiruthika from "@/comparison/a/assets/doctor-kiruthika.webp";
+import clinicImage from "@/comparison/a/assets/clinic-official.webp";
+import doctorSectionImage from "@/assets/skin-care-official.webp";
+import spaRoomTreatment from "@/assets/luxury-glow/spa-room-treatment.webp";
+import pinkLaserTreatment from "@/assets/luxury-glow/pink-laser-treatment.webp";
+import pinkTreatmentRoom from "@/assets/luxury-glow/pink-treatment-room.webp";
+import legSkincareGlow from "@/assets/luxury-glow/leg-skincare-glow.webp";
+import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.webp";
 import drKiruthikaIntroVideo from "@/comparison/a/assets/videos/dr-kiruthika-intro.mp4?url";
-import drKiruthikaIntroPoster from "@/comparison/a/assets/dr-kiruthika-intro-poster.jpg";
+import drKiruthikaIntroPoster from "@/comparison/a/assets/dr-kiruthika-intro-poster.webp";
 import antiAgingReelVideo from "@/comparison/a/assets/videos/anti-aging-treatment-reel.mp4?url";
 
 const AgeJourney = lazy(() =>

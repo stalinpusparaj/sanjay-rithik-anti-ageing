@@ -14,12 +14,12 @@ import {
 import { Button } from "@/comparison/b/components/ui/button";
 import { getAttribution, track } from "@/comparison/b/lib/analytics";
 import { cn } from "@/comparison/b/lib/utils";
-import babyImage from "@/assets/luxury-glow/age-demo-baby-teal.jpg";
-import childImage from "@/assets/luxury-glow/age-demo-child-teal.jpg";
-import teenImage from "@/assets/luxury-glow/age-demo-teen-teal.jpg";
-import adultImage from "@/assets/luxury-glow/age-demo-adult-teal.jpg";
-import middleAgeImage from "@/assets/luxury-glow/age-demo-middle-teal.jpg";
-import elderlyImage from "@/assets/luxury-glow/age-demo-elderly-teal.jpg";
+import babyImage from "@/assets/luxury-glow/age-demo-baby-teal.webp";
+import childImage from "@/assets/luxury-glow/age-demo-child-teal.webp";
+import teenImage from "@/assets/luxury-glow/age-demo-teen-teal.webp";
+import adultImage from "@/assets/luxury-glow/age-demo-adult-teal.webp";
+import middleAgeImage from "@/assets/luxury-glow/age-demo-middle-teal.webp";
+import elderlyImage from "@/assets/luxury-glow/age-demo-elderly-teal.webp";
 
 const MAX_FILE_SIZE = 16 * 1024 * 1024;
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];

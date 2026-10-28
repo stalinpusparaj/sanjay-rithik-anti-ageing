@@ -1,9 +1,9 @@
 import { ShieldCheck } from "lucide-react";
 
-import beforeAfterFace from "@/assets/luxury-glow/before-after-face.png";
-import beforeAfterKnee from "@/assets/luxury-glow/before-after-knee.png";
-import beforeAfterLeg from "@/assets/luxury-glow/before-after-leg.png";
-import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.png";
+import beforeAfterFace from "@/assets/luxury-glow/before-after-face.webp";
+import beforeAfterKnee from "@/assets/luxury-glow/before-after-knee.webp";
+import beforeAfterLeg from "@/assets/luxury-glow/before-after-leg.webp";
+import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.webp";
 
 const FEATURE = {
   image: headerTreatmentRoom,

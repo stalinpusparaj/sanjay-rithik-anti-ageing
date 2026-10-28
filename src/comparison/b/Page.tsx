@@ -23,21 +23,21 @@ import { LeadForm } from "@/comparison/b/components/skin/LeadForm";
 import { TestimonialGrid } from "@/comparison/b/components/skin/TestimonialGrid";
 import { track } from "@/comparison/b/lib/analytics";
 import { cn } from "@/comparison/b/lib/utils";
-import heroImage from "@/comparison/b/assets/anti-aging-hero-v2.jpg";
-import videoPosterImage from "@/assets/hero-portrait.jpg";
+import heroImage from "@/comparison/b/assets/anti-aging-hero-v2.webp";
+import videoPosterImage from "@/assets/hero-portrait.webp";
 import { TreatmentPhoto } from "../TreatmentPhoto";
-import premiumConcernMirror from "@/assets/premium-concern-mirror.png";
-import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.png";
-import hairScalpConsultation from "@/assets/luxury-glow/hair-scalp-consultation.png";
-import serviceAcneBreakouts from "@/assets/luxury-glow/service-acne-breakouts.png";
-import serviceAntiAgingFirmness from "@/assets/luxury-glow/service-anti-aging-firmness.png";
-import servicePigmentation from "@/assets/luxury-glow/service-pigmentation.png";
-import serviceScarsTexture from "@/assets/luxury-glow/service-scars-texture.png";
-import serviceSensitiveSkin from "@/assets/luxury-glow/service-sensitive-skin.png";
-import serviceTiredDull from "@/assets/luxury-glow/service-tired-dull.png";
+import premiumConcernMirror from "@/assets/premium-concern-mirror.webp";
+import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.webp";
+import hairScalpConsultation from "@/assets/luxury-glow/hair-scalp-consultation.webp";
+import serviceAcneBreakouts from "@/assets/luxury-glow/service-acne-breakouts.webp";
+import serviceAntiAgingFirmness from "@/assets/luxury-glow/service-anti-aging-firmness.webp";
+import servicePigmentation from "@/assets/luxury-glow/service-pigmentation.webp";
+import serviceScarsTexture from "@/assets/luxury-glow/service-scars-texture.webp";
+import serviceSensitiveSkin from "@/assets/luxury-glow/service-sensitive-skin.webp";
+import serviceTiredDull from "@/assets/luxury-glow/service-tired-dull.webp";
 import antiAgingReelVideo from "@/assets/videos/anti-aging-treatment-reel.mp4?url";
-import hospitalLogo from "@/comparison/b/assets/hospital-logo.png";
-import doctorKiruthika from "@/comparison/b/assets/doctor-kiruthika.jpg";
+import hospitalLogo from "@/comparison/b/assets/hospital-logo.webp";
+import doctorKiruthika from "@/comparison/b/assets/doctor-kiruthika.webp";
 
 
 function Section({
