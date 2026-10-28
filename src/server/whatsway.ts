@@ -23,6 +23,8 @@ function config() {
     channelId: (process.env["WHATSWAY_CHANNEL_ID"] ?? "").trim(),
     template: (process.env["WHATSWAY_WELCOME_TEMPLATE"] ?? "").trim(),
     language: (process.env["WHATSWAY_TEMPLATE_LANGUAGE"] ?? "en").trim(),
+    // "false" for templates without a {{1}} name variable (e.g. Meta's hello_world).
+    nameParam: (process.env["WHATSWAY_TEMPLATE_NAME_PARAM"] ?? "true").trim() !== "false",
   };
 }
 
@@ -56,14 +58,14 @@ export async function upsertWhatsAppContact(phone: string, name: string) {
 
 /** Sends the welcome template; its first body variable is the lead's first name. */
 export async function sendWelcomeTemplate(phone: string, firstName: string) {
-  const { template, language } = config();
+  const { template, language, nameParam } = config();
   const { body } = await request<{ data?: { messageId?: string; status?: string } }>("/messages/template", {
     method: "POST",
     body: JSON.stringify({
       to: phone,
       templateName: template,
       language,
-      components: [{ type: "body", parameters: [{ type: "text", text: firstName }] }],
+      components: nameParam ? [{ type: "body", parameters: [{ type: "text", text: firstName }] }] : [],
     }),
   });
   return body.data;
