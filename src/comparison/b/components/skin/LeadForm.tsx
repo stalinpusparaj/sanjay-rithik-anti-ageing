@@ -19,8 +19,8 @@ const schema = z.object({
     .max(20)
     .regex(/^[0-9+\-\s()]+$/, "Please enter a valid mobile number")
     .refine((value) => value.replace(/\D/g, "").length >= 10 && value.replace(/\D/g, "").length <= 15, "Please enter a valid mobile number"),
-  concern: z.string().trim().min(1, "Please select your primary concern"),
-  time: z.string().trim().min(1, "Please choose a preferred time"),
+  concern: z.string().trim().optional().default(""),
+  time: z.string().trim().optional().default(""),
   consent: z.literal("on", {
     errorMap: () => ({ message: "Please consent to being contacted about this request" }),
   }),
@@ -256,8 +256,8 @@ export function LeadForm({
         <div className="mt-7 grid gap-5">
           {field("name", "Your name", "text", "Your name")}
           {field("phone", "Mobile number", "tel", "+91")}
-          {selectField("concern", "Primary concern", CONCERNS, answers["concern"] ?? "")}
-          {selectField("time", "Preferred consultation time", TIMES)}
+          {selectField("concern", "Primary concern (optional)", CONCERNS, answers["concern"] ?? "")}
+          {selectField("time", "Preferred time (optional)", TIMES)}
         </div>
         <p className="mt-4 text-center text-xs text-muted-foreground">
           No treatment is booked at this stage.

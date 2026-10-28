@@ -1,3 +1,4 @@
+import { useT } from "@/comparison/lang";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
@@ -649,12 +650,13 @@ function Assessment({
   onComplete: (answers: Answers) => void;
   onProfile: (profile: ResultProfile) => void;
 }) {
+  const t = useT();
   return (
     <Section id="b-skin-check" tone="paper">
       <Reveal className="max-w-3xl">
         <Eyebrow>30-second skin check</Eyebrow>
         <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-          Try a quick skin check
+          {t("Try a quick skin check", "ஒரு சிறிய சரும பரிசோதனை செய்து பாருங்கள்")}
         </h2>
         <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
           Answer three quick questions and see what you could ask Dr. Kiruthika. You will see
@@ -1196,6 +1198,7 @@ function Doctor() {
 }
 
 function CinematicInterlude() {
+  const t = useT();
   const videos = [
     {
       label: "Anti-aging treatment options",
@@ -1283,7 +1286,7 @@ function CinematicInterlude() {
         </Reveal>
         <Reveal delay={100}>
           <Eyebrow muted>A clear, low-pressure next step</Eyebrow>
-          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">What happens at your first visit?</h2>
+          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">{t("What happens at your first visit?", "முதல் வருகையில் என்ன நடக்கும்?")}</h2>
           <div className="mt-10 space-y-0">
             {steps.map((step, index) => (
               <div
@@ -1459,6 +1462,7 @@ const FAQS = [
   ];
 
 function Objections() {
+  const t = useT();
   const [open, setOpen] = useState(0);
   return (
     <Section tone="warm">
@@ -1466,7 +1470,7 @@ function Objections() {
         <Reveal>
           <Eyebrow>Questions are normal</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-            What would you like to know before booking?
+            {t("What would you like to know before booking?", "பதிவு செய்வதற்கு முன் என்ன தெரிந்துகொள்ள விரும்புகிறீர்கள்?")}
           </h2>
           <p className="mt-6 leading-relaxed text-muted-foreground">
             You don't need to decide on a treatment today.
@@ -1533,13 +1537,14 @@ function Consultation({
   profile?: ResultProfile | undefined;
   faceAreas?: string[] | undefined;
 }) {
+  const t = useT();
   return (
     <Section id="b-consultation" tone="sand">
       <div className="grid gap-12 lg:grid-cols-[.82fr_1.18fr] lg:gap-16">
         <Reveal>
           <Eyebrow muted>Free consultation</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-[3.4rem]">
-            Ready to ask the Karur doctor your questions?
+            {t("Ready to ask the Karur doctor your questions?", "கரூர் மருத்துவரிடம் உங்கள் கேள்விகளைக் கேட்கத் தயாரா?")}
           </h2>
           <p className="mt-6 leading-relaxed text-ink-foreground/65">
             Tell us what you have noticed and what worries you. Start with a consultation at

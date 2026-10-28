@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { useInitLang } from "./lang";
 import type { AgeJourneySelection } from "./a/components/skin/AgeJourney";
 import { VersionA } from "./a/Page";
 import { VersionB } from "./b/Page";
@@ -32,8 +33,13 @@ const groups = [
 ] as const;
 
 const hiddenSections: Record<"a" | "b", readonly string[]> = {
-  a: ["pain", "treatments", "video", "testimonials", "questions", "consultation", "footer"],
-  b: ["navigation", "hero", "doctor", "treatments", "age", "sticky"],
+  // Anti-ageing focus: laser hair, other-concern cards, unplayable video testimonials,
+  // the leg/knee gallery and the age-preview game are off-topic for this audience.
+  a: [
+    "pain", "treatments", "video", "testimonials", "questions", "consultation", "footer",
+    "laser-areas", "laser-benefits", "video-testimonials", "before-after", "age",
+  ],
+  b: ["navigation", "hero", "doctor", "treatments", "age", "sticky", "treatments-before-age"],
 } as const;
 
 function Sections({ a, b }: { a: Record<string, ReactNode>; b: Record<string, ReactNode> }) {
@@ -58,6 +64,7 @@ function Sections({ a, b }: { a: Record<string, ReactNode>; b: Record<string, Re
 
 export function Comparison() {
   const [ageSelection, setAgeSelection] = useState<AgeJourneySelection>();
+  useInitLang();
   return <div id="review-top"><VersionA onAgeSelection={setAgeSelection} render={(a) => <VersionB sharedAgeSelection={ageSelection} render={(b) => <Sections a={a} b={b} />} />} /></div>;
 }
 

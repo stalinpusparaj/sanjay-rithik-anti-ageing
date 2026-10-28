@@ -1,3 +1,4 @@
+import { useT } from "@/comparison/lang";
 import { useEffect, useRef } from "react";
 import { Quote, Star } from "lucide-react";
 import { testimonials } from "@/comparison/b/data/testimonials";
@@ -19,6 +20,7 @@ function Stars({ rating, className }: { rating: number; className?: string }) {
 }
 
 export function TestimonialGrid() {
+  const t = useT();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export function TestimonialGrid() {
           <div>
             <p className="section-pill">Google reviews about the hospital</p>
             <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-              What do Karur patients say about their visit?
+              {t("What do Karur patients say about their visit?", "கரூர் நோயாளிகள் தங்கள் அனுபவத்தைப் பற்றி என்ன சொல்கிறார்கள்?")}
             </h2>
           </div>
           <a

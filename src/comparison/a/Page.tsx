@@ -1,3 +1,4 @@
+import { LangToggle, useT } from "@/comparison/lang";
 
 import { lazy, Suspense, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import {
@@ -139,6 +140,7 @@ function HeroHeaderGrid({ pointer }: { pointer: { x: number; y: number; active: 
 }
 
 export function VersionA({ render, onAgeSelection }: { render: (sections: Record<string, ReactNode>) => ReactNode; onAgeSelection?: (selection: AgeJourneySelection) => void }) {
+  const t = useT();
   const [faceAreas, setFaceAreas] = useState<string[]>([]);
   const [ageJourney, setAgeJourney] = useState<AgeJourneySelection | undefined>();
   const [showSticky, setShowSticky] = useState(false);
@@ -218,14 +220,15 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             </span>
           </div>
           </div>
+          <LangToggle className="premium-nav-lang" />
           <TrackedLink
             href="#a-hero-form"
             event="consultation_cta_clicked"
             source="navigation"
             className="premium-nav-cta"
           >
-            <span className="nav-cta-long">Book Free Consultation</span>
-            <span className="nav-cta-short">Book Free</span> <ArrowRight />
+            <span className="nav-cta-long">{t("Book Free Consultation", "இலவச ஆலோசனை பதிவு")}</span>
+            <span className="nav-cta-short">{t("Book Free", "இலவச ஆலோசனை")}</span> <ArrowRight />
           </TrackedLink>
         </div>
       </header>,
@@ -237,35 +240,33 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
         <HeroParticles />
         <div className="hero-inner premium-hero-inner hero-card-inner">
           <div className="hero-copy premium-hero-copy">
-            <p className="premium-kicker">Skin doctor · Sengunthapuram, Karur</p>
+            <p className="premium-kicker">{t("Skin doctor · Sengunthapuram, Karur", "சரும மருத்துவர் · செங்குந்தபுரம், கரூர்")}</p>
             <h1 className="hero-split-title">
-              Want to look <em>fresh</em> in Karur
+              {t(<>Want to look <em>fresh</em> in Karur</>, <>முகம் <em>புத்துணர்ச்சியாக</em> தெரிய வேண்டுமா,</>)}
               <span className="hero-title-sub">
-                and still look like <em>yourself?</em>
+                {t(<>and still look like <em>yourself?</em></>, <>அதுவும் <em>இயல்பாகவே?</em></>)}
               </span>
             </h1>
             <p className="premium-hero-text">
-              Talk to Dr. S. Kiruthika in Karur about lines, dull skin, or skin that feels less
-              firm. Understand what may help, what to expect, and what treatment may cost before
-              you decide.
+              {t("Talk to Dr. S. Kiruthika in Karur about lines, dull skin, or skin that feels less firm. Understand what may help, what to expect, and what treatment may cost before you decide.", "முகச் சுருக்கங்கள், பொலிவிழந்த சருமம், தளர்ந்த சருமம் பற்றி கரூரில் டாக்டர் எஸ். கிருத்திகாவிடம் பேசுங்கள். எது உதவலாம், என்ன எதிர்பார்க்கலாம், சிகிச்சைக்கு எவ்வளவு செலவாகும் என்பதை முடிவெடுக்கும் முன் தெரிந்துகொள்ளுங்கள்.")}
             </p>
             <div className="premium-hero-actions">
               <Button variant="clay" size="xl" asChild>
                 <TrackedLink href="#a-hero-form" event="anti_ageing_form_started" source="hero">
-                  Book My Free Consultation <ArrowRight />
+                  {t("Book My Free Consultation", "இலவச ஆலோசனையை பதிவு செய்யுங்கள்")} <ArrowRight />
                 </TrackedLink>
               </Button>
               <Button variant="outline" size="xl" className="premium-secondary-cta" asChild>
-                <TrackedLink href="#b-skin-check" event="anti_ageing_quiz_started" source="hero">
-                  Explore My Skin Concerns
+                <TrackedLink href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20free%20skin%20consultation." event="anti_ageing_whatsapp_clicked" source="hero">
+                  <WhatsAppIcon size={18} /> {t("Ask on WhatsApp", "வாட்ஸ்அப்பில் கேளுங்கள்")}
                 </TrackedLink>
               </Button>
             </div>
             <p className="hero-reassure">
-              No payment online. No need to agree to treatment.
+              {t("Consultation is free · Any treatment cost is explained before you decide · Nothing to pay online", "ஆலோசனை இலவசம் · எந்த சிகிச்சைக்கும் செலவு முடிவெடுக்கும் முன்பே சொல்லப்படும் · ஆன்லைனில் பணம் இல்லை")}
             </p>
             <p className="hero-hours">
-              <Clock3 className="size-4" /> Open daily 10 am–2:30 pm · 6–9:30 pm
+              <Clock3 className="size-4" /> {t("Open daily 10 am–2:30 pm · 6–9:30 pm", "தினமும் காலை 10 – மதியம் 2:30 · மாலை 6 – இரவு 9:30")}
             </p>
           </div>
           <figure className="hero-card">
@@ -279,12 +280,12 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
               />
             </div>
             <div className="hero-card-badge hero-card-badge-main">
-              <strong>1 Lakh+ patients at the hospital</strong>
-              <span>13+ years of experience</span>
+              <strong>{t("1 Lakh+ patients at the hospital", "1 லட்சத்துக்கும் மேற்பட்ட நோயாளிகள்")}</strong>
+              <span>{t("13+ years of experience", "13+ ஆண்டு அனுபவம்")}</span>
             </div>
             <div className="hero-card-badge hero-card-badge-rating">
               <strong>4.5★</strong>
-              <span>447 Google reviews</span>
+              <span>{t("447 Google reviews", "447 கூகுள் மதிப்புரைகள்")}</span>
             </div>
           </figure>
         </div>
@@ -292,23 +293,29 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
 "offer-form": <Section id="a-offer" tone="sand" className="offer-form-section">
         <div className="offer-form-grid">
           <Reveal>
-            <p className="section-pill">Free consultation</p>
+            <p className="section-pill">{t("Free consultation", "இலவச ஆலோசனை")}</p>
             <h2 className="mt-5 text-4xl leading-[1.08] sm:text-5xl">
-              Want advice in Karur before deciding on treatment?
+              {t("Want advice in Karur before deciding on treatment?", "சிகிச்சையை முடிவு செய்வதற்கு முன் ஆலோசனை வேண்டுமா?")}
             </h2>
             <p className="mt-5 leading-relaxed text-muted-foreground">
-              You do not need to know which treatment to choose. Start by telling the doctor what
-              you have noticed.
+              {t("You do not need to know which treatment to choose. Start by telling the doctor what you have noticed.", "எந்த சிகிச்சையைத் தேர்வு செய்வது என்று உங்களுக்குத் தெரிய வேண்டியதில்லை. நீங்கள் கவனித்ததை மருத்துவரிடம் சொல்லித் தொடங்குங்கள்.")}
             </p>
             <ul className="offer-includes offer-includes-grid mt-7">
-              {[
+              {t([
                 "Talk about your skin.",
                 "Ask what may help.",
                 "Understand possible risks.",
                 "Ask about time to recover.",
                 "Understand the cost.",
                 "Decide after getting answers.",
-              ].map((item) => (
+              ], [
+                "உங்கள் சருமம் பற்றி பேசுங்கள்.",
+                "எது உதவலாம் என்று கேளுங்கள்.",
+                "சாத்தியமான அபாயங்களைப் புரிந்துகொள்ளுங்கள்.",
+                "குணமாக எவ்வளவு நாள் ஆகும் என்று கேளுங்கள்.",
+                "செலவைப் புரிந்துகொள்ளுங்கள்.",
+                "பதில்கள் கிடைத்த பிறகு முடிவு செய்யுங்கள்.",
+              ]).map((item) => (
                 <li key={item}>
                   <Check className="offer-includes-icon" aria-hidden="true" /> {item}
                 </li>
@@ -316,7 +323,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             </ul>
             <div className="offer-contact mt-7">
               <TrackedLink href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin." event="anti_ageing_whatsapp_clicked" source="a-offer">
-                <WhatsAppIcon size={16} /> Ask a question on WhatsApp
+                <WhatsAppIcon size={16} /> {t("Ask a question on WhatsApp", "வாட்ஸ்அப்பில் கேள்வி கேளுங்கள்")}
               </TrackedLink>
               <span>
                 <MapPin className="size-4" /> 77A, Sengunthapuram Main Road, Karur
@@ -331,16 +338,16 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
 "clinic-facts": <div className="border-b border-border bg-sand px-5 py-5">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-center gap-x-8 gap-y-3 text-sm">
           <span className="flex items-center gap-2">
-            <Star className="size-4 fill-current" /> 4.5 · 447 Google reviews
+            <Star className="size-4 fill-current" /> {t("4.5 · 447 Google reviews", "4.5 · 447 கூகுள் மதிப்புரைகள்")}
           </span>
           <span className="flex items-center gap-2">
-            <ShieldCheck className="size-4" /> Dr. S. Kiruthika, MBBS, DDVL
+            <ShieldCheck className="size-4" /> {t("Dr. S. Kiruthika, MBBS, DDVL", "டாக்டர் எஸ். கிருத்திகா, MBBS, DDVL")}
           </span>
           <span className="flex items-center gap-2">
-            <HeartHandshake className="size-4" /> Free consultation · 13 years’ experience
+            <HeartHandshake className="size-4" /> {t("Free consultation · 13 years’ experience", "இலவச ஆலோசனை · 13 ஆண்டு அனுபவம்")}
           </span>
           <span className="flex items-center gap-2">
-            <MapPin className="size-4" /> 77A, Sengunthapuram Main Road, Karur
+            <MapPin className="size-4" /> {t("77A, Sengunthapuram Main Road, Karur", "77A, செங்குந்தபுரம் மெயின் ரோடு, கரூர்")}
           </span>
         </div>
       </div>,
@@ -401,7 +408,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
           <div>
             <Eyebrow>Visit us</Eyebrow>
             <h2 className="mt-4 text-4xl">
-              Where is the clinic in Karur, and when can you visit?
+              {t("Where is the clinic in Karur, and when can you visit?", "கரூரில் கிளினிக் எங்கே உள்ளது, எப்போது வரலாம்?")}
             </h2>
             <p className="mt-5 leading-relaxed">
               <strong>Sanjay Rithik Hospital</strong><br />77A, Sengunthapuram Main Road,
@@ -501,7 +508,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
           </Button>
           <Button variant="ink" size="pill" className="flex-1 whitespace-nowrap" asChild>
             <TrackedLink href="#a-hero-form" event="consultation_cta_clicked" source="sticky">
-              Free Consultation
+              {t("Free Consultation", "இலவச ஆலோசனை")}
             </TrackedLink>
           </Button>
         </div>
@@ -900,6 +907,7 @@ function FinalClose() {
 }
 
 function DoctorSection() {
+  const t = useT();
   return (
     <Section id="a-doctor" tone="warm">
       <div className="grid items-center gap-10 lg:grid-cols-2">
@@ -918,7 +926,7 @@ function DoctorSection() {
         </figure>
         <div>
           <Eyebrow muted>Your dermatologist</Eyebrow>
-          <h2 className="mt-4 text-4xl sm:text-5xl">Who will help you understand your skin in Karur?</h2>
+          <h2 className="mt-4 text-4xl sm:text-5xl">{t("Who will help you understand your skin in Karur?", "கரூரில் உங்கள் சருமத்தைப் புரிந்துகொள்ள யார் உதவுவார்?")}</h2>
           <p className="mt-3 text-sm font-medium">MBBS, DDVL · Dermatologist &amp; Cosmetologist · 13 years’ experience</p>
           <p className="mt-5 text-lg leading-relaxed">
             Dr. S. Kiruthika begins with your skin, your priorities, and the result you want to
@@ -1435,12 +1443,13 @@ function BookFreeConsultationButton({ source }: { source: string }) {
 }
 
 function DoctorVideoSection() {
+  const t = useT();
   return (
     <Section id="a-doctor-video" tone="paper" className="clinic-video-section">
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>1-minute video · Tamil</Eyebrow>
         <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">
-          Want to hear the doctor explain it?
+          {t("Want to hear the doctor explain it?", "மருத்துவர் விளக்குவதைக் கேட்க வேண்டுமா?")}
         </h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
           In this short video in Tamil, Dr. S. Kiruthika talks about the skin, hair and nail care
@@ -1497,11 +1506,12 @@ const WHY_CHOOSE = [
 ] as const;
 
 function WhyChooseSection() {
+  const t = useT();
   return (
     <Section id="a-why-choose" tone="paper" className="clinic-list-section">
       <Reveal className="mx-auto max-w-4xl">
         <h2 className="text-center text-4xl leading-[1.08] sm:text-5xl">
-          <span aria-hidden="true">🏥 </span>Why visit Sanjay Rithik Hospital in Karur?
+          <span aria-hidden="true">🏥 </span>{t("Why visit Sanjay Rithik Hospital in Karur?", "கரூர் சஞ்சய் ரித்திக் மருத்துவமனைக்கு ஏன் வர வேண்டும்?")}
         </h2>
         <ul className="clinic-list mt-10">
           {WHY_CHOOSE.map(([title, text]) => (
@@ -1530,11 +1540,12 @@ const BENEFITS = [
 ] as const;
 
 function BenefitsSection() {
+  const t = useT();
   return (
     <Section id="a-benefits" tone="sand" className="clinic-list-section">
       <Reveal className="mx-auto max-w-4xl">
         <h2 className="text-center text-4xl leading-[1.08] sm:text-5xl">
-          What can you get help with here?
+          {t("What can you get help with here?", "இங்கே எதற்கெல்லாம் உதவி பெறலாம்?")}
         </h2>
         <ul className="clinic-list clinic-list-emoji mt-10">
           {BENEFITS.map(([emoji, title, text]) => (
@@ -1561,7 +1572,6 @@ function BenefitsSection() {
 }
 
 const ADVANCED_TREATMENTS = [
-  { icon: Zap, title: "Triple Wave Laser Hair Reduction", text: "Other care at the hospital: laser for reducing unwanted hair. Ask whether it may suit your skin and hair." },
   { icon: Crosshair, title: "Q-Switched Nd:YAG Laser", text: "A laser used for dark patches, acne marks and tattoo removal. Ask whether it may suit your skin." },
   { icon: Waves, title: "MNRF", text: "Tiny needles with gentle heat. Often discussed when skin feels less firm or looks uneven. Ask about sessions and time to recover." },
   { icon: ScanFace, title: "Microneedling", text: "Tiny needles that work on the skin surface. Often discussed for uneven texture and acne scars. Ask whether it may suit you." },
@@ -1573,11 +1583,12 @@ const ADVANCED_TREATMENTS = [
 ] as const;
 
 function AdvancedTreatmentsSection() {
+  const t = useT();
   return (
     <Section id="a-advanced-treatments" tone="sand" className="clinic-cards-section">
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>Treatments at Sanjay Rithik Hospital</Eyebrow>
-        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">What options can you discuss with the doctor?</h2>
+        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">{t("What options can you discuss with the doctor?", "மருத்துவரிடம் என்னென்ன சிகிச்சைகள் பற்றி பேசலாம்?")}</h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
           You do not need to choose any of these. These are treatments available at the
           hospital. Dr. S. Kiruthika can explain what each one is, what may suit your skin, the

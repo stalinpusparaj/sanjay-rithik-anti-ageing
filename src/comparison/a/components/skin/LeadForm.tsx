@@ -1,3 +1,4 @@
+import { useT } from "@/comparison/lang";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { WhatsAppIcon as MessageCircle } from "../../../SiteChrome";
@@ -19,6 +20,7 @@ export function LeadForm({
   source?: string;
   onSuccess?: (() => void) | undefined;
 }) {
+  const t = useT();
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const sending = useRef(false);
@@ -51,11 +53,11 @@ export function LeadForm({
     const digits = phone.replace(/[\s()+-]/g, "");
     const next: Record<string, string> = {};
     if (name.length < 2 || name.length > 100)
-      next["name"] = "Please enter your name (at least 2 characters).";
+      next["name"] = t("Please enter your name (at least 2 characters).", "உங்கள் பெயரை உள்ளிடவும் (குறைந்தது 2 எழுத்துகள்).");
     if (!/^(?:91)?[6-9]\d{9}$/.test(digits))
-      next["phone"] = "Enter a valid 10-digit Indian mobile number, with or without +91.";
+      next["phone"] = t("Enter a valid 10-digit Indian mobile number, with or without +91.", "சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும் (+91 உடன் அல்லது இல்லாமல்).");
     if (data.get("consent") !== "on")
-      next["consent"] = "Please agree to be contacted about this enquiry.";
+      next["consent"] = t("Please agree to be contacted about this enquiry.", "இந்த விசாரணை குறித்து தொடர்புகொள்ள ஒப்புக்கொள்ளவும்.");
     setErrors(next);
     if (Object.keys(next).length) {
       track("booking_form_validation_failed", { source });
@@ -90,7 +92,7 @@ export function LeadForm({
       onSuccess?.();
     } catch {
       setErrors({
-        form: "We couldn’t confirm delivery. Your appointment is not booked. Please retry, call or WhatsApp the clinic.",
+        form: t("We couldn’t confirm delivery. Your appointment is not booked. Please retry, call or WhatsApp the clinic.", "உங்கள் விசாரணை சென்றடைந்ததா என உறுதிசெய்ய முடியவில்லை. மீண்டும் முயற்சிக்கவும் அல்லது கிளினிக்கை அழைக்கவும் / வாட்ஸ்அப் செய்யவும்."),
       });
       track("booking_form_failed", { source });
     } finally {
@@ -106,10 +108,9 @@ export function LeadForm({
         role="status"
       >
         <Check className="size-9 text-foreground" />
-        <h3 className="mt-5 text-3xl">Your enquiry has reached the clinic.</h3>
+        <h3 className="mt-5 text-3xl">{t("Your enquiry has reached the clinic.", "உங்கள் விசாரணை கிளினிக்கை வந்தடைந்தது.")}</h3>
         <p className="mt-4 leading-relaxed text-muted-foreground">
-          The clinic will call you to arrange your free consultation with Dr. S. Kiruthika
-          (open daily 10 am–2:30 pm and 6–9:30 pm). Your appointment is confirmed on that call.
+          {t("The clinic will call you to arrange your free consultation with Dr. S. Kiruthika (open daily 10 am–2:30 pm and 6–9:30 pm). Your appointment is confirmed on that call.", "டாக்டர் எஸ். கிருத்திகாவுடன் உங்கள் இலவச ஆலோசனையை ஏற்பாடு செய்ய கிளினிக் உங்களை அழைக்கும் (தினமும் காலை 10 – மதியம் 2:30, மாலை 6 – இரவு 9:30). அந்த அழைப்பில் உங்கள் சந்திப்பு உறுதி செய்யப்படும்.")}
         </p>
         <a
           className="mt-6 inline-flex items-center gap-2 underline"
@@ -118,7 +119,7 @@ export function LeadForm({
           rel="noreferrer"
           onClick={() => track("whatsapp_clicked", { source: "confirmation" })}
         >
-          <MessageCircle className="size-4" /> Questions while you wait? WhatsApp us
+          <MessageCircle className="size-4" /> {t("Questions while you wait? WhatsApp us", "காத்திருக்கும் போது கேள்விகளா? வாட்ஸ்அப் செய்யுங்கள்")}
         </a>
       </div>
     );
@@ -142,21 +143,21 @@ export function LeadForm({
       }}
       className="rounded-3xl border border-border bg-card p-6 text-foreground shadow-lift sm:p-8"
     >
-      <p className="eyebrow text-muted-foreground">Takes 30 seconds · No payment online</p>
-      <h3 className="mt-3 text-3xl">Book your free consultation</h3>
+      <p className="eyebrow text-muted-foreground">{t("Takes 30 seconds · No payment online", "30 வினாடிகள் போதும் · ஆன்லைனில் பணம் இல்லை")}</p>
+      <h3 className="mt-3 text-3xl">{t("Book your free consultation", "உங்கள் இலவச ஆலோசனையை பதிவு செய்யுங்கள்")}</h3>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        Just your name and mobile number to get started. The clinic will help you choose a date.
+        {t("Just your name and mobile number. The clinic calls you back during clinic hours (10 am–2:30 pm, 6–9:30 pm) to fix a time that suits you.", "உங்கள் பெயரும் மொபைல் எண்ணும் போதும். கிளினிக் நேரத்தில் (காலை 10 – மதியம் 2:30, மாலை 6 – இரவு 9:30) உங்களை அழைத்து வசதியான நேரத்தை உறுதி செய்வோம்.")}
       </p>
       <div className="mt-6 grid gap-4">
         {(
           [
-            ["name", "Your name", "text", "name", "Your full name"],
-            ["phone", "Mobile / WhatsApp number", "tel", "tel", "10-digit mobile number"],
+            ["name", t("Your name", "உங்கள் பெயர்"), "text", "name", t("Your full name", "உங்கள் முழுப் பெயர்")],
+            ["phone", t("Mobile / WhatsApp number", "மொபைல் / வாட்ஸ்அப் எண்"), "tel", "tel", t("10-digit mobile number", "10 இலக்க மொபைல் எண்")],
           ] as const
         ).map(([field, label, type, autoComplete, placeholder]) => (
           <div key={field}>
             <label htmlFor={id + "-" + field} className="text-sm font-medium">
-              {label} <span className="text-muted-foreground">(required)</span>
+              {label} <span className="text-muted-foreground">{t("(required)", "(கட்டாயம்)")}</span>
             </label>
             <Input
               id={id + "-" + field}
@@ -179,16 +180,16 @@ export function LeadForm({
         ))}
         <details className="rounded-xl border border-border px-4 py-3">
           <summary className="cursor-pointer text-sm">
-            Add a skin concern <span className="text-muted-foreground">(optional)</span>
+            {t("Add a skin concern", "சரும பிரச்சனையைச் சேர்க்க")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>
           </summary>
           <label htmlFor={id + "-concern"} className="mt-3 block text-xs text-muted-foreground">
-            What would you like to discuss?
+            {t("What would you like to discuss?", "எதைப் பற்றி பேச விரும்புகிறீர்கள்?")}
           </label>
           <Input
             id={id + "-concern"}
             name="concern"
             maxLength={300}
-            placeholder="e.g. I look tired in photos, lines around my eyes"
+            placeholder={t("e.g. I look tired in photos, lines around my eyes", "எ.கா. புகைப்படங்களில் சோர்வாகத் தெரிகிறேன், கண்களைச் சுற்றி சுருக்கங்கள்")}
             className="mt-2 h-12 rounded-xl"
           />
         </details>
@@ -207,7 +208,7 @@ export function LeadForm({
             className="mt-0.5 size-4 shrink-0 accent-[var(--ink)]"
           />
           <span>
-            I agree to Sanjay Rithik Hospital contacting me about this enquiry by phone or WhatsApp.
+            {t("I agree to Sanjay Rithik Hospital contacting me about this enquiry by phone or WhatsApp.", "இந்த விசாரணை குறித்து சஞ்சய் ரித்திக் மருத்துவமனை என்னை தொலைபேசி அல்லது வாட்ஸ்அப் மூலம் தொடர்புகொள்ள ஒப்புக்கொள்கிறேன்.")}
           </span>
         </label>
         {errors["consent"] && (
@@ -229,23 +230,23 @@ export function LeadForm({
         className="mt-5 h-auto min-h-14 w-full whitespace-normal px-3 py-3 text-sm"
       >
         {submitting
-          ? "Sending your enquiry…"
+          ? t("Sending your enquiry…", "அனுப்புகிறோம்…")
           : source === "age_preview"
-            ? "Send enquiry & continue"
-            : "Book My Free Consultation"}
+            ? t("Send enquiry & continue", "விசாரணையை அனுப்பி தொடரவும்")
+            : t("Book My Free Consultation", "இலவச ஆலோசனையை பதிவு செய்யுங்கள்")}
         <ArrowRight />
       </Button>
       <p className="mt-3 text-center text-xs text-muted-foreground">
-        No payment collected online. No treatment booked.
+        {t("Consultation is free. Any treatment cost is explained before you decide. Nothing to pay online.", "ஆலோசனை இலவசம். எந்த சிகிச்சைக்கும் செலவு முடிவெடுக்கும் முன்பே சொல்லப்படும். ஆன்லைனில் பணம் இல்லை.")}
       </p>
       <a
         href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20skin%20consultation."
         target="_blank"
         rel="noreferrer"
         onClick={() => track("anti_ageing_whatsapp_clicked", { source })}
-        className="mt-5 flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border text-sm font-medium"
+        className="mt-4 flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#25D366] text-sm font-semibold text-white hover:bg-[#1ebe5a]"
       >
-        <MessageCircle className="size-4" /> Ask a Question on WhatsApp
+        <MessageCircle className="size-4" /> {t("Prefer to chat? Ask on WhatsApp", "சாட் செய்ய விருப்பமா? வாட்ஸ்அப்பில் கேளுங்கள்")}
       </a>
     </form>
   );
