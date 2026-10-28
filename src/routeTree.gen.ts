@@ -10,12 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ApiAgeTransformRouteImport } from './routes/api.age-transform'
+import { Route as ApiDashboardRouteImport } from './routes/api.dashboard'
 import { Route as ApiLeadCaptureRouteImport } from './routes/api.lead-capture'
+import { Route as ApiDashboardLeadRouteImport } from './routes/api.dashboard.lead'
+import { Route as ApiDashboardSessionRouteImport } from './routes/api.dashboard.session'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAgeTransformRoute = ApiAgeTransformRouteImport.update({
@@ -23,39 +32,90 @@ const ApiAgeTransformRoute = ApiAgeTransformRouteImport.update({
   path: '/api/age-transform',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDashboardRoute = ApiDashboardRouteImport.update({
+  id: '/api/dashboard',
+  path: '/api/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiLeadCaptureRoute = ApiLeadCaptureRouteImport.update({
   id: '/api/lead-capture',
   path: '/api/lead-capture',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDashboardLeadRoute = ApiDashboardLeadRouteImport.update({
+  id: '/lead',
+  path: '/lead',
+  getParentRoute: () => ApiDashboardRoute,
+} as any)
+const ApiDashboardSessionRoute = ApiDashboardSessionRouteImport.update({
+  id: '/session',
+  path: '/session',
+  getParentRoute: () => ApiDashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/api/age-transform': typeof ApiAgeTransformRoute
+  '/api/dashboard': typeof ApiDashboardRouteWithChildren
   '/api/lead-capture': typeof ApiLeadCaptureRoute
+  '/api/dashboard/lead': typeof ApiDashboardLeadRoute
+  '/api/dashboard/session': typeof ApiDashboardSessionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/api/age-transform': typeof ApiAgeTransformRoute
+  '/api/dashboard': typeof ApiDashboardRouteWithChildren
   '/api/lead-capture': typeof ApiLeadCaptureRoute
+  '/api/dashboard/lead': typeof ApiDashboardLeadRoute
+  '/api/dashboard/session': typeof ApiDashboardSessionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/api/age-transform': typeof ApiAgeTransformRoute
+  '/api/dashboard': typeof ApiDashboardRouteWithChildren
   '/api/lead-capture': typeof ApiLeadCaptureRoute
+  '/api/dashboard/lead': typeof ApiDashboardLeadRoute
+  '/api/dashboard/session': typeof ApiDashboardSessionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/age-transform' | '/api/lead-capture'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/api/age-transform'
+    | '/api/dashboard'
+    | '/api/lead-capture'
+    | '/api/dashboard/lead'
+    | '/api/dashboard/session'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/age-transform' | '/api/lead-capture'
-  id: '__root__' | '/' | '/api/age-transform' | '/api/lead-capture'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/api/age-transform'
+    | '/api/dashboard'
+    | '/api/lead-capture'
+    | '/api/dashboard/lead'
+    | '/api/dashboard/session'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/api/age-transform'
+    | '/api/dashboard'
+    | '/api/lead-capture'
+    | '/api/dashboard/lead'
+    | '/api/dashboard/session'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
   ApiAgeTransformRoute: typeof ApiAgeTransformRoute
+  ApiDashboardRoute: typeof ApiDashboardRouteWithChildren
   ApiLeadCaptureRoute: typeof ApiLeadCaptureRoute
 }
 
@@ -68,11 +128,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/age-transform': {
       id: '/api/age-transform'
       path: '/api/age-transform'
       fullPath: '/api/age-transform'
       preLoaderRoute: typeof ApiAgeTransformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/dashboard': {
+      id: '/api/dashboard'
+      path: '/api/dashboard'
+      fullPath: '/api/dashboard'
+      preLoaderRoute: typeof ApiDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/lead-capture': {
@@ -82,12 +156,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiLeadCaptureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/dashboard/lead': {
+      id: '/api/dashboard/lead'
+      path: '/lead'
+      fullPath: '/api/dashboard/lead'
+      preLoaderRoute: typeof ApiDashboardLeadRouteImport
+      parentRoute: typeof ApiDashboardRoute
+    }
+    '/api/dashboard/session': {
+      id: '/api/dashboard/session'
+      path: '/session'
+      fullPath: '/api/dashboard/session'
+      preLoaderRoute: typeof ApiDashboardSessionRouteImport
+      parentRoute: typeof ApiDashboardRoute
+    }
   }
 }
 
+interface ApiDashboardRouteChildren {
+  ApiDashboardLeadRoute: typeof ApiDashboardLeadRoute
+  ApiDashboardSessionRoute: typeof ApiDashboardSessionRoute
+}
+
+const ApiDashboardRouteChildren: ApiDashboardRouteChildren = {
+  ApiDashboardLeadRoute: ApiDashboardLeadRoute,
+  ApiDashboardSessionRoute: ApiDashboardSessionRoute,
+}
+
+const ApiDashboardRouteWithChildren = ApiDashboardRoute._addFileChildren(
+  ApiDashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
   ApiAgeTransformRoute: ApiAgeTransformRoute,
+  ApiDashboardRoute: ApiDashboardRouteWithChildren,
   ApiLeadCaptureRoute: ApiLeadCaptureRoute,
 }
 export const routeTree = rootRouteImport
