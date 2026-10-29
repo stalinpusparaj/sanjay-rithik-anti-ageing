@@ -79,13 +79,19 @@ const NEXT_ACTION: Record<string, string> = {
  */
 async function syncCrm(leads: LeadRow[], contacts: AgentLabsContact[]) {
   const byId = new Map(contacts.map((c) => [c.id, c]));
-  const changed = leads.filter((l) => byId.get(l.id)?.leadScore !== l.score);
+  const categoryOf = (l: LeadRow) => (l.stage === "booked" || l.stage === "visited" ? "appointment_booked" : l.band.toLowerCase());
+  // The REST list does not return aiCategory, so the last category written is kept in crm_category.
+  const changed = leads.filter((l) => {
+    const c = byId.get(l.id);
+    return c?.leadScore !== l.score || c?.customFields?.["crm_category"] !== categoryOf(l);
+  });
   await mapLimit(changed.slice(0, 40), 4, async (l) => {
-    const category = l.stage === "booked" || l.stage === "visited" ? "appointment_booked" : l.band.toLowerCase();
+    const category = categoryOf(l);
     await updateContact(l.id, {
       leadScore: l.score,
       aiCategory: category,
       aiNextAction: NEXT_ACTION[l.band] ?? "",
+      customFields: { ...(byId.get(l.id)?.customFields ?? {}), crm_category: category },
       ...(byId.get(l.id)?.aiSummary ? {} : { aiSummary: `${l.band} lead (${l.reasons.join(", ")}). Concern: ${l.concern || "not given"}.` }),
     }).catch((e) => console.error("CRM sync failed", l.id, e));
   });
