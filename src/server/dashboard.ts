@@ -92,7 +92,8 @@ async function syncCrm(leads: LeadRow[], contacts: AgentLabsContact[]) {
       aiCategory: category,
       aiNextAction: NEXT_ACTION[l.band] ?? "",
       customFields: { ...(byId.get(l.id)?.customFields ?? {}), crm_category: category },
-      ...(byId.get(l.id)?.aiSummary ? {} : { aiSummary: `${l.band} lead (${l.reasons.join(", ")}). Concern: ${l.concern || "not given"}.` }),
+      // Keep the AI call summary once there is one; replace only our own generated line.
+      ...(byId.get(l.id)?.aiSummary && !/^(Hot|Warm|Cold) lead \(/.test(byId.get(l.id)!.aiSummary!) ? {} : { aiSummary: `${l.band} lead (${l.reasons.join(", ")}). Concern: ${l.concern || "not given"}.` }),
     }).catch((e) => console.error("CRM sync failed", l.id, e));
   });
 }
