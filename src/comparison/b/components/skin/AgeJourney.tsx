@@ -211,7 +211,7 @@ export function AgeJourney({
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, language: document.documentElement.lang || "en" }),
       });
       if (!response.ok) throw new Error("Lead endpoint rejected the request");
       setDetailsSubmitted(true);

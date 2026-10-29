@@ -66,6 +66,43 @@ export const noStore = (body: unknown, status = 200, headers: Record<string, str
 
 // ---------- data ----------
 
+/**
+ * Live temperature: the form score, moved by what happened since. Booking makes a lead Hot,
+ * "not interested" makes it Cold; WhatsApp replies and answered calls warm it up, unanswered
+ * calls and silence cool it down. Hot ≥ 70 · Warm 45–69 · Cold < 45.
+ */
+function applyTemperature(l: LeadRow) {
+  const reasons = [`Form ${l.formScore}`];
+  let score = l.formScore;
+  const add = (n: number, why: string) => {
+    score += n;
+    reasons.push(`${n > 0 ? "+" : ""}${n} ${why}`);
+  };
+  if ((l.whatsapp?.replies ?? 0) > 0) add(15, "replied on WhatsApp");
+  else if (l.whatsapp?.lastStatus === "read") add(5, "read WhatsApp");
+  if (l.call) {
+    const answered = CONNECTED.has(l.call.status) && l.call.duration > 0;
+    if (answered && /positive/i.test(l.call.sentiment)) add(20, "positive AI call");
+    else if (answered && /negative/i.test(l.call.sentiment)) add(-20, "negative AI call");
+    else if (answered) add(10, "answered AI call");
+    else if (l.call.count >= 2) add(-15, `${l.call.count} calls unanswered`);
+    else add(-5, "call not answered");
+  }
+  const ageDays = (Date.now() - Date.parse(l.lastEnquiryAt)) / 86_400_000;
+  if (l.stage === "new" && ageDays > 7 && !(l.whatsapp?.replies ?? 0)) add(-15, "no response for 7+ days");
+  if (l.stage === "booked" || l.stage === "visited") {
+    score = Math.max(score, 90);
+    reasons.push(l.stage === "booked" ? "Booked" : "Visited");
+  }
+  if (l.stage === "not_interested") {
+    score = Math.min(score, 20);
+    reasons.push("Not interested");
+  }
+  l.score = Math.max(0, Math.min(100, score));
+  l.band = l.score >= 70 ? "Hot" : l.score >= 45 ? "Warm" : "Cold";
+  l.reasons = reasons;
+}
+
 export type LeadRow = {
   id: string;
   name: string;
@@ -77,6 +114,9 @@ export type LeadRow = {
   form: string;
   score: number;
   band: string;
+  formScore: number;
+  reasons: string[];
+  language: string;
   submissions: number;
   receivedAt: string;
   lastEnquiryAt: string;
@@ -157,6 +197,9 @@ function toLead(c: AgentLabsContact, calls: AgentLabsCall[]): LeadRow {
     form: str(f["form"]),
     score: Number(f["score"] ?? c.leadScore ?? 0),
     band: str(f["band"]) || "Warm",
+    formScore: Number(f["score"] ?? c.leadScore ?? 0),
+    reasons: [],
+    language: str(f["language"]) || "en",
     submissions: Number(f["submissions"] ?? 1),
     receivedAt: str(f["first_enquiry_at"]) || str(c.createdAt),
     lastEnquiryAt: str(f["last_enquiry_at"]) || str(c.createdAt),
@@ -220,6 +263,7 @@ export async function dashboardData(days: number) {
     if (failed) errors.push(`WhatsApp history unavailable for ${failed} lead(s)`);
   }
 
+  leads.forEach(applyTemperature);
   const inPeriod = leads.filter((l) => Date.parse(l.receivedAt) >= since);
   const called = leads.filter((l) => l.call);
   const kpis = {

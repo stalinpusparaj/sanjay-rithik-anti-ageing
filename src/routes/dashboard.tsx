@@ -156,6 +156,7 @@ function Body({ data, reload }: { data: DashboardData; reload: () => void }) {
     c.whatsapp && !c.whatsappTemplate && "no approved WhatsApp welcome template is set, so leads get no automatic WhatsApp",
   ].filter(Boolean);
   const k = data.kpis;
+  const [band, setBand] = useState("all");
   return (
     <>
       {setup.length > 0 && <Banner tone="info">Setup still pending: {setup.join("; ")}.</Banner>}
@@ -164,9 +165,10 @@ function Body({ data, reload }: { data: DashboardData; reload: () => void }) {
         <Banner tone="error">Lead storage (AgentLabs) is not connected, so there is nothing to show yet.</Banner>
       ) : (
         <>
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <TemperatureBoard leads={data.leads} band={band} setBand={setBand} />
+          <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
             <Tile label="New enquiries" value={k.leads} hint={`${k.repeat} enquired more than once`} />
-            <Tile label="Hot leads" value={k.hot} hint={`${k.warm} warm · ${k.cold} cold`} />
+            <Tile label="WhatsApp replied" value={k.whatsappReplied} hint={`${k.whatsappSent} welcomed · ${k.whatsappRead} read`} />
             <Tile label="AI calls answered" value={k.connected} hint={`${k.called} called · ${pct(k.connected, k.called)} answered · ${k.talkMinutes} min`} />
             <Tile label="Consultations booked" value={k.booked} hint={`${k.visited} visited · ${pct(k.booked, data.leads.length)} of leads`} />
           </div>
@@ -193,10 +195,56 @@ function Body({ data, reload }: { data: DashboardData; reload: () => void }) {
             </Card>
             <Card title="Where leads came from" className="lg:col-span-2"><Sources leads={data.leads} /></Card>
           </div>
-          <LeadTable leads={data.leads} canCall={c.voiceAgent} reload={reload} />
+          <LeadTable leads={data.leads} canCall={c.voiceAgent} reload={reload} band={band} setBand={setBand} />
         </>
       )}
     </>
+  );
+}
+
+const TEMPS = [
+  { band: "Hot", title: "Hot", action: "Call today — ready to book", ring: "ring-[oklch(0.62_0.16_35)]", bar: "bg-[oklch(0.62_0.16_35)]" },
+  { band: "Warm", title: "Warm", action: "Nurture on WhatsApp, follow up in 2–3 days", ring: "ring-[oklch(0.72_0.12_75)]", bar: "bg-[oklch(0.72_0.12_75)]" },
+  { band: "Cold", title: "Cold", action: "Monthly offer / reminder only", ring: "ring-[oklch(0.6_0.06_240)]", bar: "bg-[oklch(0.6_0.06_240)]" },
+] as const;
+
+/** Hot / Warm / Cold board. Clicking a column filters the lead list below. */
+function TemperatureBoard({ leads, band, setBand }: { leads: LeadRow[]; band: string; setBand: (b: string) => void }) {
+  const total = Math.max(1, leads.length);
+  return (
+    <div className="grid gap-3 md:grid-cols-3">
+      {TEMPS.map((t) => {
+        const list = leads.filter((l) => l.band === t.band).sort((a, b) => b.score - a.score);
+        const pending = list.filter((l) => l.stage === "new").length;
+        const active = band === t.band;
+        return (
+          <button
+            key={t.band}
+            type="button"
+            onClick={() => {
+              setBand(active ? "all" : t.band);
+              document.getElementById("lead-table")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            aria-pressed={active}
+            className={`rounded-xl border border-border bg-card p-4 text-left transition hover:shadow-sm ${active ? `ring-2 ${t.ring}` : ""}`}
+          >
+            <div className="flex items-center justify-between">
+              <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${BAND_STYLE[t.band]}`}>{t.title}</span>
+              <span className="text-xs text-muted-foreground">{Math.round((list.length / total) * 100)}% of leads</span>
+            </div>
+            <p className="mt-2 font-display text-4xl tabular-nums">{list.length}</p>
+            <div className="mt-2 h-1.5 rounded-full bg-muted"><div className={`h-1.5 rounded-full ${t.bar}`} style={{ width: `${(list.length / total) * 100}%` }} /></div>
+            <p className="mt-2 text-xs text-muted-foreground">{t.action}{pending ? ` · ${pending} not contacted yet` : ""}</p>
+            <ul className="mt-2 space-y-1 text-sm">
+              {list.slice(0, 3).map((l) => (
+                <li key={l.id} className="flex justify-between gap-2"><span className="truncate">{l.name}{l.language === "ta" ? " · தமிழ்" : ""}</span><span className="tabular-nums text-muted-foreground">{l.score}</span></li>
+              ))}
+              {list.length === 0 && <li className="text-muted-foreground">None right now</li>}
+            </ul>
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -286,19 +334,18 @@ function Sources({ leads }: { leads: LeadRow[] }) {
   );
 }
 
-function LeadTable({ leads, canCall, reload }: { leads: LeadRow[]; canCall: boolean; reload: () => void }) {
+function LeadTable({ leads, canCall, reload, band, setBand }: { leads: LeadRow[]; canCall: boolean; reload: () => void; band: string; setBand: (b: string) => void }) {
   const [query, setQuery] = useState("");
-  const [band, setBand] = useState("all");
   const [stage, setStage] = useState("all");
   const [open, setOpen] = useState<string | null>(null);
-  const shown = leads.filter(
+  const shown = [...leads].sort((a, b) => (band === "all" ? 0 : b.score - a.score)).filter(
     (l) =>
       (band === "all" || l.band === band) &&
       (stage === "all" || l.stage === stage) &&
       (!query || `${l.name} ${l.phone} ${l.concern}`.toLowerCase().includes(query.toLowerCase())),
   );
   return (
-    <section className="mt-3 rounded-xl border border-border bg-card">
+    <section id="lead-table" className="mt-3 scroll-mt-4 rounded-xl border border-border bg-card">
       <div className="flex flex-wrap items-center gap-2 border-b border-border p-4">
         <h2 className="mr-auto text-sm font-semibold">Leads ({shown.length})</h2>
         <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name, phone, concern" className="w-56 rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
@@ -355,7 +402,7 @@ function LeadRowView({ lead: l, open, toggle, canCall, reload }: { lead: LeadRow
           <p className="text-xs text-muted-foreground">{l.phone}</p>
         </td>
         <td className="max-w-[220px] truncate px-2" title={l.concern}>{l.concern || "—"}</td>
-        <td className="px-2"><span className={`rounded-full px-2 py-0.5 text-xs font-medium ${BAND_STYLE[l.band] ?? ""}`}>{l.band} · {l.score}</span></td>
+        <td className="px-2"><span title={l.reasons.join("\n")} className={`rounded-full px-2 py-0.5 text-xs font-medium ${BAND_STYLE[l.band] ?? ""}`}>{l.band} · {l.score}</span></td>
         <td className="px-2">{callText}</td>
         <td className="px-2">{waText}</td>
         <td className="px-2" onClick={(e) => e.stopPropagation()}>
@@ -371,6 +418,8 @@ function LeadRowView({ lead: l, open, toggle, canCall, reload }: { lead: LeadRow
             <div className="grid gap-4 md:grid-cols-3">
               <div className="space-y-1 text-sm">
                 <p className="font-semibold">Enquiry</p>
+                <p>Temperature: <b>{l.band} {l.score}</b> <span className="text-muted-foreground">({l.reasons.join(", ")})</span></p>
+                <p>Language: {l.language === "ta" ? "Tamil" : "English"}</p>
                 <p>Form: {l.form || "—"}</p>
                 <p>Preferred time: {l.preferredTime || "—"}</p>
                 <p>Source: {l.source}</p>

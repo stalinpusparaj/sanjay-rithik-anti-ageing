@@ -110,7 +110,7 @@ export function LeadForm({
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, language: document.documentElement.lang || "en" }),
       });
       const receipt = response.ok ? await response.json().catch(() => null) : null;
       // Only show success once the server confirms the lead was stored.

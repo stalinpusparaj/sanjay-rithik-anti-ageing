@@ -211,6 +211,7 @@ export function SkinAssessment({
         body: JSON.stringify({
           lead_type: "skin_profile_result",
           source: "skin_check",
+          language: document.documentElement.lang || "en",
           name: name.trim(),
           phone: phone.trim(),
           primary_concern: answers["concern"] ?? "",

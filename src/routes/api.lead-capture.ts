@@ -57,6 +57,7 @@ function leadFields(payload: LeadPayload, previous: Record<string, unknown>, ref
     ...previous,
     lead_source: "Anti-ageing 35–55 landing page",
     form: text(payload["source"]) || text(payload.lead_type) || "website",
+    language: text(payload["language"]) === "ta" ? "ta" : text(payload["language"]) ? "en" : previous["language"] ?? "en",
     concern: text(payload.primary_concern) || quiz["concern"] || "",
     preferred_time: text(payload["preferred_time"]),
     result_profile: text(payload["result_profile"]),
@@ -84,7 +85,9 @@ function leadFields(payload: LeadPayload, previous: Record<string, unknown>, ref
 /** After the lead is saved: AI call and WhatsApp welcome. Failures are recorded, not fatal. */
 async function followUp(contact: AgentLabsContact, fields: Record<string, unknown>, phone: string, firstName: string) {
   const updates: Record<string, unknown> = {};
-  const agentId = agentLabsAgentId();
+  // Visitors who used the Tamil page get the Tamil voice agent when one is configured.
+  const tamil = fields["language"] === "ta";
+  const agentId = (tamil && process.env["AGENTLABS_AGENT_ID_TA"]) || agentLabsAgentId();
   const alreadyCalled = Boolean(fields["call_id"]) && Number(fields["submissions"]) > 1;
   if (fields["consent_contact"] && agentId && !alreadyCalled) {
     try {
@@ -93,7 +96,7 @@ async function followUp(contact: AgentLabsContact, fields: Record<string, unknow
         agentId,
         toNumber: phone,
         metadata: { lead: contact.id, name: firstName, concern: String(fields["concern"] ?? ""), source: LEAD_TAG },
-        dynamicVariables: { name: firstName, concern: String(fields["concern"] || "skin concern") },
+        dynamicVariables: { name: firstName, concern: String(fields["concern"] || "skin concern"), language: tamil ? "Tamil" : "English" },
         ...(scheduledAt ? { scheduledAt } : {}),
       });
       Object.assign(updates, { call_id: call.callId, call_requested_at: new Date().toISOString(), call_scheduled_for: scheduledAt ?? "", call_error: "" });

@@ -5,7 +5,7 @@ export async function deliverLead(payload: Record<string, unknown>) {
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ ...payload, language: document.documentElement.lang || "en" }),
     signal: AbortSignal.timeout(15000),
   });
   if (!response.ok) throw new Error("Lead delivery failed");
