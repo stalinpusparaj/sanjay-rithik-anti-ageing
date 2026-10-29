@@ -94,7 +94,7 @@ async function syncCrm(leads: LeadRow[], contacts: AgentLabsContact[]) {
 /**
  * Live temperature: the form score, moved by what happened since. Booking makes a lead Hot,
  * "not interested" makes it Cold; WhatsApp replies and answered calls warm it up, unanswered
- * calls and silence cool it down. Hot ≥ 70 · Warm 45–69 · Cold < 45.
+ * calls and silence cool it down. Hot ≥ 80 · Warm 50–79 · Cold < 50 (AgentLabs CRM thresholds).
  */
 function applyTemperature(l: LeadRow) {
   const reasons = [`Form ${l.formScore}`];
@@ -124,7 +124,7 @@ function applyTemperature(l: LeadRow) {
     reasons.push("Not interested");
   }
   l.score = Math.max(0, Math.min(100, score));
-  l.band = l.score >= 70 ? "Hot" : l.score >= 45 ? "Warm" : "Cold";
+  l.band = l.score >= 80 ? "Hot" : l.score >= 50 ? "Warm" : "Cold";
   l.reasons = reasons;
 }
 

@@ -15,7 +15,7 @@ type LeadTemperature = "HOT" | "WARM" | "COLD";
 
 /**
  * Score an enquiry 0–100 from what the visitor told us, and band it:
- * Hot ≥ 70 · Warm 45–69 · Cold < 45. A plain consultation request starts Warm;
+ * Hot ≥ 80 · Warm 50–79 · Cold < 50 (AgentLabs CRM thresholds). A plain consultation request starts Warm;
  * detail, buying signals and repeat enquiries push it towards Hot.
  */
 export const QUIZ_LABELS: Record<string, string> = {
@@ -45,7 +45,7 @@ export function quizAnswers(payload: LeadPayload): Record<string, string> {
 export function scoreLead(payload: LeadPayload, submissions: number) {
   const concern = text(payload.primary_concern);
   const answers = payload["assessment_responses"];
-  let score = payload.lead_type === "age_transform_interest" ? 25 : 45;
+  let score = payload.lead_type === "age_transform_interest" ? 25 : 50;
   if (concern && !/not sure/i.test(concern)) score += 10;
   const intentText = [concern, JSON.stringify(answers ?? ""), text(payload["result_profile"])].join(" ");
   if (HIGH_VALUE_TREATMENTS.test(intentText)) score += 10;
@@ -72,7 +72,7 @@ export function scoreLead(payload: LeadPayload, submissions: number) {
   if (/keeps coming back|confidence/i.test(quiz["impact"] ?? "")) score += 5;
   if (submissions > 1) score += 20;
   score = Math.min(100, score);
-  const temperature: LeadTemperature = score >= 70 ? "HOT" : score >= 45 ? "WARM" : "COLD";
+  const temperature: LeadTemperature = score >= 80 ? "HOT" : score >= 50 ? "WARM" : "COLD";
   const band = temperature === "HOT" ? "Hot" : temperature === "WARM" ? "Warm" : "Cold";
   return { score, temperature, band };
 }
