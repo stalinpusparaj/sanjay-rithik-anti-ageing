@@ -14,6 +14,8 @@ export type AgentLabsContact = {
   customFields?: Record<string, unknown> | null;
   stage?: string | null;
   leadScore?: number | null;
+  aiCategory?: string | null;
+  aiNextAction?: string | null;
   aiSummary?: string | null;
   sentiment?: string | null;
   createdAt?: string;

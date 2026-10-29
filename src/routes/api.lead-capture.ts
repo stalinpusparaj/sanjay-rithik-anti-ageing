@@ -174,9 +174,11 @@ export const Route = createFileRoute("/api/lead-capture")({
           const existing = await findContactByPhone(phone);
           const fields = leadFields(payload, existing?.customFields ?? {}, request.headers.get("referer"));
           const tags = [...new Set([...(existing?.tags ?? []), LEAD_TAG])];
+          // Score and category make the lead show on AgentLabs' CRM Hot / Warm / Cold board.
+          const crm = { leadScore: Number(fields["score"]), aiCategory: String(fields["band"]).toLowerCase() };
           const contact = existing
-            ? await updateContact(existing.id, { firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields })
-            : await createContact({ phone, firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields });
+            ? await updateContact(existing.id, { firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields, ...crm })
+            : await createContact({ phone, firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields }).then((c) => updateContact(c.id, crm).catch(() => c));
 
           // Respond as soon as the lead is stored; the call and WhatsApp run after.
           void followUp(contact, fields, phone, firstName);

@@ -4,6 +4,7 @@ import {
   listCalls,
   listContacts,
   phoneKey,
+  updateContact,
   type AgentLabsCall,
   type AgentLabsContact,
 } from "./agentlabs";
@@ -65,6 +66,30 @@ export const noStore = (body: unknown, status = 200, headers: Record<string, str
   Response.json(body, { status, headers: { "Cache-Control": "no-store", ...headers } });
 
 // ---------- data ----------
+
+const NEXT_ACTION: Record<string, string> = {
+  Hot: "Call today and book the consultation",
+  Warm: "Follow up on WhatsApp in 2–3 days",
+  Cold: "Send the monthly offer / reminder",
+};
+
+/**
+ * Mirrors the live temperature into AgentLabs' CRM (Lead Intelligence board), which only
+ * shows leads that have a score and an AI category. Writes only leads whose score changed.
+ */
+async function syncCrm(leads: LeadRow[], contacts: AgentLabsContact[]) {
+  const byId = new Map(contacts.map((c) => [c.id, c]));
+  const changed = leads.filter((l) => byId.get(l.id)?.leadScore !== l.score);
+  await mapLimit(changed.slice(0, 40), 4, async (l) => {
+    const category = l.stage === "booked" || l.stage === "visited" ? "appointment_booked" : l.band.toLowerCase();
+    await updateContact(l.id, {
+      leadScore: l.score,
+      aiCategory: category,
+      aiNextAction: NEXT_ACTION[l.band] ?? "",
+      ...(byId.get(l.id)?.aiSummary ? {} : { aiSummary: `${l.band} lead (${l.reasons.join(", ")}). Concern: ${l.concern || "not given"}.` }),
+    }).catch((e) => console.error("CRM sync failed", l.id, e));
+  });
+}
 
 /**
  * Live temperature: the form score, moved by what happened since. Booking makes a lead Hot,
@@ -264,6 +289,7 @@ export async function dashboardData(days: number) {
   }
 
   leads.forEach(applyTemperature);
+  await syncCrm(leads, contacts);
   const inPeriod = leads.filter((l) => Date.parse(l.receivedAt) >= since);
   const called = leads.filter((l) => l.call);
   const kpis = {
