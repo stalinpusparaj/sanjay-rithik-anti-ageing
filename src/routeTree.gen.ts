@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ApiAgeTransformRouteImport } from './routes/api.age-transform'
 import { Route as ApiDashboardRouteImport } from './routes/api.dashboard'
 import { Route as ApiLeadCaptureRouteImport } from './routes/api.lead-capture'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAgeTransformRoute = ApiAgeTransformRouteImport.update({
@@ -56,6 +62,7 @@ const ApiDashboardSessionRoute = ApiDashboardSessionRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/privacy': typeof PrivacyRoute
   '/api/age-transform': typeof ApiAgeTransformRoute
   '/api/dashboard': typeof ApiDashboardRouteWithChildren
   '/api/lead-capture': typeof ApiLeadCaptureRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/privacy': typeof PrivacyRoute
   '/api/age-transform': typeof ApiAgeTransformRoute
   '/api/dashboard': typeof ApiDashboardRouteWithChildren
   '/api/lead-capture': typeof ApiLeadCaptureRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/privacy': typeof PrivacyRoute
   '/api/age-transform': typeof ApiAgeTransformRoute
   '/api/dashboard': typeof ApiDashboardRouteWithChildren
   '/api/lead-capture': typeof ApiLeadCaptureRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/privacy'
     | '/api/age-transform'
     | '/api/dashboard'
     | '/api/lead-capture'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/dashboard'
+    | '/privacy'
     | '/api/age-transform'
     | '/api/dashboard'
     | '/api/lead-capture'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/privacy'
     | '/api/age-transform'
     | '/api/dashboard'
     | '/api/lead-capture'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  PrivacyRoute: typeof PrivacyRoute
   ApiAgeTransformRoute: typeof ApiAgeTransformRoute
   ApiDashboardRoute: typeof ApiDashboardRouteWithChildren
   ApiLeadCaptureRoute: typeof ApiLeadCaptureRoute
@@ -133,6 +146,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/age-transform': {
@@ -190,6 +210,7 @@ const ApiDashboardRouteWithChildren = ApiDashboardRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  PrivacyRoute: PrivacyRoute,
   ApiAgeTransformRoute: ApiAgeTransformRoute,
   ApiDashboardRoute: ApiDashboardRouteWithChildren,
   ApiLeadCaptureRoute: ApiLeadCaptureRoute,
