@@ -15,8 +15,8 @@ type LeadTemperature = "HOT" | "WARM" | "COLD";
 
 /**
  * Score an enquiry 0–100 from what the visitor told us, and band it:
- * Hot ≥ 80 · Warm 50–79 · Cold < 50 (AgentLabs CRM thresholds). A plain consultation request starts Warm;
- * detail, buying signals and repeat enquiries push it towards Hot.
+ * Hot ≥ 80 · Warm 50–79 · Cold < 50 (AgentLabs CRM thresholds). A consultation request starts Warm once it says
+ * what they want or when (name and number alone start Cold); detail, buying signals and repeat enquiries push it towards Hot.
  */
 export const QUIZ_LABELS: Record<string, string> = {
   concern: "Main concern",
@@ -45,8 +45,13 @@ export function quizAnswers(payload: LeadPayload): Record<string, string> {
 export function scoreLead(payload: LeadPayload, submissions: number) {
   const concern = text(payload.primary_concern);
   const answers = payload["assessment_responses"];
-  let score = payload.lead_type === "age_transform_interest" ? 25 : 50;
-  if (concern && !/not sure/i.test(concern)) score += 10;
+  const hasConcern = Boolean(concern) && !/not sure/i.test(concern);
+  const hasDetail =
+    hasConcern ||
+    Boolean(text(payload["preferred_date"]) || text(payload["preferred_time"]) || text(payload["result_profile"])) ||
+    Object.keys(quizAnswers(payload)).length > 0;
+  let score = payload.lead_type === "age_transform_interest" ? 25 : hasDetail ? 50 : 40;
+  if (hasConcern) score += 10;
   const intentText = [concern, JSON.stringify(answers ?? ""), text(payload["result_profile"])].join(" ");
   if (HIGH_VALUE_TREATMENTS.test(intentText)) score += 10;
   if (text(payload["preferred_time"])) score += 10;

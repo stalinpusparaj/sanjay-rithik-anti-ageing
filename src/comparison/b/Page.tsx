@@ -656,7 +656,7 @@ function Assessment({
       <Reveal className="max-w-3xl">
         <Eyebrow>30-second skin check</Eyebrow>
         <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-          {t("What will your 60-second skin check reveal?", "60 விநாடி சரும பரிசோதனை என்ன சொல்லும்?")}
+          {t("What will your 30-second skin check reveal?", "30 விநாடி சரும பரிசோதனை என்ன சொல்லும்?")}
         </h2>
         <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
           Answer three quick questions and see what you could ask Dr. Kiruthika. You will see
