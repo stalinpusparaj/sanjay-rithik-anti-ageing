@@ -72,7 +72,7 @@ async function requestSlot(fields: Record<string, unknown>, name: string, phone:
     serviceName: "Free skin consultation",
     notes: `Requested on the website, not confirmed. Call to fix the exact time: ${fields["preferred_time"] || "any time"}. Concern: ${fields["concern"] || "not given"}.`,
   });
-  return { appointment_id: appointment.id, appointment_slot: slot };
+  return { appointment_id: appointment.id, appointment_slot: slot, appointment_error: "" };
 }
 
 function leadFields(payload: LeadPayload, previous: Record<string, unknown>, referer: string | null) {
