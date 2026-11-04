@@ -159,7 +159,7 @@ export function VersionB({ render, sharedAgeSelection }: { render: (sections: Re
       postalCode: "639002",
       addressCountry: "IN",
     },
-    telephone: "+91 89030 09723",
+    telephone: "+91 93634 71464",
     medicalSpecialty: "Dermatology",
   };
 
@@ -1370,7 +1370,7 @@ function Proof() {
               77A, Sengunthapuram Main Road, Karur 639002.
             </p>
             <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-              +91 89030 09723
+              +91 93634 71464
               <br />
               info@sanjayrithikhospital.com
             </p>

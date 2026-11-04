@@ -173,7 +173,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
     name: "Sanjay Rithik Hospital",
-    telephone: "+918903009723",
+    telephone: "+919363471464",
     address: {
       "@type": "PostalAddress",
       streetAddress: "77A, Sengunthapuram Main Road",
@@ -460,10 +460,10 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             <p>Sanjay Rithik Hospital · Dermatology · Karur</p>
             <div className="flex flex-wrap gap-5">
               <a
-                href="tel:+918903009723"
+                href="tel:+919363471464"
                 onClick={() => track("phone_clicked", { source: "footer" })}
               >
-                +91 89030 09723
+                +91 93634 71464
               </a>
               <a
                 href="mailto:info@sanjayrithikhospital.com"
@@ -825,7 +825,7 @@ function Proof() {
                 77A, Sengunthapuram Main Road, Karur 639002.
               </p>
               <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-                +91 89030 09723
+                +91 93634 71464
                 <br />
                 info@sanjayrithikhospital.com
               </p>
