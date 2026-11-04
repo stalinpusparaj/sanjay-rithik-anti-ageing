@@ -77,3 +77,28 @@ export function scoreLead(payload: LeadPayload, submissions: number) {
   return { score, temperature, band };
 }
 
+export const NEXT_ACTION: Record<string, string> = {
+  Hot: "Call today and book the consultation",
+  Warm: "Follow up on WhatsApp in 2–3 days",
+  Cold: "Send the monthly offer / reminder",
+};
+
+/** The form answers as one line, because the CRM card shows the summary but not custom fields. */
+export function leadDetails(fields: Record<string, unknown>) {
+  const value = (key: string) => text(fields[key]);
+  const timing = /(?:^| · )timing: ([^·]+)/.exec(value("quiz"))?.[1]?.trim();
+  return [
+    `Concern: ${value("concern") || "not given"}.`,
+    value("preferred_time") && `Time: ${value("preferred_time")}.`,
+    timing && `Wants to start: ${timing}.`,
+    `Language: ${value("language") === "ta" ? "Tamil" : "English"}.`,
+    value("utm_source") && `Source: ${value("utm_source")}.`,
+    value("quiz") && `Skin check: ${value("quiz")}.`,
+    `Consent: call ${fields["consent_contact"] ? "yes" : "no"}, WhatsApp ${fields["consent_whatsapp"] ? "yes" : "no"}.`,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+/** Summaries we generated, which may be refreshed; an AI call summary is never replaced. */
+export const GENERATED_SUMMARY = /^(Hot|Warm|Cold) lead \(/;

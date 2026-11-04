@@ -8,6 +8,7 @@ import {
   type AgentLabsCall,
   type AgentLabsContact,
 } from "./agentlabs";
+import { GENERATED_SUMMARY, leadDetails, NEXT_ACTION } from "./scoring";
 import { conversation, whatsWayConfigured, whatsWayTemplate, type WhatsWayMessage } from "./whatsway";
 
 export const LEAD_TAG = "anti-ageing-lp";
@@ -67,12 +68,6 @@ export const noStore = (body: unknown, status = 200, headers: Record<string, str
 
 // ---------- data ----------
 
-const NEXT_ACTION: Record<string, string> = {
-  Hot: "Call today and book the consultation",
-  Warm: "Follow up on WhatsApp in 2–3 days",
-  Cold: "Send the monthly offer / reminder",
-};
-
 /**
  * Mirrors the live temperature into AgentLabs' CRM (Lead Intelligence board), which only
  * shows leads that have a score and an AI category. Writes only leads whose score changed.
@@ -93,7 +88,7 @@ async function syncCrm(leads: LeadRow[], contacts: AgentLabsContact[]) {
       aiNextAction: NEXT_ACTION[l.band] ?? "",
       customFields: { ...(byId.get(l.id)?.customFields ?? {}), crm_category: category },
       // Keep the AI call summary once there is one; replace only our own generated line.
-      ...(byId.get(l.id)?.aiSummary && !/^(Hot|Warm|Cold) lead \(/.test(byId.get(l.id)!.aiSummary!) ? {} : { aiSummary: `${l.band} lead (${l.reasons.join(", ")}). Concern: ${l.concern || "not given"}.` }),
+      ...(byId.get(l.id)?.aiSummary && !GENERATED_SUMMARY.test(byId.get(l.id)!.aiSummary!) ? {} : { aiSummary: `${l.band} lead (${l.reasons.join(", ")}). ${leadDetails(byId.get(l.id)?.customFields ?? {})}` }),
     }).catch((e) => console.error("CRM sync failed", l.id, e));
   });
 }

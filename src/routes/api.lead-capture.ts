@@ -9,7 +9,7 @@ import {
   type AgentLabsContact,
 } from "@/server/agentlabs";
 import { LEAD_TAG } from "@/server/dashboard";
-import { quizAnswers, scoreLead, text, type LeadPayload } from "@/server/scoring";
+import { GENERATED_SUMMARY, leadDetails, NEXT_ACTION, quizAnswers, scoreLead, text, type LeadPayload } from "@/server/scoring";
 import { sendWelcomeTemplate, upsertWhatsAppContact, whatsWayConfigured, whatsWayTemplate } from "@/server/whatsway";
 
 
@@ -175,7 +175,14 @@ export const Route = createFileRoute("/api/lead-capture")({
           const fields = leadFields(payload, existing?.customFields ?? {}, request.headers.get("referer"));
           const tags = [...new Set([...(existing?.tags ?? []), LEAD_TAG])];
           // Score and category make the lead show on AgentLabs' CRM Hot / Warm / Cold board.
-          const crm = { leadScore: Number(fields["score"]), aiCategory: String(fields["band"]).toLowerCase() };
+          const band = String(fields["band"]);
+          const crm = {
+            leadScore: Number(fields["score"]),
+            aiCategory: band.toLowerCase(),
+            aiNextAction: NEXT_ACTION[band] ?? "",
+            // Keep the AI call summary once there is one.
+            ...(existing?.aiSummary && !GENERATED_SUMMARY.test(existing.aiSummary) ? {} : { aiSummary: `${band} lead (Form ${fields["score"]}). ${leadDetails(fields)}` }),
+          };
           const contact = existing
             ? await updateContact(existing.id, { firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields, ...crm })
             : await createContact({ phone, firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields }).then((c) => updateContact(c.id, crm).catch(() => c));
