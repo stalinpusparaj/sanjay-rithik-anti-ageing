@@ -90,8 +90,9 @@ export const NEXT_ACTION: Record<string, string> = {
 
 /** The form answers as one line, because the CRM card shows the summary but not custom fields. */
 export function leadDetails(fields: Record<string, unknown>) {
-  const value = (key: string) => text(fields[key]);
-  const timing = /(?:^| · )timing: ([^·]+)/.exec(value("quiz"))?.[1]?.trim();
+  // Skin-check answers end in a full stop, and each part below adds its own.
+  const value = (key: string) => text(fields[key]).replace(/\.+$/, "");
+  const timing = /(?:^| · )timing: ([^·]+)/.exec(value("quiz"))?.[1]?.trim().replace(/\.+$/, "");
   return [
     `Concern: ${value("concern") || "not given"}.`,
     value("preferred_date") && `Requested date: ${value("preferred_date")}.`,

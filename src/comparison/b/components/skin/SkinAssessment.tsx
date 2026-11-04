@@ -365,7 +365,7 @@ export function SkinAssessment({
     <div className="skin-game">
       {dots}
       <p className="skin-game-step">
-        Step {step + 1} of {STEPS.length}{id === "worry" && " · optional"}
+        {`Step ${step + 1} of ${STEPS.length}${id === "worry" ? " · optional" : ""}`}
       </p>
       {id === "concern" && (
         <>
