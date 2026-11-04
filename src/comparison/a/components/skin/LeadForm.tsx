@@ -133,7 +133,7 @@ export function LeadForm({
         </p>
         <a
           className="mt-6 inline-flex items-center gap-2 underline"
-          href="https://wa.me/918903009723"
+          href="https://wa.me/919363471464"
           target="_blank"
           rel="noreferrer"
           onClick={() => track("whatsapp_clicked", { source: "confirmation" })}
@@ -274,7 +274,7 @@ export function LeadForm({
         {t("Consultation is free. Any treatment cost is explained before you decide. Nothing to pay online.", "ஆலோசனை இலவசம். எந்த சிகிச்சைக்கும் செலவு முடிவெடுக்கும் முன்பே சொல்லப்படும். ஆன்லைனில் பணம் இல்லை.")}
       </p>
       <a
-        href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20skin%20consultation."
+        href="https://wa.me/919363471464?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20skin%20consultation."
         target="_blank"
         rel="noreferrer"
         onClick={() => track("anti_ageing_whatsapp_clicked", { source })}

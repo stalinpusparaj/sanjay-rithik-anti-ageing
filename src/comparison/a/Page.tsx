@@ -173,7 +173,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
     name: "Sanjay Rithik Hospital",
-    telephone: "+918903009723",
+    telephone: "+919363471464",
     address: {
       "@type": "PostalAddress",
       streetAddress: "77A, Sengunthapuram Main Road",
@@ -257,7 +257,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
                 </TrackedLink>
               </Button>
               <Button variant="outline" size="xl" className="premium-secondary-cta" asChild>
-                <TrackedLink href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20free%20skin%20consultation." event="anti_ageing_whatsapp_clicked" source="hero">
+                <TrackedLink href="https://wa.me/919363471464?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20free%20skin%20consultation." event="anti_ageing_whatsapp_clicked" source="hero">
                   <WhatsAppIcon size={18} /> {t("Ask on WhatsApp", "வாட்ஸ்அப்பில் கேளுங்கள்")}
                 </TrackedLink>
               </Button>
@@ -322,7 +322,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
               ))}
             </ul>
             <div className="offer-contact mt-7">
-              <TrackedLink href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin." event="anti_ageing_whatsapp_clicked" source="a-offer">
+              <TrackedLink href="https://wa.me/919363471464?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin." event="anti_ageing_whatsapp_clicked" source="a-offer">
                 <WhatsAppIcon size={16} /> {t("Ask a question on WhatsApp", "வாட்ஸ்அப்பில் கேள்வி கேளுங்கள்")}
               </TrackedLink>
               <span>
@@ -460,7 +460,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             <p>Sanjay Rithik Hospital · Dermatology · Karur</p>
             <div className="flex flex-wrap gap-5">
               <a
-                href="tel:+918903009723"
+                href="tel:+919363471464"
                 onClick={() => track("phone_clicked", { source: "footer" })}
               >
                 +91 89030 09723
@@ -502,7 +502,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
         {showSticky && (
         <div className="fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-border bg-card/95 px-4 pb-[max(.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur md:hidden">
           <Button variant="outline" size="pill" className="w-12 flex-none px-0" asChild>
-            <TrackedLink href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin." event="whatsapp_clicked" source="sticky">
+            <TrackedLink href="https://wa.me/919363471464?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin." event="whatsapp_clicked" source="sticky">
               <WhatsAppIcon /> <span className="sr-only">WhatsApp the clinic</span>
             </TrackedLink>
           </Button>
@@ -514,7 +514,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
         </div>
         )}
         <a
-          href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin."
+          href="https://wa.me/919363471464?text=Hello%2C%20I%20would%20like%20to%20ask%20which%20anti-ageing%20options%20may%20suit%20my%20skin."
           target="_blank"
           rel="noreferrer"
           onClick={() => track("whatsapp_clicked", { source: "floating" })}
@@ -1633,7 +1633,7 @@ const LASER_AREAS = [
 ];
 
 const LASER_WHATSAPP =
-  "https://wa.me/918903009723?text=Hello%2C%20I%27d%20like%20to%20ask%20about%20laser%20hair%20removal%20for%20my%20";
+  "https://wa.me/919363471464?text=Hello%2C%20I%27d%20like%20to%20ask%20about%20laser%20hair%20removal%20for%20my%20";
 
 function LaserAreasSection() {
   return (

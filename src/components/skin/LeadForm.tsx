@@ -90,7 +90,7 @@ export function LeadForm({
           The team will contact you to discuss the consultation fee and arrange a suitable
           appointment. Your appointment is confirmed separately.
         </p>
-        <a className="mt-6 inline-flex items-center gap-2 underline" href="tel:+918903009723">
+        <a className="mt-6 inline-flex items-center gap-2 underline" href="tel:+919363471464">
           <Phone className="size-4" /> Call +91 89030 09723
         </a>
       </div>
@@ -207,7 +207,7 @@ export function LeadForm({
         No payment collected online. No treatment booked.
       </p>
       <a
-        href="https://wa.me/918903009723?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20skin%20consultation."
+        href="https://wa.me/919363471464?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20a%20skin%20consultation."
         target="_blank"
         rel="noreferrer"
         onClick={() => track("whatsapp_clicked", { source })}
@@ -216,7 +216,7 @@ export function LeadForm({
         <MessageCircle className="size-4" /> Prefer WhatsApp? Chat with us
       </a>
       <a
-        href="tel:+918903009723"
+        href="tel:+919363471464"
         onClick={() => track("phone_clicked", { source })}
         className="mt-3 block text-center text-xs underline"
       >

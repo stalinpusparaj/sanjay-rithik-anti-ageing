@@ -141,7 +141,7 @@ function concernFor(value?: string) {
 }
 
 const WHATSAPP =
-  "https://wa.me/918903009723?text=" +
+  "https://wa.me/919363471464?text=" +
   encodeURIComponent("Hello, I completed the anti-ageing skin check and would like to ask what may suit my skin.");
 
 export function SkinAssessment({
