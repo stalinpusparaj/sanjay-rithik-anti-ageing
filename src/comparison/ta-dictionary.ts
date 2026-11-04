@@ -70,7 +70,7 @@ export const TA: Record<string, string> = {
     "வறண்ட அல்லது பொலிவிழந்த சருமத்துக்கு உதவக்கூடிய ஊசிகள். எத்தனை முறை வர வேண்டும், குணமாகும் நேரம் பற்றி கேளுங்கள்.",
   "A cleansing facial treatment with no needles. Often chosen for dull or tired-looking skin, including before functions.":
     "ஊசி இல்லாத சுத்தப்படுத்தும் ஃபேஷியல் சிகிச்சை. பொலிவிழந்த, சோர்வான சருமத்துக்கு—விழாக்களுக்கு முன்பும்—பலர் தேர்வு செய்வது.",
-  "Medical Dermatology": "சரும நோய் சிகிச்சை",
+  "Other Skin Concerns Too": "மற்ற சரும பிரச்சினைகளுக்கும்",
   "Other care at the hospital: acne, psoriasis, vitiligo, nail problems, sweating and body odour.":
     "மருத்துவமனையில் உள்ள பிற சிகிச்சைகள்: முகப்பரு, சொரியாசிஸ், வெண்புள்ளி, நகப் பிரச்சனைகள், அதிக வியர்வை, உடல் துர்நாற்றம்.",
 

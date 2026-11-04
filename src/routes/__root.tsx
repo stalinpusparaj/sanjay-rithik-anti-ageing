@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Want to look fresh and still look like yourself? Free consultation with Dr. S. Kiruthika at Sanjay Rithik Hospital, Karur, about lines, dull skin or skin that feels less firm.",
+          "What if your skin could look as young as you feel? Free consultation with Dr. S. Kiruthika at Sanjay Rithik Hospital, Karur, about lines, dull skin or skin that feels less firm.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

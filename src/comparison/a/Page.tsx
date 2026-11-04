@@ -242,9 +242,9 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
           <div className="hero-copy premium-hero-copy">
             <p className="premium-kicker">{t("Skin doctor · Sengunthapuram, Karur", "சரும மருத்துவர் · செங்குந்தபுரம், கரூர்")}</p>
             <h1 className="hero-split-title">
-              {t(<>Want to look <em>fresh</em> in Karur</>, <>முகம் <em>புத்துணர்ச்சியாக</em> தெரிய வேண்டுமா,</>)}
+              {t(<>What if your skin could look</>, <>உங்கள் மனம் போலவே,</>)}
               <span className="hero-title-sub">
-                {t(<>and still look like <em>yourself?</em></>, <>அதுவும் <em>இயல்பாகவே?</em></>)}
+                {t(<>as <em>young</em> as you <em>feel?</em></>, <>முகமும் <em>இளமையாக</em> <em>தெரிந்தால்?</em></>)}
               </span>
             </h1>
             <p className="premium-hero-text">
@@ -295,7 +295,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
           <Reveal>
             <p className="section-pill">{t("Free consultation", "இலவச ஆலோசனை")}</p>
             <h2 className="mt-5 text-4xl leading-[1.08] sm:text-5xl">
-              {t("Want advice in Karur before deciding on treatment?", "சிகிச்சையை முடிவு செய்வதற்கு முன் ஆலோசனை வேண்டுமா?")}
+              {t("What is your skin telling you? Ask the doctor for free", "உங்கள் சருமம் என்ன சொல்கிறது? மருத்துவரிடம் இலவசமாக கேளுங்கள்")}
             </h2>
             <p className="mt-5 leading-relaxed text-muted-foreground">
               {t("You do not need to know which treatment to choose. Start by telling the doctor what you have noticed.", "எந்த சிகிச்சையைத் தேர்வு செய்வது என்று உங்களுக்குத் தெரிய வேண்டியதில்லை. நீங்கள் கவனித்ததை மருத்துவரிடம் சொல்லித் தொடங்குங்கள்.")}
@@ -408,7 +408,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
           <div>
             <Eyebrow>Visit us</Eyebrow>
             <h2 className="mt-4 text-4xl">
-              {t("Where is the clinic in Karur, and when can you visit?", "கரூரில் கிளினிக் எங்கே உள்ளது, எப்போது வரலாம்?")}
+              {t("Closer than you think, and open daily in Karur", "நீங்கள் நினைப்பதை விட அருகில், கரூரில் தினமும் திறந்திருக்கிறோம்")}
             </h2>
             <p className="mt-5 leading-relaxed">
               <strong>Sanjay Rithik Hospital</strong><br />77A, Sengunthapuram Main Road,
@@ -926,7 +926,7 @@ function DoctorSection() {
         </figure>
         <div>
           <Eyebrow muted>Your dermatologist</Eyebrow>
-          <h2 className="mt-4 text-4xl sm:text-5xl">{t("Who will help you understand your skin in Karur?", "கரூரில் உங்கள் சருமத்தைப் புரிந்துகொள்ள யார் உதவுவார்?")}</h2>
+          <h2 className="mt-4 text-4xl sm:text-5xl">{t("Meet the Karur doctor who listens to your skin first", "முதலில் உங்கள் சருமத்தைப் புரிந்துகொள்ளும் கரூர் மருத்துவரைச் சந்தியுங்கள்")}</h2>
           <p className="mt-3 text-sm font-medium">MBBS, DDVL · Dermatologist &amp; Cosmetologist · 13 years’ experience</p>
           <p className="mt-5 text-lg leading-relaxed">
             Dr. S. Kiruthika begins with your skin, your priorities, and the result you want to
@@ -1449,7 +1449,7 @@ function DoctorVideoSection() {
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>1-minute video · Tamil</Eyebrow>
         <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">
-          {t("Want to hear the doctor explain it?", "மருத்துவர் விளக்குவதைக் கேட்க வேண்டுமா?")}
+          {t("Hear what the doctor wishes everyone knew about skin", "சருமம் பற்றி எல்லோரும் தெரிந்துகொள்ள மருத்துவர் விரும்புவது இதுதான்")}
         </h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
           In this short video in Tamil, Dr. S. Kiruthika talks about the skin, hair and nail care
@@ -1511,7 +1511,7 @@ function WhyChooseSection() {
     <Section id="a-why-choose" tone="paper" className="clinic-list-section">
       <Reveal className="mx-auto max-w-4xl">
         <h2 className="text-center text-4xl leading-[1.08] sm:text-5xl">
-          <span aria-hidden="true">🏥 </span>{t("Why visit Sanjay Rithik Hospital in Karur?", "கரூர் சஞ்சய் ரித்திக் மருத்துவமனைக்கு ஏன் வர வேண்டும்?")}
+          <span aria-hidden="true">🏥 </span>{t("Why do Karur families trust Sanjay Rithik Hospital?", "கரூர் குடும்பங்கள் சஞ்சய் ரித்திக் மருத்துவமனையை ஏன் நம்புகிறார்கள்?")}
         </h2>
         <ul className="clinic-list mt-10">
           {WHY_CHOOSE.map(([title, text]) => (
@@ -1545,7 +1545,7 @@ function BenefitsSection() {
     <Section id="a-benefits" tone="sand" className="clinic-list-section">
       <Reveal className="mx-auto max-w-4xl">
         <h2 className="text-center text-4xl leading-[1.08] sm:text-5xl">
-          {t("What can you get help with here?", "இங்கே எதற்கெல்லாம் உதவி பெறலாம்?")}
+          {t("That skin concern you keep wondering about? Start here", "மனதில் இருக்கும் அந்த சரும கவலை? இங்கே தொடங்குங்கள்")}
         </h2>
         <ul className="clinic-list clinic-list-emoji mt-10">
           {BENEFITS.map(([emoji, title, text]) => (
@@ -1579,7 +1579,7 @@ const ADVANCED_TREATMENTS = [
   { icon: Sparkles, title: "Botox", text: "Small injections often discussed for lines on the forehead and around the eyes. Ask what it can and cannot do for you." },
   { icon: Syringe, title: "Skin Boosters", text: "Injections that may help dry or dull-looking skin. Ask about the number of visits and time to recover." },
   { icon: Droplets, title: "HydraFacial", text: "A cleansing facial treatment with no needles. Often chosen for dull or tired-looking skin, including before functions." },
-  { icon: Stethoscope, title: "Medical Dermatology", text: "Other care at the hospital: acne, psoriasis, vitiligo, nail problems, sweating and body odour." },
+  { icon: Stethoscope, title: "Other Skin Concerns Too", text: "Other care at the hospital: acne, psoriasis, vitiligo, nail problems, sweating and body odour." },
 ] as const;
 
 function AdvancedTreatmentsSection() {
@@ -1588,7 +1588,7 @@ function AdvancedTreatmentsSection() {
     <Section id="a-advanced-treatments" tone="sand" className="clinic-cards-section">
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>Treatments at Sanjay Rithik Hospital</Eyebrow>
-        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">{t("What options can you discuss with the doctor?", "மருத்துவரிடம் என்னென்ன சிகிச்சைகள் பற்றி பேசலாம்?")}</h2>
+        <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">{t("More options for your skin than you might think", "நீங்கள் நினைப்பதை விட உங்கள் சருமத்திற்கு அதிக வழிகள் உள்ளன")}</h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
           You do not need to choose any of these. These are treatments available at the
           hospital. Dr. S. Kiruthika can explain what each one is, what may suit your skin, the

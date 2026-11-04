@@ -656,7 +656,7 @@ function Assessment({
       <Reveal className="max-w-3xl">
         <Eyebrow>30-second skin check</Eyebrow>
         <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-          {t("Try a quick skin check", "ஒரு சிறிய சரும பரிசோதனை செய்து பாருங்கள்")}
+          {t("What will your 60-second skin check reveal?", "60 விநாடி சரும பரிசோதனை என்ன சொல்லும்?")}
         </h2>
         <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
           Answer three quick questions and see what you could ask Dr. Kiruthika. You will see
@@ -1286,7 +1286,7 @@ function CinematicInterlude() {
         </Reveal>
         <Reveal delay={100}>
           <Eyebrow muted>A clear, low-pressure next step</Eyebrow>
-          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">{t("What happens at your first visit?", "முதல் வருகையில் என்ன நடக்கும்?")}</h2>
+          <h2 className="mt-5 text-5xl leading-[1.02] sm:text-6xl">{t("Your first visit is simpler than you think", "உங்கள் முதல் வருகை நீங்கள் நினைப்பதை விட எளிமையானது")}</h2>
           <div className="mt-10 space-y-0">
             {steps.map((step, index) => (
               <div
@@ -1470,7 +1470,7 @@ function Objections() {
         <Reveal>
           <Eyebrow>Questions are normal</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-5xl">
-            {t("What would you like to know before booking?", "பதிவு செய்வதற்கு முன் என்ன தெரிந்துகொள்ள விரும்புகிறீர்கள்?")}
+            {t("The questions most people ask before booking", "பதிவு செய்வதற்கு முன் பெரும்பாலானோர் கேட்கும் கேள்விகள்")}
           </h2>
           <p className="mt-6 leading-relaxed text-muted-foreground">
             You don't need to decide on a treatment today.
@@ -1544,7 +1544,7 @@ function Consultation({
         <Reveal>
           <Eyebrow muted>Free consultation</Eyebrow>
           <h2 className="mt-5 text-4xl leading-[1.04] sm:text-[3.4rem]">
-            {t("Ready to ask the Karur doctor your questions?", "கரூர் மருத்துவரிடம் உங்கள் கேள்விகளைக் கேட்கத் தயாரா?")}
+            {t("Your skin's next chapter can start with one question", "உங்கள் சருமத்தின் புதிய அத்தியாயம் ஒரு கேள்வியில் தொடங்கலாம்")}
           </h2>
           <p className="mt-6 leading-relaxed text-ink-foreground/65">
             Tell us what you have noticed and what worries you. Start with a consultation at
