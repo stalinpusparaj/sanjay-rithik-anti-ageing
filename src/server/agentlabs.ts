@@ -94,6 +94,20 @@ export async function findContactByPhone(phone: string) {
   return (await listContacts()).find((c) => phoneKey(c.phone) === key);
 }
 
+/** Saves a requested slot to the AgentLabs Appointments page. */
+export async function createAppointment(body: {
+  contactName: string;
+  contactPhone: string;
+  contactEmail?: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  duration: number;
+  serviceName: string;
+  notes: string;
+}) {
+  return (await request<{ data: { id: string } }>("/appointments", { method: "POST", body: JSON.stringify(body) })).data;
+}
+
 export async function createContact(body: {
   phone: string;
   firstName: string;

@@ -50,6 +50,7 @@ export function scoreLead(payload: LeadPayload, submissions: number) {
   const intentText = [concern, JSON.stringify(answers ?? ""), text(payload["result_profile"])].join(" ");
   if (HIGH_VALUE_TREATMENTS.test(intentText)) score += 10;
   if (text(payload["preferred_time"])) score += 10;
+  if (text(payload["preferred_date"])) score += 10;
   if (
     (answers && typeof answers === "object" && Object.keys(answers).length > 0) ||
     text(payload["result_profile"])
@@ -89,6 +90,7 @@ export function leadDetails(fields: Record<string, unknown>) {
   const timing = /(?:^| · )timing: ([^·]+)/.exec(value("quiz"))?.[1]?.trim();
   return [
     `Concern: ${value("concern") || "not given"}.`,
+    value("preferred_date") && `Requested date: ${value("preferred_date")}.`,
     value("preferred_time") && `Time: ${value("preferred_time")}.`,
     timing && `Wants to start: ${timing}.`,
     `Language: ${value("language") === "ta" ? "Tamil" : "English"}.`,

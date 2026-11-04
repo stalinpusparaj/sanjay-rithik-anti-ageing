@@ -1,4 +1,4 @@
-import { useT } from "@/comparison/lang";
+import { useLang, useT } from "@/comparison/lang";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { WhatsAppIcon as MessageCircle } from "../../../SiteChrome";
@@ -21,6 +21,7 @@ export function LeadForm({
   onSuccess?: (() => void) | undefined;
 }) {
   const t = useT();
+  const lang = useLang();
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const sending = useRef(false);
@@ -43,6 +44,19 @@ export function LeadForm({
     window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}#a-hero-form`);
   }, [source]);
   const [submitting, setSubmitting] = useState(false);
+  // Built after load: the server and the visitor's browser may be on different days.
+  const [days, setDays] = useState<{ value: string; label: string }[]>([]);
+  useEffect(() => {
+    setDays(
+      Array.from({ length: 14 }, (_, i) => {
+        const day = new Date();
+        day.setDate(day.getDate() + i + 1);
+        const value = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-${String(day.getDate()).padStart(2, "0")}`;
+        return { value, label: day.toLocaleDateString(lang === "ta" ? "ta-IN" : "en-IN", { weekday: "short", day: "numeric", month: "short" }) };
+      }),
+    );
+  }, [lang]);
+  const [requested, setRequested] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -75,6 +89,8 @@ export function LeadForm({
         phone,
         primary_concern:
           String(data.get("concern") ?? "").trim() || getSkinCheck()?.answers["concern"] || "",
+        preferred_date: String(data.get("preferred_date") ?? ""),
+        preferred_time: String(data.get("preferred_time") ?? ""),
         face_areas: faceAreas,
         age_journey_selection: ageJourney ?? null,
         source,
@@ -86,6 +102,7 @@ export function LeadForm({
         timestamp: new Date().toISOString(),
         ...getAttribution(),
       });
+      setRequested(Boolean(data.get("preferred_date")));
       setSubmitted(true);
       track("booking_form_completed", { source });
       track("anti_ageing_form_submitted", { source });
@@ -110,7 +127,9 @@ export function LeadForm({
         <Check className="size-9 text-foreground" />
         <h3 className="mt-5 text-3xl">{t("Your enquiry has reached the clinic.", "உங்கள் விசாரணை கிளினிக்கை வந்தடைந்தது.")}</h3>
         <p className="mt-4 leading-relaxed text-muted-foreground">
-          {t("The clinic will call you to arrange your free consultation with Dr. S. Kiruthika (open daily 10 am–2:30 pm and 6–9:30 pm). Your appointment is confirmed on that call.", "டாக்டர் எஸ். கிருத்திகாவுடன் உங்கள் இலவச ஆலோசனையை ஏற்பாடு செய்ய கிளினிக் உங்களை அழைக்கும் (தினமும் காலை 10 – மதியம் 2:30, மாலை 6 – இரவு 9:30). அந்த அழைப்பில் உங்கள் சந்திப்பு உறுதி செய்யப்படும்.")}
+          {requested
+            ? t("Your preferred slot is requested. The clinic will call you to confirm the exact time with Dr. S. Kiruthika. Your appointment is confirmed on that call.", "நீங்கள் விரும்பிய நேரம் கோரப்பட்டுள்ளது. டாக்டர் எஸ். கிருத்திகாவுடன் சரியான நேரத்தை உறுதி செய்ய கிளினிக் உங்களை அழைக்கும். அந்த அழைப்பில் உங்கள் சந்திப்பு உறுதி செய்யப்படும்.")
+            : t("The clinic will call you to arrange your free consultation with Dr. S. Kiruthika (open daily 10 am–2:30 pm and 6–9:30 pm). Your appointment is confirmed on that call.", "டாக்டர் எஸ். கிருத்திகாவுடன் உங்கள் இலவச ஆலோசனையை ஏற்பாடு செய்ய கிளினிக் உங்களை அழைக்கும் (தினமும் காலை 10 – மதியம் 2:30, மாலை 6 – இரவு 9:30). அந்த அழைப்பில் உங்கள் சந்திப்பு உறுதி செய்யப்படும்.")}
         </p>
         <a
           className="mt-6 inline-flex items-center gap-2 underline"
@@ -178,6 +197,24 @@ export function LeadForm({
             )}
           </div>
         ))}
+        {source !== "age_preview" && (
+          <fieldset className="grid grid-cols-2 gap-3">
+            <legend className="mb-2 text-sm font-medium">
+              {t("Preferred day and time", "விரும்பும் நாள் மற்றும் நேரம்")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>
+            </legend>
+            <select name="preferred_date" aria-label={t("Preferred day", "விரும்பும் நாள்")} defaultValue="" className="h-12 min-w-0 rounded-xl border border-input bg-background px-3 text-sm">
+              <option value="">{t("Choose a day", "நாளைத் தேர்வு செய்யவும்")}</option>
+              {days.map((day) => (
+                <option key={day.value} value={day.value}>{day.label}</option>
+              ))}
+            </select>
+            <select name="preferred_time" aria-label={t("Preferred time", "விரும்பும் நேரம்")} defaultValue="" className="h-12 min-w-0 rounded-xl border border-input bg-background px-3 text-sm">
+              <option value="">{t("Any time", "எந்த நேரமும்")}</option>
+              <option value="Morning (10 am–2:30 pm)">{t("Morning, 10 am–2:30 pm", "காலை 10 – மதியம் 2:30")}</option>
+              <option value="Evening (6–9:30 pm)">{t("Evening, 6–9:30 pm", "மாலை 6 – இரவு 9:30")}</option>
+            </select>
+          </fieldset>
+        )}
         <details className="rounded-xl border border-border px-4 py-3">
           <summary className="cursor-pointer text-sm">
             {t("Add a skin concern", "சரும பிரச்சனையைச் சேர்க்க")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>

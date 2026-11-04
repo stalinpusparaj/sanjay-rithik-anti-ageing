@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
+  createAppointment,
   agentLabsAgentId,
   agentLabsConfigured,
   createContact,
@@ -48,6 +49,32 @@ function callTime(now = new Date()): string | undefined {
   return new Date(next.getTime() + open! * 60_000 - 330 * 60_000).toISOString();
 }
 
+/** A valid requested day, from tomorrow up to 30 days ahead; anything else is ignored. */
+function requestedDate(payload: LeadPayload) {
+  const date = text(payload["preferred_date"]);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return "";
+  const days = (Date.parse(date) - Date.now()) / 86_400_000;
+  return days > -1 && days <= 30 ? date : "";
+}
+
+/** Saves the slot once per day and time, so a repeat enquiry doesn't add a duplicate. */
+async function requestSlot(fields: Record<string, unknown>, name: string, phone: string, email: string) {
+  const date = String(fields["preferred_date"] ?? "");
+  const slot = `${date} ${fields["preferred_time"]}`;
+  if (!date || fields["appointment_slot"] === slot) return {};
+  const appointment = await createAppointment({
+    contactName: name,
+    contactPhone: phone,
+    ...(email ? { contactEmail: email } : {}),
+    appointmentDate: date,
+    appointmentTime: /evening/i.test(String(fields["preferred_time"])) ? "18:00" : "10:00",
+    duration: 20,
+    serviceName: "Free skin consultation",
+    notes: `Requested on the website, not confirmed. Call to fix the exact time: ${fields["preferred_time"] || "any time"}. Concern: ${fields["concern"] || "not given"}.`,
+  });
+  return { appointment_id: appointment.id, appointment_slot: slot };
+}
+
 function leadFields(payload: LeadPayload, previous: Record<string, unknown>, referer: string | null) {
   const submissions = Number(previous["submissions"] ?? 0) + 1;
   const { score, band } = scoreLead(payload, submissions);
@@ -59,6 +86,7 @@ function leadFields(payload: LeadPayload, previous: Record<string, unknown>, ref
     form: text(payload["source"]) || text(payload.lead_type) || "website",
     language: text(payload["language"]) === "ta" ? "ta" : text(payload["language"]) ? "en" : previous["language"] ?? "en",
     concern: text(payload.primary_concern) || quiz["concern"] || "",
+    preferred_date: requestedDate(payload),
     preferred_time: text(payload["preferred_time"]),
     result_profile: text(payload["result_profile"]),
     quiz: Object.entries(quiz).map(([k, v]) => `${k}: ${v}`).join(" · "),
@@ -76,7 +104,7 @@ function leadFields(payload: LeadPayload, previous: Record<string, unknown>, ref
     clinic_stage: previous["clinic_stage"] ?? "new",
   };
   // A repeat enquiry often carries less (no UTMs, skipped quiz): keep what we already knew.
-  for (const key of ["concern", "preferred_time", "result_profile", "quiz", "utm_source", "utm_medium", "utm_campaign", "landing_url"]) {
+  for (const key of ["concern", "preferred_date", "preferred_time", "result_profile", "quiz", "utm_source", "utm_medium", "utm_campaign", "landing_url"]) {
     if (!fields[key] && previous[key]) fields[key] = previous[key];
   }
   return fields;
@@ -85,6 +113,12 @@ function leadFields(payload: LeadPayload, previous: Record<string, unknown>, ref
 /** After the lead is saved: AI call and WhatsApp welcome. Failures are recorded, not fatal. */
 async function followUp(contact: AgentLabsContact, fields: Record<string, unknown>, phone: string, firstName: string) {
   const updates: Record<string, unknown> = {};
+  try {
+    Object.assign(updates, await requestSlot(fields, [firstName, contact.lastName].filter(Boolean).join(" "), phone, contact.email ?? ""));
+  } catch (error) {
+    console.error("AgentLabs appointment request failed", error);
+    updates["appointment_error"] = String((error as Error).message).slice(0, 200);
+  }
   // Visitors who used the Tamil page get the Tamil voice agent when one is configured.
   const tamil = fields["language"] === "ta";
   const agentId = (tamil && process.env["AGENTLABS_AGENT_ID_TA"]) || agentLabsAgentId();
@@ -152,6 +186,8 @@ export const Route = createFileRoute("/api/lead-capture")({
               name: field("name"),
               phone: field("phone"),
               primary_concern: field("concern"),
+              preferred_date: field("preferred_date"),
+              preferred_time: field("preferred_time"),
               consent_status: form.get("consent") !== null,
               consent_whatsapp: form.get("consent") !== null,
             };
