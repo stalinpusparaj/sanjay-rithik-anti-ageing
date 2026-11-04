@@ -121,6 +121,17 @@ export const TA: Record<string, string> = {
   "of 3": "/ 3",
   "· optional": "· விருப்பம்",
   "Worry:": "கவலை:",
+  "Your name (required)": "உங்கள் பெயர் (கட்டாயம்)",
+  "Mobile / WhatsApp number (required)": "மொபைல் / வாட்ஸ்அப் எண் (கட்டாயம்)",
+  "Main skin concern (optional)": "முக்கிய சரும பிரச்சனை (விருப்பம்)",
+  "Your full name": "உங்கள் முழுப் பெயர்",
+  "10-digit mobile number": "10 இலக்க மொபைல் எண்",
+  "Choose a concern": "பிரச்சனையைத் தேர்வு செய்யவும்",
+  "Choose a day": "நாளைத் தேர்வு செய்யவும்",
+  "Any time": "எந்த நேரமும்",
+  "Enter a valid 10-digit Indian mobile number, with or without +91.": "சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும் (+91 உடன் அல்லது இல்லாமல்).",
+  "Morning, 10 am–2:30 pm": "காலை 10 – மதியம் 2:30",
+  "No payment online. By sending this you agree to be contacted about this consultation by phone or WhatsApp.": "ஆன்லைனில் பணம் இல்லை. இதை அனுப்புவதன் மூலம் இந்த ஆலோசனை குறித்து தொலைபேசி அல்லது வாட்ஸ்அப் மூலம் தொடர்புகொள்ள ஒப்புக்கொள்கிறீர்கள்.",
   "Step 4 of 4": "படி 4 / 4",
   "When would you like to start?": "எப்போது தொடங்க விரும்புகிறீர்கள்?",
   "This only helps the clinic plan your call. You can change your mind.": "இது கிளினிக் உங்களை அழைக்க திட்டமிட மட்டுமே உதவும். பின்னர் மனதை மாற்றிக்கொள்ளலாம்.",
@@ -189,8 +200,7 @@ export const TA: Record<string, string> = {
   "10-digit number": "10 இலக்க எண்",
   "Sending…": "அனுப்புகிறோம்…",
   "Ask the Doctor About My Concern": "என் பிரச்சனை பற்றி மருத்துவரிடம் கேட்க",
-  "No payment online. By booking you agree to be contacted about this consultation.":
-    "ஆன்லைனில் பணம் இல்லை. பதிவு செய்வதன் மூலம் இந்த ஆலோசனை குறித்து தொடர்புகொள்ள ஒப்புக்கொள்கிறீர்கள்.",
+  "No payment online. By sending this you agree to be contacted about this consultation by phone or WhatsApp.": "ஆன்லைனில் பணம் இல்லை. இதை அனுப்புவதன் மூலம் இந்த ஆலோசனை குறித்து தொலைபேசி அல்லது வாட்ஸ்அப் மூலம் தொடர்புகொள்ள ஒப்புக்கொள்கிறீர்கள்.",
   "Change answers": "பதில்களை மாற்ற",
   "Please add your name and 10-digit mobile number.": "உங்கள் பெயரையும் 10 இலக்க மொபைல் எண்ணையும் சேர்க்கவும்.",
   "We couldn't save your details. Please try again, or message us on WhatsApp.":
@@ -312,8 +322,6 @@ export const TA: Record<string, string> = {
   "Have a question while you wait? Talk to us on WhatsApp.": "காத்திருக்கும் போது கேள்வியா? வாட்ஸ்அப்பில் பேசுங்கள்.",
 
   // Attributes (placeholders, alt text, aria-labels)
-  "Your full name": "உங்கள் முழுப் பெயர்",
-  "10-digit mobile number": "10 இலக்க மொபைல் எண்",
   "e.g. I look tired in photos, lines around my eyes": "எ.கா. புகைப்படங்களில் சோர்வாகத் தெரிகிறேன், கண்களைச் சுற்றி சுருக்கங்கள்",
   "Sanjay Rithik Hospital home": "சஞ்சய் ரித்திக் மருத்துவமனை முகப்பு",
   "Sanjay Rithik Hospital logo": "சஞ்சய் ரித்திக் மருத்துவமனை லோகோ",

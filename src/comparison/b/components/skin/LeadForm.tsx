@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLang } from "@/comparison/lang";
+import { CONCERN_OPTIONS, isIndianMobile, TIME_OPTIONS } from "@/comparison/leadOptions";
 import { z } from "zod";
 import { ArrowRight, CalendarCheck, Check, ShieldCheck } from "lucide-react";
 import { WhatsAppIcon as MessageCircle } from "../../../SiteChrome";
@@ -16,10 +17,8 @@ const schema = z.object({
   phone: z
     .string()
     .trim()
-    .min(7, "Please enter a valid mobile number")
     .max(20)
-    .regex(/^[0-9+\-\s()]+$/, "Please enter a valid mobile number")
-    .refine((value) => value.replace(/\D/g, "").length >= 10 && value.replace(/\D/g, "").length <= 15, "Please enter a valid mobile number"),
+    .refine(isIndianMobile, "Enter a valid 10-digit Indian mobile number, with or without +91."),
   concern: z.string().trim().optional().default(""),
   date: z.string().trim().optional().default(""),
   time: z.string().trim().optional().default(""),
@@ -29,19 +28,6 @@ const schema = z.object({
 });
 
 
-const CONCERNS = [
-  "Acne", "Hair loss", "Scars", "Sensitive skin", "Dark circles", "Something else",
-  "Fine lines",
-  "Wrinkles",
-  "Loss of firmness",
-  "Dullness",
-  "Pigmentation",
-  "Texture / pores",
-  "Loss of facial volume",
-  "Overall ageing",
-  "I'm not sure",
-];
-const TIMES = ["Morning (10 am–2:30 pm)", "Evening (6–9:30 pm)"];
 
 export function LeadForm({
   answers,
@@ -212,7 +198,7 @@ export function LeadForm({
     </div>
   );
 
-  const selectField = (name: string, label: string, options: (string | { value: string; label: string })[], defaultValue = "") => (
+  const selectField = (name: string, label: string, options: (string | { value: string; label: string })[], placeholder: string, defaultValue = "") => (
     <div>
       <Label htmlFor={"b-consultation-" + name} className="form-label">
         {label}
@@ -226,7 +212,7 @@ export function LeadForm({
         onInput={onFirstInput}
         className="mt-2 h-12 w-full rounded-xl border border-border bg-background px-3 text-base"
       >
-        <option value="">Select</option>
+        <option value="">{placeholder}</option>
         {options.map((option) => {
           const { value, label: text } = typeof option === "string" ? { value: option, label: option } : option;
           return (
@@ -274,11 +260,13 @@ export function LeadForm({
           to discuss.
         </p>
         <div className="mt-7 grid gap-5">
-          {field("name", "Your name", "text", "Your name")}
-          {field("phone", "Mobile number", "tel", "+91")}
-          {selectField("concern", "Primary concern (optional)", CONCERNS, answers["concern"] ?? "")}
-          {selectField("date", "Preferred day (optional)", days)}
-          {selectField("time", "Preferred time (optional)", TIMES)}
+          {field("name", "Your name (required)", "text", "Your full name")}
+          {field("phone", "Mobile / WhatsApp number (required)", "tel", "10-digit mobile number")}
+          {selectField("concern", "Main skin concern (optional)", CONCERN_OPTIONS, "Choose a concern", answers["concern"] ?? "")}
+          <div className="grid grid-cols-2 gap-3">
+            {selectField("date", "Preferred day (optional)", days, "Choose a day")}
+            {selectField("time", "Preferred time (optional)", TIME_OPTIONS, "Any time")}
+          </div>
         </div>
         <p className="mt-4 text-center text-xs text-muted-foreground">
           No treatment is booked at this stage.

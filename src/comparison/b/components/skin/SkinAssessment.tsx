@@ -1,3 +1,4 @@
+import { isIndianMobile } from "@/comparison/leadOptions";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   Waves,
@@ -197,7 +198,7 @@ export function SkinAssessment({
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (name.trim().length < 2 || phone.replace(/\D/g, "").length < 10) {
+    if (name.trim().length < 2 || !isIndianMobile(phone)) {
       setError("Please add your name and 10-digit mobile number.");
       return;
     }
@@ -348,8 +349,8 @@ export function SkinAssessment({
               {sending ? "Sending…" : "Ask the Doctor About My Concern"} {!sending && <ArrowRight />}
             </button>
             <p className="skin-game-fine">
-              <Lock aria-hidden="true" /> No payment online. By booking you agree to be contacted
-              about this consultation.
+              <Lock aria-hidden="true" /> No payment online. By sending this you agree to be contacted
+              about this consultation by phone or WhatsApp.
             </p>
           </form>
         </div>

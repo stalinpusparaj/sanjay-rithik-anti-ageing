@@ -6,6 +6,7 @@ import { Button } from "@/comparison/a/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getAttribution, track } from "@/comparison/a/lib/analytics";
 import { deliverLead } from "@/comparison/a/lib/lead-delivery";
+import { CONCERN_OPTIONS, isIndianMobile, TIME_OPTIONS } from "@/comparison/leadOptions";
 import { getSkinCheck, skinCheckPayload } from "@/comparison/skinCheckStore";
 import type { AgeJourneySelection } from "./AgeJourney";
 
@@ -64,11 +65,10 @@ export function LeadForm({
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
     const phone = String(data.get("phone") ?? "").trim();
-    const digits = phone.replace(/[\s()+-]/g, "");
     const next: Record<string, string> = {};
     if (name.length < 2 || name.length > 100)
       next["name"] = t("Please enter your name (at least 2 characters).", "உங்கள் பெயரை உள்ளிடவும் (குறைந்தது 2 எழுத்துகள்).");
-    if (!/^(?:91)?[6-9]\d{9}$/.test(digits))
+    if (!isIndianMobile(phone))
       next["phone"] = t("Enter a valid 10-digit Indian mobile number, with or without +91.", "சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும் (+91 உடன் அல்லது இல்லாமல்).");
     if (data.get("consent") !== "on")
       next["consent"] = t("Please agree to be contacted about this enquiry.", "இந்த விசாரணை குறித்து தொடர்புகொள்ள ஒப்புக்கொள்ளவும்.");
@@ -165,7 +165,7 @@ export function LeadForm({
       <p className="eyebrow text-muted-foreground">{t("Takes 30 seconds · No payment online", "30 வினாடிகள் போதும் · ஆன்லைனில் பணம் இல்லை")}</p>
       <h3 className="mt-3 text-3xl">{t("Book your free consultation", "உங்கள் இலவச ஆலோசனையை பதிவு செய்யுங்கள்")}</h3>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        {t("Just your name and mobile number. The clinic calls you back during clinic hours (10 am–2:30 pm, 6–9:30 pm) to fix a time that suits you.", "உங்கள் பெயரும் மொபைல் எண்ணும் போதும். கிளினிக் நேரத்தில் (காலை 10 – மதியம் 2:30, மாலை 6 – இரவு 9:30) உங்களை அழைத்து வசதியான நேரத்தை உறுதி செய்வோம்.")}
+        {t("Pick a day and time, or just leave your number. The clinic calls during clinic hours to confirm your appointment.", "நாள், நேரத்தைத் தேர்வு செய்யுங்கள், அல்லது உங்கள் எண்ணை மட்டும் கொடுங்கள். உங்கள் சந்திப்பை உறுதி செய்ய கிளினிக் நேரத்தில் அழைப்போம்.")}
       </p>
       <div className="mt-6 grid gap-4">
         {(
@@ -197,6 +197,17 @@ export function LeadForm({
             )}
           </div>
         ))}
+        <div>
+          <label htmlFor={id + "-concern"} className="text-sm font-medium">
+            {t("Main skin concern", "முக்கிய சரும பிரச்சனை")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>
+          </label>
+          <select id={id + "-concern"} name="concern" defaultValue="" className="mt-2 h-12 w-full min-w-0 rounded-xl border border-input bg-background px-3 text-base">
+            <option value="">{t("Choose a concern", "பிரச்சனையைத் தேர்வு செய்யவும்")}</option>
+            {CONCERN_OPTIONS.map((concern) => (
+              <option key={concern} value={concern}>{concern}</option>
+            ))}
+          </select>
+        </div>
         {source !== "age_preview" && (
           <fieldset className="grid grid-cols-2 gap-3">
             <legend className="mb-2 text-sm font-medium">
@@ -210,26 +221,12 @@ export function LeadForm({
             </select>
             <select name="preferred_time" aria-label={t("Preferred time", "விரும்பும் நேரம்")} defaultValue="" className="h-12 min-w-0 rounded-xl border border-input bg-background px-3 text-base">
               <option value="">{t("Any time", "எந்த நேரமும்")}</option>
-              <option value="Morning (10 am–2:30 pm)">{t("Morning, 10 am–2:30 pm", "காலை 10 – மதியம் 2:30")}</option>
-              <option value="Evening (6–9:30 pm)">{t("Evening, 6–9:30 pm", "மாலை 6 – இரவு 9:30")}</option>
+              {TIME_OPTIONS.map((time) => (
+                <option key={time} value={time}>{time}</option>
+              ))}
             </select>
           </fieldset>
         )}
-        <details className="rounded-xl border border-border px-4 py-3">
-          <summary className="cursor-pointer text-sm">
-            {t("Add a skin concern", "சரும பிரச்சனையைச் சேர்க்க")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>
-          </summary>
-          <label htmlFor={id + "-concern"} className="mt-3 block text-xs text-muted-foreground">
-            {t("What would you like to discuss?", "எதைப் பற்றி பேச விரும்புகிறீர்கள்?")}
-          </label>
-          <Input
-            id={id + "-concern"}
-            name="concern"
-            maxLength={300}
-            placeholder={t("e.g. I look tired in photos, lines around my eyes", "எ.கா. புகைப்படங்களில் சோர்வாகத் தெரிகிறேன், கண்களைச் சுற்றி சுருக்கங்கள்")}
-            className="mt-2 h-12 rounded-xl"
-          />
-        </details>
         {faceAreas.length > 0 && (
           <p className="text-xs text-muted-foreground">
             Selected facial areas: {faceAreas.join(", ")}
