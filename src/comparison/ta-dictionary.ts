@@ -292,8 +292,8 @@ export const TA: Record<string, string> = {
   "Evening": "மாலை",
   "Please call me to arrange": "ஏற்பாடு செய்ய என்னை அழையுங்கள்",
   "No treatment is booked at this stage.": "இந்த நிலையில் எந்த சிகிச்சையும் பதிவு செய்யப்படாது.",
-  "I consent to Sanjay Rithik Hospital contacting me about this consultation request. No treatment is booked by submitting this form.":
-    "இந்த ஆலோசனைக் கோரிக்கை குறித்து சஞ்சய் ரித்திக் மருத்துவமனை என்னைத் தொடர்புகொள்ள ஒப்புக்கொள்கிறேன். இந்தப் படிவத்தை அனுப்புவதால் எந்த சிகிச்சையும் பதிவு செய்யப்படாது.",
+  "I consent to Sanjay Rithik Hospital contacting me about this consultation request by phone or WhatsApp. No treatment is booked by submitting this form.":
+    "இந்த ஆலோசனை கோரிக்கை குறித்து சஞ்சய் ரித்திக் மருத்துவமனை என்னை தொலைபேசி அல்லது வாட்ஸ்அப் மூலம் தொடர்புகொள்ள ஒப்புக்கொள்கிறேன். இந்தப் படிவத்தைச் சமர்ப்பிப்பதால் எந்த சிகிச்சையும் பதிவு செய்யப்படாது.",
   "The clinic will contact you to confirm your appointment. No treatment is booked at this stage.":
     "உங்கள் சந்திப்பை உறுதிப்படுத்த கிளினிக் உங்களைத் தொடர்புகொள்ளும். இந்த நிலையில் எந்த சிகிச்சையும் பதிவு செய்யப்படாது.",
   "Sending request…": "கோரிக்கையை அனுப்புகிறோம்…",

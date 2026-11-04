@@ -115,6 +115,7 @@ export function LeadForm({
       age_journey_selection: ageJourney ?? null,
       treatment_interests: [],
       consent_status: true,
+      consent_whatsapp: true,
       landing_page_identifier: "anti-ageing-35-55-karur",
       timestamp: new Date().toISOString(),
       ...getAttribution(),
@@ -294,8 +295,8 @@ export function LeadForm({
             className="mt-0.5 size-4 rounded border-border accent-[var(--clay)]"
           />
           <span>
-            I consent to Sanjay Rithik Hospital contacting me about this consultation request. No
-            treatment is booked by submitting this form.
+            I consent to Sanjay Rithik Hospital contacting me about this consultation request by
+            phone or WhatsApp. No treatment is booked by submitting this form.
           </span>
         </label>
         {errors["consent"] && <p id="b-error-consent" role="alert" className="mt-2 text-xs text-destructive">{errors["consent"]}</p>}
