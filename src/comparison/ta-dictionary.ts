@@ -200,7 +200,6 @@ export const TA: Record<string, string> = {
   "10-digit number": "10 இலக்க எண்",
   "Sending…": "அனுப்புகிறோம்…",
   "Ask the Doctor About My Concern": "என் பிரச்சனை பற்றி மருத்துவரிடம் கேட்க",
-  "No payment online. By sending this you agree to be contacted about this consultation by phone or WhatsApp.": "ஆன்லைனில் பணம் இல்லை. இதை அனுப்புவதன் மூலம் இந்த ஆலோசனை குறித்து தொலைபேசி அல்லது வாட்ஸ்அப் மூலம் தொடர்புகொள்ள ஒப்புக்கொள்கிறீர்கள்.",
   "Change answers": "பதில்களை மாற்ற",
   "Please add your name and 10-digit mobile number.": "உங்கள் பெயரையும் 10 இலக்க மொபைல் எண்ணையும் சேர்க்கவும்.",
   "We couldn't save your details. Please try again, or message us on WhatsApp.":
