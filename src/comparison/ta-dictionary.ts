@@ -115,14 +115,24 @@ export const TA: Record<string, string> = {
 
   // Skin check
   "30-second skin check": "30 வினாடி சரும பரிசோதனை",
-  "Answer three quick questions and see what you could ask Dr. Kiruthika. You will see your result before we ask for any contact details. Nothing is booked unless you choose.":
+  "Answer four quick questions and see what you could ask Dr. Kiruthika. You will see your result before we ask for any contact details. Nothing is booked unless you choose.":
     "மூன்று சிறிய கேள்விகளுக்கு பதில் சொல்லுங்கள்; டாக்டர் கிருத்திகாவிடம் என்ன கேட்கலாம் என்று பாருங்கள். தொடர்பு விவரங்கள் கேட்கும் முன்பே உங்கள் முடிவைப் பார்க்கலாம். நீங்கள் விரும்பினால் மட்டுமே பதிவு.",
   "Step": "படி",
   "of 3": "/ 3",
   "· optional": "· விருப்பம்",
   "Worry:": "கவலை:",
-  "Step 1 of 3": "படி 1 / 3",
-  "Step 2 of 3": "படி 2 / 3",
+  "Step 4 of 4": "படி 4 / 4",
+  "When would you like to start?": "எப்போது தொடங்க விரும்புகிறீர்கள்?",
+  "This only helps the clinic plan your call. You can change your mind.": "இது கிளினிக் உங்களை அழைக்க திட்டமிட மட்டுமே உதவும். பின்னர் மனதை மாற்றிக்கொள்ளலாம்.",
+  "This week.": "இந்த வாரம்.",
+  "This month.": "இந்த மாதம்.",
+  "In the next 3 months.": "அடுத்த 3 மாதங்களில்.",
+  "Just exploring for now.": "இப்போதைக்கு தெரிந்துகொள்ள மட்டும்.",
+  "Preferred day (optional)": "விரும்பும் நாள் (விருப்பம்)",
+  "Morning (10 am–2:30 pm)": "காலை (10 – மதியம் 2:30)",
+  "Evening (6–9:30 pm)": "மாலை (6 – இரவு 9:30)",
+  "Step 1 of 4": "படி 1 / 4",
+  "Step 2 of 4": "படி 2 / 4",
   "Step 3 of 3 · optional": "படி 3 / 3 · விருப்பம்",
   "What changes have you noticed?": "என்ன மாற்றங்களை கவனித்தீர்கள்?",
   "Choose what you have noticed. This is not a diagnosis. It simply helps you start a more useful conversation with the dermatologist.":

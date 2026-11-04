@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLang } from "@/comparison/lang";
 import { z } from "zod";
 import { ArrowRight, CalendarCheck, Check, ShieldCheck } from "lucide-react";
 import { WhatsAppIcon as MessageCircle } from "../../../SiteChrome";
@@ -20,6 +21,7 @@ const schema = z.object({
     .regex(/^[0-9+\-\s()]+$/, "Please enter a valid mobile number")
     .refine((value) => value.replace(/\D/g, "").length >= 10 && value.replace(/\D/g, "").length <= 15, "Please enter a valid mobile number"),
   concern: z.string().trim().optional().default(""),
+  date: z.string().trim().optional().default(""),
   time: z.string().trim().optional().default(""),
   consent: z.literal("on", {
     errorMap: () => ({ message: "Please consent to being contacted about this request" }),
@@ -39,7 +41,7 @@ const CONCERNS = [
   "Overall ageing",
   "I'm not sure",
 ];
-const TIMES = ["Morning", "Afternoon", "Evening", "Please call me to arrange"];
+const TIMES = ["Morning (10 am–2:30 pm)", "Evening (6–9:30 pm)"];
 
 export function LeadForm({
   answers,
@@ -56,6 +58,19 @@ export function LeadForm({
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [started, setStarted] = useState(false);
+  const lang = useLang();
+  // Built after load: the server and the visitor's browser may be on different days.
+  const [days, setDays] = useState<{ value: string; label: string }[]>([]);
+  useEffect(() => {
+    setDays(
+      Array.from({ length: 14 }, (_, i) => {
+        const day = new Date();
+        day.setDate(day.getDate() + i + 1);
+        const value = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-${String(day.getDate()).padStart(2, "0")}`;
+        return { value, label: day.toLocaleDateString(lang === "ta" ? "ta-IN" : "en-IN", { weekday: "short", day: "numeric", month: "short" }) };
+      }),
+    );
+  }, [lang]);
   const formRef = useRef<HTMLFormElement>(null);
   useEffect(() => {
     const select = formRef.current?.elements.namedItem("concern") as HTMLSelectElement | null;
@@ -91,6 +106,7 @@ export function LeadForm({
       name: parsed.data.name,
       phone: parsed.data.phone,
       primary_concern: parsed.data.concern,
+      preferred_date: parsed.data.date,
       preferred_time: parsed.data.time,
       assessment_responses: answers,
       result_profile: profile?.name ?? null,
@@ -195,7 +211,7 @@ export function LeadForm({
     </div>
   );
 
-  const selectField = (name: string, label: string, options: string[], defaultValue = "") => (
+  const selectField = (name: string, label: string, options: (string | { value: string; label: string })[], defaultValue = "") => (
     <div>
       <Label htmlFor={"b-consultation-" + name} className="form-label">
         {label}
@@ -207,14 +223,17 @@ export function LeadForm({
         aria-invalid={!!errors[name]}
         aria-describedby={errors[name] ? `b-error-${name}` : undefined}
         onInput={onFirstInput}
-        className="mt-2 h-12 w-full rounded-xl border border-border bg-background px-3 text-sm"
+        className="mt-2 h-12 w-full rounded-xl border border-border bg-background px-3 text-base"
       >
         <option value="">Select</option>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
+        {options.map((option) => {
+          const { value, label: text } = typeof option === "string" ? { value: option, label: option } : option;
+          return (
+            <option key={value} value={value}>
+              {text}
+            </option>
+          );
+        })}
       </select>
       {errors[name] && <p id={`b-error-${name}`} role="alert" className="mt-1.5 text-xs text-destructive">{errors[name]}</p>}
     </div>
@@ -257,6 +276,7 @@ export function LeadForm({
           {field("name", "Your name", "text", "Your name")}
           {field("phone", "Mobile number", "tel", "+91")}
           {selectField("concern", "Primary concern (optional)", CONCERNS, answers["concern"] ?? "")}
+          {selectField("date", "Preferred day (optional)", days)}
           {selectField("time", "Preferred time (optional)", TIMES)}
         </div>
         <p className="mt-4 text-center text-xs text-muted-foreground">

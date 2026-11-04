@@ -1,5 +1,5 @@
 /**
- * The 60-second skin check lives in one section of the page, but visitors usually book
+ * The 30-second skin check lives in one section of the page, but visitors usually book
  * through a different form (the offer form near the top). This tiny store hands the
  * latest completed skin check to whichever lead form is submitted, so the clinic and
  * the CRM score always see the quiz answers.

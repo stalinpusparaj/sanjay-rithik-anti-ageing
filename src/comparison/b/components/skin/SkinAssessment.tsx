@@ -22,7 +22,7 @@ export type Answers = Record<string, string>;
 export type ResultProfile = { name: string; dims: Record<string, number> };
 
 /**
- * The skin check is a short game: two taps (plus an optional "when"), then a useful
+ * The skin check is a short game: a few taps, then a useful
  * result with the booking form right beside it. Fewer questions and no gate before the
  * result means more visitors reach the form; answers still flow to the CRM and score.
  */
@@ -95,6 +95,8 @@ const PRIORITIES = [
   "Understanding whether I need treatment.",
 ];
 
+const TIMINGS = ["This week.", "This month.", "In the next 3 months.", "Just exploring for now."];
+
 const WORRIES: Array<[string, string]> = [
   ["Looking different from myself.", "looking different from yourself"],
   ["Pain or side effects.", "pain or side effects"],
@@ -129,7 +131,7 @@ function resultFor(answers: Answers): [string, string] {
   ];
 }
 
-const STEPS = ["concern", "priority", "worry"] as const;
+const STEPS = ["concern", "priority", "timing", "worry"] as const;
 
 type Stage = "quiz" | "result" | "done";
 
@@ -363,7 +365,7 @@ export function SkinAssessment({
     <div className="skin-game">
       {dots}
       <p className="skin-game-step">
-        Step {step + 1} of 3{id === "worry" && " · optional"}
+        Step {step + 1} of {STEPS.length}{id === "worry" && " · optional"}
       </p>
       {id === "concern" && (
         <>
@@ -396,15 +398,17 @@ export function SkinAssessment({
       {id !== "concern" && (
         <>
           <h3 ref={headingRef} tabIndex={-1} className="skin-game-heading">
-            {id === "priority" ? "What would you like help with?" : "What worries you most?"}
+            {id === "priority" ? "What would you like help with?" : id === "timing" ? "When would you like to start?" : "What worries you most?"}
           </h3>
           <p className="skin-game-sub">
             {id === "priority"
               ? "There is no right answer. Pick the one closest to you."
-              : "Many people have the same worry. You can ask the doctor about it."}
+              : id === "timing"
+                ? "This only helps the clinic plan your call. You can change your mind."
+                : "Many people have the same worry. You can ask the doctor about it."}
           </p>
           <div className="skin-game-answers skin-game-answers-two">
-            {(id === "priority" ? PRIORITIES : WORRIES.map(([value]) => value)).map((option) => (
+            {(id === "priority" ? PRIORITIES : id === "timing" ? TIMINGS : WORRIES.map(([value]) => value)).map((option) => (
               <button
                 key={option}
                 type="button"

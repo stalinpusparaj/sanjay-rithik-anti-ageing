@@ -202,13 +202,13 @@ export function LeadForm({
             <legend className="mb-2 text-sm font-medium">
               {t("Preferred day and time", "விரும்பும் நாள் மற்றும் நேரம்")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>
             </legend>
-            <select name="preferred_date" aria-label={t("Preferred day", "விரும்பும் நாள்")} defaultValue="" className="h-12 min-w-0 rounded-xl border border-input bg-background px-3 text-sm">
+            <select name="preferred_date" aria-label={t("Preferred day", "விரும்பும் நாள்")} defaultValue="" className="h-12 min-w-0 rounded-xl border border-input bg-background px-3 text-base">
               <option value="">{t("Choose a day", "நாளைத் தேர்வு செய்யவும்")}</option>
               {days.map((day) => (
                 <option key={day.value} value={day.value}>{day.label}</option>
               ))}
             </select>
-            <select name="preferred_time" aria-label={t("Preferred time", "விரும்பும் நேரம்")} defaultValue="" className="h-12 min-w-0 rounded-xl border border-input bg-background px-3 text-sm">
+            <select name="preferred_time" aria-label={t("Preferred time", "விரும்பும் நேரம்")} defaultValue="" className="h-12 min-w-0 rounded-xl border border-input bg-background px-3 text-base">
               <option value="">{t("Any time", "எந்த நேரமும்")}</option>
               <option value="Morning (10 am–2:30 pm)">{t("Morning, 10 am–2:30 pm", "காலை 10 – மதியம் 2:30")}</option>
               <option value="Evening (6–9:30 pm)">{t("Evening, 6–9:30 pm", "மாலை 6 – இரவு 9:30")}</option>

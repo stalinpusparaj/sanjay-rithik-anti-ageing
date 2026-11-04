@@ -7,7 +7,7 @@ export function text(value: unknown): string {
 }
 
 const HIGH_VALUE_TREATMENTS =
-  /laser|hair removal|botox|filler|prp|hydra|hifu|mnrf|booster|tattoo|scar|pigment|peel|anti.?ag|lines|firmness|volume/i;
+  /laser|hair removal|botox|filler|prp|hydra|hifu|mnrf|booster|tattoo|scar|pigment|dark patch|peel|anti.?ag|lines|firm|volume|less full/i;
 const PAID_SOURCES = /^(facebook|fb|instagram|ig|meta|google|youtube)$/i;
 const PAID_MEDIUMS = /^(cpc|ppc|paid|paid_social|paidsocial|ads|display)$/i;
 
@@ -52,7 +52,7 @@ export function scoreLead(payload: LeadPayload, submissions: number) {
     Object.keys(quizAnswers(payload)).length > 0;
   let score = payload.lead_type === "age_transform_interest" ? 25 : hasDetail ? 50 : 40;
   if (hasConcern) score += 10;
-  const intentText = [concern, JSON.stringify(answers ?? ""), text(payload["result_profile"])].join(" ");
+  const intentText = [concern, quizAnswers(payload)["concern"], text(payload["result_profile"])].join(" ");
   if (HIGH_VALUE_TREATMENTS.test(intentText)) score += 10;
   if (text(payload["preferred_time"])) score += 10;
   if (text(payload["preferred_date"])) score += 10;
@@ -67,15 +67,14 @@ export function scoreLead(payload: LeadPayload, submissions: number) {
   )
     score += 5;
   if (text(payload.email)) score += 5;
-  // Skin-check signals: has already paid for clinic treatment, or is open to whatever
-  // the dermatologist recommends — both convert better than "just browsing".
+  // Skin-check signals: when they want to start is the strongest; a specific goal or a
+  // practical worry (cost, recovery) means they are already planning a visit.
   const quiz = quizAnswers(payload);
-  if (/previous clinical/i.test(quiz["tried"] ?? "")) score += 5;
-  if (/open to dermatologist/i.test(quiz["comfort"] ?? "")) score += 5;
-  // Skin-check game signals: urgency and "products keep failing" are the strongest intent.
   if (/this week/i.test(quiz["timing"] ?? "")) score += 10;
-  else if (/month/i.test(quiz["timing"] ?? "")) score += 5;
-  if (/keeps coming back|confidence/i.test(quiz["impact"] ?? "")) score += 5;
+  else if (/this month/i.test(quiz["timing"] ?? "")) score += 5;
+  else if (/exploring/i.test(quiz["timing"] ?? "")) score -= 5;
+  if (/lines or firmness|important event|need treatment/i.test(quiz["priority"] ?? "")) score += 5;
+  if (/cost|recover/i.test(quiz["worry"] ?? "")) score += 5;
   if (submissions > 1) score += 20;
   score = Math.min(100, score);
   const temperature: LeadTemperature = score >= 80 ? "HOT" : score >= 50 ? "WARM" : "COLD";

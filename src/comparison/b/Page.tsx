@@ -659,7 +659,7 @@ function Assessment({
           {t("What will your 30-second skin check reveal?", "30 விநாடி சரும பரிசோதனை என்ன சொல்லும்?")}
         </h2>
         <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-          Answer three quick questions and see what you could ask Dr. Kiruthika. You will see
+          Answer four quick questions and see what you could ask Dr. Kiruthika. You will see
           your result before we ask for any contact details. Nothing is booked unless you choose.
         </p>
       </Reveal>
