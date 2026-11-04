@@ -133,7 +133,8 @@ export const TA: Record<string, string> = {
   "Evening (6–9:30 pm)": "மாலை (6 – இரவு 9:30)",
   "Step 1 of 4": "படி 1 / 4",
   "Step 2 of 4": "படி 2 / 4",
-  "Step 3 of 3 · optional": "படி 3 / 3 · விருப்பம்",
+  "Step 3 of 4": "படி 3 / 4",
+  "Step 4 of 4 · optional": "படி 4 / 4 · விருப்பம்",
   "What changes have you noticed?": "என்ன மாற்றங்களை கவனித்தீர்கள்?",
   "Choose what you have noticed. This is not a diagnosis. It simply helps you start a more useful conversation with the dermatologist.":
     "நீங்கள் கவனித்ததைத் தேர்வு செய்யுங்கள். இது நோயறிதல் அல்ல. சரும மருத்துவரிடம் பயனுள்ள உரையாடலைத் தொடங்க இது உதவும்.",
