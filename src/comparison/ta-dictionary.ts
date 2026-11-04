@@ -194,8 +194,7 @@ export const TA: Record<string, string> = {
     "ஆலோசனைக்கு வந்தால் சிகிச்சை எடுக்க வேண்டிய கட்டாயம் இல்லை. பொருத்தமான தேர்வுகள், அமர்வுகள், ஓய்வு நேரம், செலவு ஆகியவற்றை முடிவெடுக்கும் முன் தெரிந்துகொள்வீர்கள்.",
   "Free consultation · Karur": "இலவச ஆலோசனை · கரூர்",
   "Want to ask Dr. Kiruthika?": "டாக்டர் கிருத்திகாவிடம் கேட்க வேண்டுமா?",
-  "Leave your name and WhatsApp number. The clinic will arrange a time that suits you.":
-    "உங்கள் பெயரையும் வாட்ஸ்அப் எண்ணையும் கொடுங்கள். உங்களுக்கு வசதியான நேரத்தை கிளினிக் ஏற்பாடு செய்யும்.",
+  "Leave your name and WhatsApp number, and pick a day if you can. The clinic will confirm your appointment.": "உங்கள் பெயர், வாட்ஸ்அப் எண்ணைக் கொடுத்து, முடிந்தால் ஒரு நாளைத் தேர்வு செய்யுங்கள். உங்கள் சந்திப்பை கிளினிக் உறுதி செய்யும்.",
   "Mobile / WhatsApp number": "மொபைல் / வாட்ஸ்அப் எண்",
   "10-digit number": "10 இலக்க எண்",
   "Sending…": "அனுப்புகிறோம்…",

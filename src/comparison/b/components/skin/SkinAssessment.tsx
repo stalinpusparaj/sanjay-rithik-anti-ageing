@@ -1,4 +1,4 @@
-import { isIndianMobile } from "@/comparison/leadOptions";
+import { isIndianMobile, TIME_OPTIONS, useConsultDays } from "@/comparison/leadOptions";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   Waves,
@@ -158,6 +158,9 @@ export function SkinAssessment({
   const [answers, setAnswers] = useState<Answers>({});
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const days = useConsultDays();
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -218,6 +221,8 @@ export function SkinAssessment({
           name: name.trim(),
           phone: phone.trim(),
           primary_concern: answers["concern"] ?? "",
+          preferred_date: date,
+          preferred_time: time,
           result_profile: concern.profile.name,
           result_dimensions: concern.profile.dims,
           assessment_responses: answers,
@@ -323,7 +328,7 @@ export function SkinAssessment({
             </p>
             <p className="skin-game-form-title">Want to ask Dr. Kiruthika?</p>
             <p className="skin-game-form-sub">
-              Leave your name and WhatsApp number. The clinic will arrange a time that suits you.
+              Leave your name and WhatsApp number, and pick a day if you can. The clinic will confirm your appointment.
             </p>
             <label className="skin-game-field">
               <span>Your name</span>
@@ -344,6 +349,26 @@ export function SkinAssessment({
                 autoComplete="tel"
               />
             </label>
+            <div className="grid grid-cols-2 gap-3">
+              <label className="skin-game-field">
+                <span>Preferred day (optional)</span>
+                <select value={date} onChange={(event) => setDate(event.target.value)}>
+                  <option value="">Choose a day</option>
+                  {days.map((day) => (
+                    <option key={day.value} value={day.value}>{day.label}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="skin-game-field">
+                <span>Preferred time (optional)</span>
+                <select value={time} onChange={(event) => setTime(event.target.value)}>
+                  <option value="">Any time</option>
+                  {TIME_OPTIONS.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
             {error && <p className="skin-game-error">{error}</p>}
             <button type="submit" className="skin-game-btn skin-game-btn-full" disabled={sending}>
               {sending ? "Sending…" : "Ask the Doctor About My Concern"} {!sending && <ArrowRight />}

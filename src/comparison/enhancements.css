@@ -4463,6 +4463,9 @@ html { scroll-behavior: smooth; }
   height: 50px; padding: 0 14px; border: 1px solid #d8e6e7; border-radius: 13px; background: #fbfdfd; color: #183438; font: inherit;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
+.enhanced-site .skin-game-field select {
+  width: 100%; min-width: 0; height: 50px; padding: 0 10px; border: 1px solid #d8e6e7; border-radius: 13px; background: #fbfdfd; color: #183438; font: inherit; font-size: 16px;
+}
 .enhanced-site .skin-game-field input:focus { outline: none; border-color: #18aec0; box-shadow: 0 0 0 4px rgb(24 174 192 / 15%); }
 .enhanced-site .section-shell .skin-game p.skin-game-error { margin-top: 10px; color: #c2410c !important; font-size: 13px; }
 .enhanced-site .skin-game-btn {

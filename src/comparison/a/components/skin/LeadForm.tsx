@@ -1,4 +1,4 @@
-import { useLang, useT } from "@/comparison/lang";
+import { useT } from "@/comparison/lang";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { WhatsAppIcon as MessageCircle } from "../../../SiteChrome";
@@ -6,7 +6,7 @@ import { Button } from "@/comparison/a/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getAttribution, track } from "@/comparison/a/lib/analytics";
 import { deliverLead } from "@/comparison/a/lib/lead-delivery";
-import { CONCERN_OPTIONS, isIndianMobile, TIME_OPTIONS } from "@/comparison/leadOptions";
+import { CONCERN_OPTIONS, isIndianMobile, TIME_OPTIONS, useConsultDays } from "@/comparison/leadOptions";
 import { getSkinCheck, skinCheckPayload } from "@/comparison/skinCheckStore";
 import type { AgeJourneySelection } from "./AgeJourney";
 
@@ -22,7 +22,6 @@ export function LeadForm({
   onSuccess?: (() => void) | undefined;
 }) {
   const t = useT();
-  const lang = useLang();
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const sending = useRef(false);
@@ -45,18 +44,7 @@ export function LeadForm({
     window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}#a-hero-form`);
   }, [source]);
   const [submitting, setSubmitting] = useState(false);
-  // Built after load: the server and the visitor's browser may be on different days.
-  const [days, setDays] = useState<{ value: string; label: string }[]>([]);
-  useEffect(() => {
-    setDays(
-      Array.from({ length: 14 }, (_, i) => {
-        const day = new Date();
-        day.setDate(day.getDate() + i + 1);
-        const value = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-${String(day.getDate()).padStart(2, "0")}`;
-        return { value, label: day.toLocaleDateString(lang === "ta" ? "ta-IN" : "en-IN", { weekday: "short", day: "numeric", month: "short" }) };
-      }),
-    );
-  }, [lang]);
+  const days = useConsultDays();
   const [requested, setRequested] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {

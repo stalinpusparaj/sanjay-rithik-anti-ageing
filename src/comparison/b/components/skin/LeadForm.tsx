@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLang } from "@/comparison/lang";
-import { CONCERN_OPTIONS, isIndianMobile, TIME_OPTIONS } from "@/comparison/leadOptions";
+import { CONCERN_OPTIONS, isIndianMobile, TIME_OPTIONS, useConsultDays } from "@/comparison/leadOptions";
 import { z } from "zod";
 import { ArrowRight, CalendarCheck, Check, ShieldCheck } from "lucide-react";
 import { WhatsAppIcon as MessageCircle } from "../../../SiteChrome";
@@ -44,19 +43,7 @@ export function LeadForm({
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [started, setStarted] = useState(false);
-  const lang = useLang();
-  // Built after load: the server and the visitor's browser may be on different days.
-  const [days, setDays] = useState<{ value: string; label: string }[]>([]);
-  useEffect(() => {
-    setDays(
-      Array.from({ length: 14 }, (_, i) => {
-        const day = new Date();
-        day.setDate(day.getDate() + i + 1);
-        const value = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, "0")}-${String(day.getDate()).padStart(2, "0")}`;
-        return { value, label: day.toLocaleDateString(lang === "ta" ? "ta-IN" : "en-IN", { weekday: "short", day: "numeric", month: "short" }) };
-      }),
-    );
-  }, [lang]);
+  const days = useConsultDays();
   const formRef = useRef<HTMLFormElement>(null);
   useEffect(() => {
     const select = formRef.current?.elements.namedItem("concern") as HTMLSelectElement | null;
