@@ -33,7 +33,7 @@ import heroImage from "@/comparison/a/assets/hero-portrait.webp";
 import heroPortrait from "@/comparison/b/assets/anti-aging-hero-v2.webp";
 import { TreatmentPhoto } from "../TreatmentPhoto";
 import { WhatsAppIcon } from "../SiteChrome";
-import antiAgeingHero from "@/assets/heroImage.webp";
+import antiAgeingHero from "@/assets/hero-patient.jpeg";
 import mirrorImage from "@/comparison/a/assets/mirror.webp";
 import hospitalLogo from "@/assets/hospital-logo.webp";
 import doctorKiruthika from "@/comparison/a/assets/doctor-kiruthika.webp";
@@ -242,9 +242,9 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
           <div className="hero-copy premium-hero-copy">
             <p className="premium-kicker">{t("Skin doctor · Sengunthapuram, Karur", "சரும மருத்துவர் · செங்குந்தபுரம், கரூர்")}</p>
             <h1 className="hero-split-title">
-              {t(<>What if your skin could look</>, <>உங்கள் மனம் போலவே,</>)}
+              {t(<>Want to Look 30 in Your 40s?</>, <>நாற்பதுகளில் முப்பது வயது தோற்றமா?</>)}
               <span className="hero-title-sub">
-                {t(<>as <em>young</em> as you <em>feel?</em></>, <>முகமும் <em>இளமையாக</em> <em>தெரிந்தால்?</em></>)}
+                {t(<>Your Journey to <em>Younger-Looking Skin</em> Starts Here.</>, <><em>இளமையாகத் தோன்றும் சருமத்திற்கான</em> உங்கள் பயணம் இங்கே தொடங்குகிறது.</>)}
               </span>
             </h1>
             <p className="premium-hero-text">
@@ -273,7 +273,7 @@ export function VersionA({ render, onAgeSelection }: { render: (sections: Record
             <div className="hero-card-frame">
               <img
                 src={antiAgeingHero}
-                alt="Dermatologist in a calm consultation with a woman in her forties at the clinic in Karur"
+                alt="A woman smiling at home"
                 className="hero-card-image"
                 fetchPriority="high"
                 draggable={false}
