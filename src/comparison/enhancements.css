@@ -3005,15 +3005,18 @@
   max-width: 960px;
   margin: 0 auto;
   border-radius: 28px;
-  background: #e9f6f7;
+  background: #11292b;
   box-shadow: 0 22px 50px rgb(7 94 107 / 14%);
 }
 
 .enhanced-site .clinic-video-frame video {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  height: auto;
+  max-height: min(80vh, 960px);
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #11292b;
 }
 
 .enhanced-site .clinic-video-topics {
