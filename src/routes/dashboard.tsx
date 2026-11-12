@@ -154,6 +154,7 @@ function Body({ data, reload }: { data: DashboardData; reload: () => void }) {
     !c.voiceAgent && "the AI voice agent is not selected yet, so new leads are not called automatically",
     !c.whatsapp && "WhatsApp (WhatsWay) is not connected",
     c.whatsapp && !c.whatsappTemplate && "no approved WhatsApp welcome template is set, so leads get no automatic WhatsApp",
+    !c.email && "email follow-up is not configured (set RESEND_API_KEY and RESEND_FROM_EMAIL)",
   ].filter(Boolean);
   const k = data.kpis;
   const [band, setBand] = useState("all");

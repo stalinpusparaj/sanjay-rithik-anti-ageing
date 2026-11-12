@@ -12,6 +12,7 @@ import {
 import { LEAD_TAG } from "@/server/dashboard";
 import { GENERATED_SUMMARY, leadDetails, NEXT_ACTION, quizAnswers, scoreLead, text, type LeadPayload } from "@/server/scoring";
 import { sendWelcomeTemplate, upsertWhatsAppContact, whatsWayConfigured, whatsWayTemplate } from "@/server/whatsway";
+import { sendLeadConfirmation } from "@/server/email";
 
 
 function json(body: unknown, status = 200) {
@@ -97,6 +98,7 @@ function leadFields(payload: LeadPayload, previous: Record<string, unknown>, ref
     last_enquiry_at: now,
     consent_contact: payload["consent_status"] === true,
     consent_whatsapp: payload["consent_whatsapp"] === true,
+    consent_email: payload["consent_email"] === true,
     utm_source: text(payload["utm_source"]),
     utm_medium: text(payload["utm_medium"]),
     utm_campaign: text(payload["utm_campaign"]),
@@ -110,7 +112,7 @@ function leadFields(payload: LeadPayload, previous: Record<string, unknown>, ref
   return fields;
 }
 
-/** After the lead is saved: AI call and WhatsApp welcome. Failures are recorded, not fatal. */
+/** After the lead is saved: AI call, WhatsApp welcome and opted-in email. Failures are recorded, not fatal. */
 async function followUp(contact: AgentLabsContact, fields: Record<string, unknown>, phone: string, firstName: string) {
   const updates: Record<string, unknown> = {};
   try {
@@ -151,6 +153,16 @@ async function followUp(contact: AgentLabsContact, fields: Record<string, unknow
       updates["whatsapp_error"] = String((error as Error).message).slice(0, 200);
     }
   }
+  const email = text(contact.email);
+  if (fields["consent_email"] && email && (fields["email_sent_to"] !== email || !fields["email_sent_at"])) {
+    try {
+      const sent = await sendLeadConfirmation(email, firstName);
+      Object.assign(updates, { email_sent_to: email, email_sent_at: new Date().toISOString(), email_message_id: sent.id ?? "", email_error: "" });
+    } catch (error) {
+      console.error("Email follow-up failed", error);
+      updates["email_error"] = String((error as Error).message).slice(0, 200);
+    }
+  }
   if (Object.keys(updates).length > 0) {
     await updateContact(contact.id, { customFields: { ...fields, ...updates } }).catch((error) =>
       console.error("AgentLabs follow-up status update failed", error),
@@ -185,11 +197,13 @@ export const Route = createFileRoute("/api/lead-capture")({
               source: "form_without_script",
               name: field("name"),
               phone: field("phone"),
+              email: field("email"),
               primary_concern: field("concern"),
               preferred_date: field("preferred_date"),
               preferred_time: field("preferred_time"),
               consent_status: form.get("consent") !== null,
               consent_whatsapp: form.get("consent") !== null,
+              consent_email: form.get("consent_email") !== null,
             };
           } else {
             payload = await request.json();
@@ -205,6 +219,8 @@ export const Route = createFileRoute("/api/lead-capture")({
         if (phone.replace(/\D/g, "").length < 10) return respond({ error: "Please enter a valid phone number." }, 400);
         const { firstName, lastName } = splitName(name);
         const email = text(payload.email);
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return respond({ error: "Please enter a valid email address." }, 400);
+        if (payload["consent_email"] === true && !email) return respond({ error: "Enter an email address to receive email updates." }, 400);
 
         try {
           const existing = await findContactByPhone(phone);
@@ -223,7 +239,7 @@ export const Route = createFileRoute("/api/lead-capture")({
             ? await updateContact(existing.id, { firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields, ...crm })
             : await createContact({ phone, firstName, lastName, ...(email ? { email } : {}), tags, customFields: fields }).then((c) => updateContact(c.id, crm).catch(() => c));
 
-          // Respond as soon as the lead is stored; the call and WhatsApp run after.
+          // Respond as soon as the lead is stored; the call, WhatsApp and opted-in email run after.
           void followUp(contact, fields, phone, firstName);
           return respond({ ok: true, leadId: contact.id });
         } catch (error) {

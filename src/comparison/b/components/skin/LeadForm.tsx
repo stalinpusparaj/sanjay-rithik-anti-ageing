@@ -18,12 +18,17 @@ const schema = z.object({
     .trim()
     .max(20)
     .refine(isIndianMobile, "Enter a valid 10-digit Indian mobile number, with or without +91."),
+  email: z.string().trim().optional().default("").refine((value) => !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), "Enter a valid email address."),
+  consent_email: z.literal("on").optional(),
   concern: z.string().trim().optional().default(""),
   date: z.string().trim().optional().default(""),
   time: z.string().trim().optional().default(""),
   consent: z.literal("on", {
     errorMap: () => ({ message: "Please consent to being contacted about this request" }),
   }),
+}).refine((value) => !value.consent_email || Boolean(value.email), {
+  path: ["email"],
+  message: "Enter an email address to receive email updates.",
 });
 
 
@@ -78,6 +83,7 @@ export function LeadForm({
       lead_type: "consultation_booking",
       name: parsed.data.name,
       phone: parsed.data.phone,
+      email: parsed.data.email,
       primary_concern: parsed.data.concern,
       preferred_date: parsed.data.date,
       preferred_time: parsed.data.time,
@@ -89,6 +95,7 @@ export function LeadForm({
       treatment_interests: [],
       consent_status: true,
       consent_whatsapp: true,
+      consent_email: parsed.data.consent_email === "on",
       landing_page_identifier: "anti-ageing-35-55-karur",
       timestamp: new Date().toISOString(),
       ...getAttribution(),
@@ -249,6 +256,11 @@ export function LeadForm({
         <div className="mt-7 grid gap-5">
           {field("name", "Your name (required)", "text", "Your full name")}
           {field("phone", "Mobile / WhatsApp number (required)", "tel", "10-digit mobile number")}
+          {field("email", "Email address (optional)", "email", "you@example.com")}
+          <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed text-muted-foreground">
+            <input type="checkbox" name="consent_email" onInput={onFirstInput} className="mt-0.5 size-4 rounded border-border accent-[var(--clay)]" />
+            <span>Email me a confirmation and updates about this enquiry.</span>
+          </label>
           {selectField("concern", "Main skin concern (optional)", CONCERN_OPTIONS, "Choose a concern", answers["concern"] ?? "")}
           <div className="grid grid-cols-2 gap-3">
             {selectField("date", "Preferred day (optional)", days, "Choose a day")}

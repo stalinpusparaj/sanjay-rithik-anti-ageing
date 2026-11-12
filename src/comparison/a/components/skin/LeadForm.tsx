@@ -53,11 +53,15 @@ export function LeadForm({
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
     const phone = String(data.get("phone") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const consentEmail = data.get("consent_email") === "on";
     const next: Record<string, string> = {};
     if (name.length < 2 || name.length > 100)
       next["name"] = t("Please enter your name (at least 2 characters).", "உங்கள் பெயரை உள்ளிடவும் (குறைந்தது 2 எழுத்துகள்).");
     if (!isIndianMobile(phone))
       next["phone"] = t("Enter a valid 10-digit Indian mobile number, with or without +91.", "சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும் (+91 உடன் அல்லது இல்லாமல்).");
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next["email"] = t("Enter a valid email address.", "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.");
+    if (consentEmail && !email) next["email"] = t("Enter an email address to receive email updates.", "மின்னஞ்சல் தகவல்களைப் பெற முகவரியை உள்ளிடவும்.");
     if (data.get("consent") !== "on")
       next["consent"] = t("Please agree to be contacted about this enquiry.", "இந்த விசாரணை குறித்து தொடர்புகொள்ள ஒப்புக்கொள்ளவும்.");
     setErrors(next);
@@ -75,6 +79,7 @@ export function LeadForm({
         lead_type: source === "age_preview" ? "age_transform_interest" : "consultation_booking",
         name,
         phone,
+        email,
         primary_concern:
           String(data.get("concern") ?? "").trim() || getSkinCheck()?.answers["concern"] || "",
         preferred_date: String(data.get("preferred_date") ?? ""),
@@ -84,6 +89,7 @@ export function LeadForm({
         source,
         consent_status: true,
         consent_whatsapp: true,
+        consent_email: consentEmail,
         ...skinCheckPayload(),
         photo_processing_consent: false,
         landing_page_identifier: "anti-ageing-35-55-karur",
@@ -185,6 +191,17 @@ export function LeadForm({
             )}
           </div>
         ))}
+        <div>
+          <label htmlFor={id + "-email"} className="text-sm font-medium">
+            {t("Email address", "மின்னஞ்சல் முகவரி")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>
+          </label>
+          <Input id={id + "-email"} name="email" type="email" autoComplete="email" placeholder="you@example.com" aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? id + "-email-error" : undefined} className="mt-2 h-12 rounded-xl bg-background" />
+          {errors.email && <p id={id + "-email-error"} className="mt-2 text-xs text-destructive">{errors.email}</p>}
+        </div>
+        <label className="flex items-start gap-3 text-xs leading-relaxed text-muted-foreground">
+          <input name="consent_email" type="checkbox" className="mt-0.5 size-4 shrink-0 accent-[var(--ink)]" />
+          <span>{t("Email me a confirmation and updates about this enquiry.", "இந்த விசாரணை குறித்த உறுதிப்படுத்தல் மற்றும் தகவல்களை மின்னஞ்சலில் அனுப்புங்கள்.")}</span>
+        </label>
         <div>
           <label htmlFor={id + "-concern"} className="text-sm font-medium">
             {t("Main skin concern", "முக்கிய சரும பிரச்சனை")} <span className="text-muted-foreground">{t("(optional)", "(விருப்பம்)")}</span>

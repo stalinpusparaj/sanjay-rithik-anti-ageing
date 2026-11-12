@@ -38,11 +38,12 @@ function PrivacyPage() {
 
       <Section title="WhatsApp and calls">
         <p>We message you on WhatsApp only when you tick the consent box on our form or message us first. Reply STOP at any time and we will not message you again.</p>
+        <p>We send enquiry confirmations and related updates by email only if you provide an email address and check the separate email-consent box.</p>
         <p>WhatsApp messages are delivered through Meta's WhatsApp Business Platform. Calls may be placed by an automated assistant that tells you it is calling from Sanjay Rithik Hospital.</p>
       </Section>
 
       <Section title="Who can see it">
-        <p>Hospital staff who handle appointments, and the service providers that run our website, phone and WhatsApp systems on our behalf, under confidentiality. We share information with others only when the law requires it.</p>
+        <p>Hospital staff who handle appointments, and the service providers that run our website, phone, WhatsApp and email systems on our behalf, under confidentiality. We share information with others only when the law requires it.</p>
       </Section>
 
       <Section title="How long we keep it">

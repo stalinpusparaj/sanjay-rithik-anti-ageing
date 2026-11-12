@@ -10,6 +10,7 @@ import {
 } from "./agentlabs";
 import { GENERATED_SUMMARY, leadDetails, NEXT_ACTION } from "./scoring";
 import { conversation, whatsWayConfigured, whatsWayTemplate, type WhatsWayMessage } from "./whatsway";
+import { emailConfigured } from "./email";
 
 export const LEAD_TAG = "anti-ageing-lp";
 export const STAGES = ["new", "contacted", "booked", "visited", "not_interested"] as const;
@@ -258,6 +259,7 @@ export async function dashboardData(days: number) {
     voiceAgent: Boolean(agentLabsAgentId()),
     whatsapp: whatsWayConfigured(),
     whatsappTemplate: Boolean(whatsWayTemplate()),
+    email: emailConfigured(),
   };
   const errors: string[] = [];
   if (!connections.agentlabs) return { connections, errors: ["AgentLabs is not connected"], days, kpis: null, daily: [], leads: [] };
