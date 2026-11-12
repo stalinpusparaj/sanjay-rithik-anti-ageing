@@ -45,6 +45,7 @@ import pinkTreatmentRoom from "@/assets/luxury-glow/pink-treatment-room.webp";
 import legSkincareGlow from "@/assets/luxury-glow/leg-skincare-glow.webp";
 import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.webp";
 import hifuFocusedLiftingVideo from "@/comparison/a/assets/videos/hifu-focused-lifting.mp4?url";
+import hifuFocusedLiftingPoster from "@/comparison/a/assets/hifu-focused-lifting-poster.jpg";
 import antiAgingReelVideo from "@/comparison/a/assets/videos/anti-aging-treatment-reel.mp4?url";
 
 const AgeJourney = lazy(() =>
@@ -1444,9 +1445,10 @@ function DoctorVideoSection() {
         <div className="clinic-video-frame">
           <video
             src={hifuFocusedLiftingVideo}
+            poster={hifuFocusedLiftingPoster}
             controls
             playsInline
-            preload="none"
+            preload="metadata"
             onPlay={() => track("doctor_video_played", { source: "a-doctor-video" })}
           >
             Your browser does not support video playback.
