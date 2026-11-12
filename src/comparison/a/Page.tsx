@@ -44,8 +44,7 @@ import pinkLaserTreatment from "@/assets/luxury-glow/pink-laser-treatment.webp";
 import pinkTreatmentRoom from "@/assets/luxury-glow/pink-treatment-room.webp";
 import legSkincareGlow from "@/assets/luxury-glow/leg-skincare-glow.webp";
 import headerTreatmentRoom from "@/assets/luxury-glow/header-treatment-room-teal.webp";
-import drKiruthikaIntroVideo from "@/comparison/a/assets/videos/dr-kiruthika-intro.mp4?url";
-import drKiruthikaIntroPoster from "@/comparison/a/assets/dr-kiruthika-intro-poster.webp";
+import hifuFocusedLiftingVideo from "@/comparison/a/assets/videos/hifu-focused-lifting.mp4?url";
 import antiAgingReelVideo from "@/comparison/a/assets/videos/anti-aging-treatment-reel.mp4?url";
 
 const AgeJourney = lazy(() =>
@@ -1417,20 +1416,6 @@ function TreatmentExplorer() {
   );
 }
 
-const VIDEO_TOPICS = [
-  "Anti-ageing",
-  "Botox",
-  "Fillers",
-  "Skin boosters",
-  "HIFU",
-  "MNRF",
-  "PDRN & PN",
-  "Acne",
-  "Pigmentation",
-  "Hair fall",
-  "Psoriasis",
-  "Vitiligo",
-];
 
 function BookFreeConsultationButton({ source }: { source: string }) {
   return (
@@ -1449,18 +1434,16 @@ function DoctorVideoSection() {
       <Reveal className="mx-auto max-w-3xl text-center">
         <Eyebrow>1-minute video · Tamil</Eyebrow>
         <h2 className="mt-4 text-4xl leading-[1.08] sm:text-5xl">
-          {t("Hear what the doctor wishes everyone knew about skin", "சருமம் பற்றி எல்லோரும் தெரிந்துகொள்ள மருத்துவர் விரும்புவது இதுதான்")}
+          {t("Not all lifting needs surgery. Some need focus.", "அனைத்து முகத் தளர்வுக்கும் அறுவை சிகிச்சை தேவையில்லை. சிலவற்றுக்கு கவனம் தேவை.")}
         </h2>
         <p className="mt-5 leading-relaxed text-muted-foreground">
-          In this short video in Tamil, Dr. S. Kiruthika talks about the skin, hair and nail care
-          offered at Sanjay Rithik Hospital, Karur, including care for lines and dull skin.
+          Learn how HIFU focuses ultrasound energy deep beneath the skin, where creams cannot reach. Ask Dr. S. Kiruthika whether it may be appropriate for you.
         </p>
       </Reveal>
       <Reveal className="mt-10">
         <div className="clinic-video-frame">
           <video
-            src={drKiruthikaIntroVideo}
-            poster={drKiruthikaIntroPoster}
+            src={hifuFocusedLiftingVideo}
             controls
             playsInline
             preload="none"
@@ -1469,11 +1452,7 @@ function DoctorVideoSection() {
             Your browser does not support video playback.
           </video>
         </div>
-        <ul className="clinic-video-topics" aria-label="Topics Dr. Kiruthika covers in the video">
-          {VIDEO_TOPICS.map((topic) => (
-            <li key={topic}>{topic}</li>
-          ))}
-        </ul>
+        <p className="clinic-video-topics">HIFU works deep — where creams can’t reach.</p>
       </Reveal>
       <div className="mt-10 flex justify-center">
         <BookFreeConsultationButton source="a-doctor-video" />
